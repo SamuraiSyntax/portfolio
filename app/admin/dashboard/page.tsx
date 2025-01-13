@@ -38,7 +38,10 @@ export default async function DashboardPage() {
   };
 
   const statsData = {
-    total: stats.reduce((acc, curr) => acc + curr._count._all, 0),
+    total: (stats as StatusCount[]).reduce(
+      (acc: number, curr) => acc + curr._count._all,
+      0
+    ),
     new: getStatusCount(ContactStatus.NEW),
     inProgress: getStatusCount(ContactStatus.IN_PROGRESS),
     completed: getStatusCount(ContactStatus.COMPLETED),
