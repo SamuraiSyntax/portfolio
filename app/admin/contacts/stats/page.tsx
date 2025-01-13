@@ -1,7 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
+
+type StatusStat = Prisma.ContactGroupByOutputType & {
+  _count: {
+    _all: number;
+  };
+};
+
+type ClientTypeStat = Prisma.ContactGroupByOutputType & {
+  _count: {
+    _all: number;
+  };
+};
 
 export default async function StatsPage() {
   const session = await auth();
@@ -62,15 +75,13 @@ export default async function StatsPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {statusStats.map((stat) => (
+              {(statusStats as StatusStat[]).map((stat) => (
                 <div
                   key={stat.status}
                   className="flex justify-between items-center"
                 >
                   <span className="text-sm">{stat.status}</span>
-                  <span className="font-bold">
-                    {(stat._count as { _all: number })._all || 0}
-                  </span>
+                  <span className="font-bold">{stat._count._all || 0}</span>
                 </div>
               ))}
             </div>
@@ -85,7 +96,7 @@ export default async function StatsPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {clientTypeStats.map((stat) => (
+              {(clientTypeStats as ClientTypeStat[]).map((stat) => (
                 <div
                   key={stat.clientType || "Non spécifié"}
                   className="flex justify-between items-center"
@@ -93,9 +104,7 @@ export default async function StatsPage() {
                   <span className="text-sm">
                     {stat.clientType || "Non spécifié"}
                   </span>
-                  <span className="font-bold">
-                    {(stat._count as number) || 0}
-                  </span>
+                  <span className="font-bold">{stat._count._all || 0}</span>
                 </div>
               ))}
             </div>
