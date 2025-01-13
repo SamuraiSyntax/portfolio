@@ -1,7 +1,5 @@
 import { Contact, ContactStatus, Priority } from "@/types/contact";
-import { Prisma } from "@prisma/client";
-
-type PrismaContact = Prisma.ContactGetPayload<object>;
+import type { Contact as PrismaContact } from "@prisma/client";
 
 export function convertPrismaContactToContact(
   prismaContact: PrismaContact
