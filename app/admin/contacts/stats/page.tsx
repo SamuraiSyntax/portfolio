@@ -69,7 +69,7 @@ export default async function StatsPage() {
                 >
                   <span className="text-sm">{stat.status}</span>
                   <span className="font-bold">
-                    {(stat._count as number) || 0}
+                    {(stat._count as { _all: number })._all || 0}
                   </span>
                 </div>
               ))}
