@@ -19,10 +19,32 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Contact, ContactStatus } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+
+enum ContactStatus {
+  NEW = "NEW",
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED",
+  ARCHIVED = "ARCHIVED",
+}
+
+interface Contact {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string | null;
+  company?: string | null;
+  message: string;
+  clientType?: string | null;
+  projectType?: string | null;
+  budget?: number | null;
+  deadline?: Date | null;
+  existingSite?: string | null;
+  status: ContactStatus;
+  updatedAt: Date;
+}
 
 interface ContactFormProps {
   contact?: Contact;
