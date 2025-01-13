@@ -4,17 +4,23 @@ import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
 
-type StatusStat = Prisma.ContactGroupByOutputType & {
-  _count: {
-    _all: number;
+type StatusStat = Prisma.ContactGetPayload<{
+  select: {
+    status: true;
+    _count: {
+      select: { _all: true };
+    };
   };
-};
+}>;
 
-type ClientTypeStat = Prisma.ContactGroupByOutputType & {
-  _count: {
-    _all: number;
+type ClientTypeStat = Prisma.ContactGetPayload<{
+  select: {
+    clientType: true;
+    _count: {
+      select: { _all: true };
+    };
   };
-};
+}>;
 
 export default async function StatsPage() {
   const session = await auth();
