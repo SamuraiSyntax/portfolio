@@ -1,7 +1,27 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { ContactStatus, Priority } from "@prisma/client";
 import { NextResponse } from "next/server";
+
+enum ContactStatus {
+  NEW = "NEW",
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED",
+  ARCHIVED = "ARCHIVED",
+}
+
+enum Priority {
+  LOW = "LOW",
+  NORMAL = "NORMAL",
+  HIGH = "HIGH",
+  URGENT = "URGENT",
+}
+
+interface UpdateRequest {
+  ids: string[];
+  status?: ContactStatus;
+  priority?: Priority;
+  action?: "mark_in_progress" | "mark_completed" | "mark_important";
+}
 
 export async function POST(request: Request) {
   try {
@@ -11,7 +31,7 @@ export async function POST(request: Request) {
       return new NextResponse("Non autorisé", { status: 401 });
     }
 
-    const body = await request.json();
+    const body = (await request.json()) as UpdateRequest;
     const { ids, status, priority, action } = body;
 
     if (!ids || !Array.isArray(ids)) {
@@ -23,7 +43,6 @@ export async function POST(request: Request) {
       priority?: Priority;
     } = {};
 
-    // Mapper les actions aux statuts et priorités
     if (action) {
       switch (action) {
         case "mark_in_progress":
@@ -33,7 +52,6 @@ export async function POST(request: Request) {
           updateData.status = ContactStatus.COMPLETED;
           break;
         case "mark_important":
-          // Récupérer d'abord le contact pour vérifier sa priorité actuelle
           const contact = await prisma.contact.findFirst({
             where: { id: ids[0] },
             select: { priority: true },
