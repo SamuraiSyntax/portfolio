@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Contact, ContactStatus } from "@prisma/client";
+import { Contact, ContactStatus } from "@/types/contact";
 import { Archive, Trash, Undo } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

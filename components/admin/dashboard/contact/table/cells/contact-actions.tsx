@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Contact, ContactStatus } from "@prisma/client";
+import { Contact, ContactStatus, Priority } from "@/types/contact";
 import {
   Archive,
   Calendar,
@@ -59,7 +59,6 @@ export function ContactActions({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56">
-          {/* Actions principales */}
           <DropdownMenuItem onClick={onView}>
             <Eye className="h-4 w-4 mr-2" />
             Voir les détails
@@ -69,10 +68,8 @@ export function ContactActions({
             Modifier
           </DropdownMenuItem>
 
-          {/* Séparateur */}
           <DropdownMenuSeparator />
 
-          {/* Actions de communication */}
           <DropdownMenuItem
             onClick={() => (window.location.href = `mailto:${contact.email}`)}
           >
@@ -88,31 +85,28 @@ export function ContactActions({
             </DropdownMenuItem>
           )}
 
-          {/* Séparateur */}
           <DropdownMenuSeparator />
 
-          {/* Actions de statut */}
           <DropdownMenuItem
             onClick={() => onAction("mark_in_progress")}
-            disabled={isLoading || contact.status === "IN_PROGRESS"}
+            disabled={isLoading || contact.status === ContactStatus.IN_PROGRESS}
           >
             <Clock className="h-4 w-4 mr-2" />
             Marquer en cours
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => onAction("mark_completed")}
-            disabled={isLoading || contact.status === "COMPLETED"}
+            disabled={isLoading || contact.status === ContactStatus.COMPLETED}
           >
             <CheckCircle className="h-4 w-4 mr-2" />
             Marquer comme traité
           </DropdownMenuItem>
 
-          {/* Actions de priorité */}
           <DropdownMenuItem
             onClick={() => onAction("mark_important")}
             disabled={isLoading}
           >
-            {contact.priority === "HIGH" ? (
+            {contact.priority === Priority.HIGH ? (
               <>
                 <StarOff className="h-4 w-4 mr-2" />
                 Retirer l&apos;importance
@@ -125,10 +119,8 @@ export function ContactActions({
             )}
           </DropdownMenuItem>
 
-          {/* Séparateur */}
           <DropdownMenuSeparator />
 
-          {/* Actions de planification */}
           <DropdownMenuItem onClick={() => onView()}>
             <Calendar className="h-4 w-4 mr-2" />
             Planifier un suivi
@@ -138,10 +130,8 @@ export function ContactActions({
             Ajouter une note
           </DropdownMenuItem>
 
-          {/* Séparateur */}
           <DropdownMenuSeparator />
 
-          {/* Actions d'archivage/suppression */}
           {contact.status !== ContactStatus.ARCHIVED ? (
             <DropdownMenuItem onClick={() => onAction("archive")}>
               <Archive className="h-4 w-4 mr-2" />
@@ -161,7 +151,6 @@ export function ContactActions({
             Supprimer
           </DropdownMenuItem>
 
-          {/* Actions historique */}
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={onView}>
             <History className="h-4 w-4 mr-2" />

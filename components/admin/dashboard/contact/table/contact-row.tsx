@@ -1,7 +1,7 @@
 "use client";
 
 import { TableRow } from "@/components/ui/table";
-import { Contact } from "@prisma/client";
+import { Contact } from "@/types/contact";
 import { ContactDesktopCell } from "./cells/contact-desktop-cell";
 import { ContactMobileCell } from "./cells/contact-mobile-cell";
 

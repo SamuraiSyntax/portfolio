@@ -9,7 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Contact, ContactStatus, Priority } from "@prisma/client";
+import { Contact, ContactStatus, Priority } from "@/types/contact";
 import { ExternalLink, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { MessageModal } from "../../../modals/message-modal";
@@ -131,10 +131,10 @@ export function ContactDesktopCell({
         {contact.projectScope || "-"}
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {formatCurrency(contact.budget)}
+        {contact.budget ? formatCurrency(contact.budget) : "-"}
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {formatDate(contact.deadline)}
+        {contact.deadline ? formatDate(contact.deadline) : "-"}
       </TableCell>
 
       {/* Status et classification */}
@@ -150,10 +150,10 @@ export function ContactDesktopCell({
       <TableCell className="hidden md:table-cell whitespace-nowrap">
         <span
           className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(
-            contact.priority
+            contact.priority || Priority.LOW
           )}`}
         >
-          {contact.priority}
+          {contact.priority || Priority.LOW}
         </span>
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap">
@@ -207,7 +207,7 @@ export function ContactDesktopCell({
         {contact.companySize || "-"}
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {formatCurrency(contact.annualRevenue)}
+        {contact.annualRevenue ? formatCurrency(contact.annualRevenue) : "-"}
       </TableCell>
 
       {/* Préférences marketing */}
@@ -223,10 +223,10 @@ export function ContactDesktopCell({
 
       {/* Suivi commercial */}
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {formatDate(contact.lastContact)}
+        {contact.lastContact ? formatDate(contact.lastContact) : "-"}
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {formatDate(contact.nextFollowUp)}
+        {contact.nextFollowUp ? formatDate(contact.nextFollowUp) : "-"}
       </TableCell>
       <TableCell className="hidden md:table-cell max-w-[200px] truncate whitespace-nowrap">
         {contact.notes || "-"}
@@ -244,10 +244,12 @@ export function ContactDesktopCell({
 
       {/* Données financières */}
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {formatCurrency(contact.quotationAmount)}
+        {contact.quotationAmount
+          ? formatCurrency(contact.quotationAmount)
+          : "-"}
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap  ">
-        {formatCurrency(contact.contractValue)}
+        {contact.contractValue ? formatCurrency(contact.contractValue) : "-"}
       </TableCell>
 
       {/* Métadonnées */}

@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { TableCell } from "@/components/ui/table";
-import { Contact, ContactStatus } from "@prisma/client";
+import { Contact, ContactStatus } from "@/types/contact";
 import {
   Archive,
   Eye,
