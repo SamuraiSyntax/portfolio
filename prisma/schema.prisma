@@ -1,0 +1,125 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // Ajoutez cette ligne pour spécifier la version
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  // Ajoutez ces options pour la compatibilité
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+// Le reste du schéma reste identique
+model Contact {
+  id            String        @id @default(uuid())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  
+  // Informations personnelles
+  name          String
+  email         String
+  phone         String?
+  company       String?
+  position      String?       // Poste dans l'entreprise
+  
+  // Détails du projet
+  message       String        @db.Text
+  projectType   String?
+  projectScope  String?       // Envergure du projet
+  budget        Float?
+  deadline      DateTime?
+  
+  // Informations techniques
+  existingSite  String?
+  targetAudience String?      // Public cible
+  competitors   String[]      // Liste des concurrents
+  objectives    String[]      // Objectifs du projet
+  
+  // Informations business
+  clientType    String?       // B2B, B2C, etc.
+  industry      String?       // Secteur d'activité
+  companySize   String?       // Taille de l'entreprise
+  annualRevenue Float?        // Chiffre d'affaires
+  
+  // Préférences marketing
+  preferredContactMethod String? // Email, téléphone, etc.
+  marketingSource String?      // Comment ils nous ont trouvé
+  newsletter     Boolean       @default(false)
+  
+  // Suivi commercial
+  lastContact    DateTime?     // Dernière interaction
+  nextFollowUp   DateTime?     // Prochaine relance
+  notes          String?       @db.Text // Notes internes
+  assignedTo     String?      // Responsable du suivi
+  
+  // Documents
+  attachments    String[]     // URLs des pièces jointes
+  
+  // Status et classification
+  status        ContactStatus @default(NEW)
+  priority      Priority      @default(NORMAL)
+  tags          String[]      // Tags pour la classification
+  
+  // Données financières
+  quotationAmount Float?      // Montant du devis
+  contractValue  Float?       // Valeur du contrat signé
+  
+  // Métadonnées
+  ipAddress     String?      // IP de soumission
+  userAgent     String?      // Navigateur utilisé
+  locale        String?      // Langue préférée
+  timezone      String?      // Fuseau horaire
+}
+
+enum ContactStatus {
+  NEW
+  IN_PROGRESS
+  COMPLETED
+  ARCHIVED
+}
+
+enum Priority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+model Account {
+ id                String  @id @default(cuid())
+ userId            String
+ type              String
+ provider          String
+ providerAccountId String
+ refresh_token     String? @db.Text
+ access_token      String? @db.Text
+ expires_at        Int?
+ token_type        String?
+ scope             String?
+ id_token          String? @db.Text
+ session_state     String?
+ user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ @@unique([provider, providerAccountId])
+ @@index([userId])
+}
+
+model Session {
+ id           String   @id @default(cuid())
+ sessionToken String   @unique
+ userId       String
+ expires      DateTime
+ user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ @@index([userId])
+}
+
+model User {
+ id            String    @id @default(cuid())
+ name          String?
+ email         String?   @unique
+ emailVerified DateTime?
+ image         String?
+ accounts      Account[]
+ sessions      Session[]
+}

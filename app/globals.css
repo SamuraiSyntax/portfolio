@@ -2,26 +2,121 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .backdrop-blur-animation {
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
+  }
+  .backdrop-transition {
+    transition: backdrop-filter 0.3s ease-out;
+    -webkit-transition: -webkit-backdrop-filter 0.3s ease-out;
+  }
+  .custom-cursor-external-link {
+    cursor: url("data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 256 256' width='24' height='24' enable-background='new 0 0 256 256' xml:space='preserve'%3E%3Cg%3E%3Cg%3E%3Cg%3E%3Cpath fill='%23ffffff' d='M78,10.7c-5.2,1.4-9.8,5.3-12,10.2c-0.9,1.8-1,4.5-1.2,22.8l-0.3,20.7l-20.7,0.3C24,65,22.9,65,20.6,66.1c-3.8,1.8-6.7,4.7-8.6,8.6l-1.8,3.6L10,154.1c-0.1,75.7-0.1,75.8,1,79.5c1,3.2,1.6,4.1,4.4,7c2.9,2.8,3.8,3.5,7,4.4c3.7,1.1,3.8,1.1,79.5,1l75.8-0.2l3.6-1.8c3.9-1.9,6.8-4.8,8.6-8.6c1.1-2.3,1.1-3.4,1.4-23.1l0.3-20.7l20.7-0.3c19.7-0.3,20.8-0.3,23.1-1.4c3.8-1.8,6.7-4.7,8.6-8.6l1.8-3.6L246,102c0.1-75.7,0.1-75.8-1-79.5c-1-3.2-1.6-4.1-4.4-7c-2.8-2.8-3.9-3.5-6.9-4.4C230,10,229.7,10,155.2,10C97.7,10,79.8,10.2,78,10.7z M228,100.6v72.6h-72.6H82.8v-72.6V28h72.6H228V100.6L228,100.6z M64.7,130.2v47.5l1.5,3.2c1.8,3.8,4.6,6.8,8.3,8.7l2.7,1.4l48,0.2l48,0.1v18.3V228h-72.6H28v-72.6V82.8h18.3h18.3V130.2z'/%3E%3Cpath fill='%23ffffff' d='M143.2,46.9c-7.2,2.6-8,12.5-1.3,16.4c1.8,1.1,2.8,1.1,19.1,1.3l17.2,0.2l-28.8,28.8c-19.8,19.9-29,29.5-29.6,30.8c-1.1,2.8-1,5.2,0.4,7.9c2.2,4.1,7,5.8,11.4,4c1.3-0.6,10.9-9.8,30.8-29.6l28.8-28.8l0.2,17.2c0.2,16.3,0.2,17.3,1.3,19.1c1.3,2.2,3.9,4.1,6.4,4.6c4.3,0.8,9.1-2.3,10.3-6.6c0.4-1.6,0.5-10.8,0.4-30.8l-0.2-28.6l-1.2-2c-0.7-1.1-2.1-2.5-3.2-3.2l-2-1.2l-29-0.1C150.2,46.2,144.9,46.3,143.2,46.9z'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+        0 0,
+      pointer;
+  }
+
+  .dark .custom-cursor-external-link {
+    cursor: url("data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 256 256' width='24' height='24' enable-background='new 0 0 256 256' xml:space='preserve'%3E%3Cg%3E%3Cg%3E%3Cg%3E%3Cpath fill='%23000000' d='M78,10.7c-5.2,1.4-9.8,5.3-12,10.2c-0.9,1.8-1,4.5-1.2,22.8l-0.3,20.7l-20.7,0.3C24,65,22.9,65,20.6,66.1c-3.8,1.8-6.7,4.7-8.6,8.6l-1.8,3.6L10,154.1c-0.1,75.7-0.1,75.8,1,79.5c1,3.2,1.6,4.1,4.4,7c2.9,2.8,3.8,3.5,7,4.4c3.7,1.1,3.8,1.1,79.5,1l75.8-0.2l3.6-1.8c3.9-1.9,6.8-4.8,8.6-8.6c1.1-2.3,1.1-3.4,1.4-23.1l0.3-20.7l20.7-0.3c19.7-0.3,20.8-0.3,23.1-1.4c3.8-1.8,6.7-4.7,8.6-8.6l1.8-3.6L246,102c0.1-75.7,0.1-75.8-1-79.5c-1-3.2-1.6-4.1-4.4-7c-2.8-2.8-3.9-3.5-6.9-4.4C230,10,229.7,10,155.2,10C97.7,10,79.8,10.2,78,10.7z M228,100.6v72.6h-72.6H82.8v-72.6V28h72.6H228V100.6L228,100.6z M64.7,130.2v47.5l1.5,3.2c1.8,3.8,4.6,6.8,8.3,8.7l2.7,1.4l48,0.2l48,0.1v18.3V228h-72.6H28v-72.6V82.8h18.3h18.3V130.2z'/%3E%3Cpath fill='%23000000' d='M143.2,46.9c-7.2,2.6-8,12.5-1.3,16.4c1.8,1.1,2.8,1.1,19.1,1.3l17.2,0.2l-28.8,28.8c-19.8,19.9-29,29.5-29.6,30.8c-1.1,2.8-1,5.2,0.4,7.9c2.2,4.1,7,5.8,11.4,4c1.3-0.6,10.9-9.8,30.8-29.6l28.8-28.8l0.2,17.2c0.2,16.3,0.2,17.3,1.3,19.1c1.3,2.2,3.9,4.1,6.4,4.6c4.3,0.8,9.1-2.3,10.3-6.6c0.4-1.6,0.5-10.8,0.4-30.8l-0.2-28.6l-1.2-2c-0.7-1.1-2.1-2.5-3.2-3.2l-2-1.2l-29-0.1C150.2,46.2,144.9,46.3,143.2,46.9z'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+        0 0,
+      pointer;
+  }
+  .loader {
+    animation: spin 1s linear infinite;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 28 100% 95%;
+    --foreground: 28 5% 0%;
+    --card: 28 50% 90%;
+    --card-foreground: 28 5% 10%;
+    --popover: 28 100% 95%;
+    --popover-foreground: 28 100% 0%;
+    --primary: 28 58% 24%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 28 30% 70%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: -10 30% 85%;
+    --muted-foreground: 28 5% 35%;
+    --accent: -10 30% 80%;
+    --accent-foreground: 28 5% 10%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 28 5% 90%;
+    --border: 28 30% 50%;
+    --input: 28 30% 18%;
+    --ring: 28 58% 24%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 28 50% 5%;
+    --foreground: 28 5% 90%;
+    --card: 28 50% 0%;
+    --card-foreground: 28 5% 90%;
+    --popover: 28 50% 5%;
+    --popover-foreground: 28 5% 90%;
+    --primary: 28 58% 24%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 28 30% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: -10 30% 15%;
+    --muted-foreground: 28 5% 60%;
+    --accent: -10 30% 15%;
+    --accent-foreground: 28 5% 90%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 28 5% 90%;
+    --border: 28 30% 18%;
+    --input: 28 30% 18%;
+    --ring: 28 58% 24%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html,
+  body {
+    @apply h-full;
+  }
+  body {
+    @apply bg-background text-foreground min-h-screen;
+  }
+
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  ::-moz-selection {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  ::-webkit-scrollbar {
+    @apply bg-secondary text-primary-foreground w-2 h-2;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary;
+    border-radius: 10px;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
