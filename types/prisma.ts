@@ -1,7 +1,11 @@
-import { Prisma } from "@prisma/client";
+import { Contact as PrismaContactModel } from ".prisma/client";
 
-export type PrismaContact = Prisma.ContactCreateInput & {
+export type PrismaContact = PrismaContactModel & {
   id: string;
   createdAt: Date;
   updatedAt: Date;
+  tags: string[];
+  competitors: string[];
+  objectives: string[];
+  attachments: string[];
 };
