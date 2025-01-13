@@ -1,26 +1,27 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
 
-type StatusStat = Prisma.ContactGetPayload<{
-  select: {
-    status: true;
-    _count: {
-      select: { _all: true };
-    };
+interface StatusStat {
+  status: string;
+  _count: {
+    _all: number;
   };
-}>;
+}
 
-type ClientTypeStat = Prisma.ContactGetPayload<{
-  select: {
-    clientType: true;
-    _count: {
-      select: { _all: true };
-    };
+interface ClientTypeStat {
+  clientType: string | null;
+  _count: {
+    _all: number;
   };
-}>;
+}
+
+interface BudgetStat {
+  _avg: {
+    budget: number | null;
+  };
+}
 
 export default async function StatsPage() {
   const session = await auth();
@@ -35,7 +36,9 @@ export default async function StatsPage() {
     // Contacts par statut
     prisma.contact.groupBy({
       by: ["status"],
-      _count: true,
+      _count: {
+        _all: true,
+      },
       orderBy: {
         status: "asc",
       },
@@ -43,7 +46,9 @@ export default async function StatsPage() {
     // Contacts par type de client
     prisma.contact.groupBy({
       by: ["clientType"],
-      _count: true,
+      _count: {
+        _all: true,
+      },
       orderBy: {
         clientType: "asc",
       },
@@ -53,13 +58,15 @@ export default async function StatsPage() {
       _avg: {
         budget: true,
       },
-      orderBy: {
-        budget: "asc",
-      },
     }),
   ]);
 
-  const [totalContacts, statusStats, clientTypeStats, budgetStats] = stats;
+  const [totalContacts, statusStats, clientTypeStats, budgetStats] = stats as [
+    number,
+    StatusStat[],
+    ClientTypeStat[],
+    BudgetStat
+  ];
 
   return (
     <div className="p-4 space-y-4">
@@ -81,13 +88,13 @@ export default async function StatsPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {(statusStats as StatusStat[]).map((stat) => (
+              {statusStats.map((stat) => (
                 <div
                   key={stat.status}
                   className="flex justify-between items-center"
                 >
                   <span className="text-sm">{stat.status}</span>
-                  <span className="font-bold">{stat._count._all || 0}</span>
+                  <span className="font-bold">{stat._count._all}</span>
                 </div>
               ))}
             </div>
@@ -102,7 +109,7 @@ export default async function StatsPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {(clientTypeStats as ClientTypeStat[]).map((stat) => (
+              {clientTypeStats.map((stat) => (
                 <div
                   key={stat.clientType || "Non spécifié"}
                   className="flex justify-between items-center"
@@ -110,7 +117,7 @@ export default async function StatsPage() {
                   <span className="text-sm">
                     {stat.clientType || "Non spécifié"}
                   </span>
-                  <span className="font-bold">{stat._count._all || 0}</span>
+                  <span className="font-bold">{stat._count._all}</span>
                 </div>
               ))}
             </div>
