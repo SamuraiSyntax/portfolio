@@ -1,19 +1,15 @@
 import { ContactForm } from "@/components/admin/dashboard/contact/contact-form";
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
+import { convertPrismaContactToContact } from "@/lib/utils/contact";
+import { notFound } from "next/navigation";
 
-export default async function EditContactPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const session = await auth();
+interface ContactPageProps {
+  params: {
+    id: string;
+  };
+}
 
-  if (!session) {
-    redirect("/admin");
-  }
-
+export default async function ContactPage({ params }: ContactPageProps) {
   const contact = await prisma.contact.findUnique({
     where: {
       id: params.id,
@@ -21,12 +17,12 @@ export default async function EditContactPage({
   });
 
   if (!contact) {
-    redirect("/admin/contacts");
+    notFound();
   }
 
   return (
     <div className="p-4">
-      <ContactForm contact={contact} isEditing />
+      <ContactForm contact={convertPrismaContactToContact(contact)} isEditing />
     </div>
   );
 }

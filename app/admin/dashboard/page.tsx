@@ -1,75 +1,70 @@
 import { ContactTable } from "@/components/admin/dashboard/contact/contact-table";
-import { ProfileCard } from "@/components/admin/dashboard/profile-card";
-import { QuickActions } from "@/components/admin/dashboard/quick-actions";
-import { auth } from "@/lib/auth";
+import { StatsCards } from "@/components/admin/dashboard/stats/stats-cards";
 import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
+import { convertPrismaContactToContact } from "@/lib/utils/contact";
+import { ContactStatus } from "@/types/contact";
 
 export default async function DashboardPage() {
-  const session = await auth();
+  const [contacts, stats] = await Promise.all([
+    prisma.contact.findMany({
+      where: {
+        status: {
+          not: ContactStatus.ARCHIVED,
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 5,
+    }),
+    prisma.contact.groupBy({
+      by: ["status"],
+      _count: {
+        _all: true,
+      },
+    }),
+  ]);
 
-  if (!session) {
-    redirect("/admin");
-  }
+  const getStatusCount = (status: ContactStatus) => {
+    const stat = stats.find((s) => s.status === status);
+    return stat ? stat._count._all : 0;
+  };
 
-  const contacts = await prisma.contact.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-    select: {
-      id: true,
-      createdAt: true,
-      updatedAt: true,
-      name: true,
-      email: true,
-      phone: true,
-      company: true,
-      position: true,
-      message: true,
-      projectType: true,
-      projectScope: true,
-      budget: true,
-      deadline: true,
-      existingSite: true,
-      targetAudience: true,
-      competitors: true,
-      objectives: true,
-      clientType: true,
-      industry: true,
-      companySize: true,
-      annualRevenue: true,
-      preferredContactMethod: true,
-      marketingSource: true,
-      newsletter: true,
-      lastContact: true,
-      nextFollowUp: true,
-      notes: true,
-      assignedTo: true,
-      attachments: true,
-      status: true,
-      priority: true,
-      tags: true,
-      quotationAmount: true,
-      contractValue: true,
-      ipAddress: true,
-      userAgent: true,
-      locale: true,
-      timezone: true,
-    },
-  });
+  const statsData = {
+    total: stats.reduce((acc, curr) => acc + curr._count._all, 0),
+    new: getStatusCount(ContactStatus.NEW),
+    inProgress: getStatusCount(ContactStatus.IN_PROGRESS),
+    completed: getStatusCount(ContactStatus.COMPLETED),
+    archived: getStatusCount(ContactStatus.ARCHIVED),
+  };
 
   return (
-    <div className="p-4 flex flex-col gap-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto w-full h-full">
-        <div className="col-span-1 order-1">
-          <ProfileCard session={session} />
-        </div>
-        <div className="col-span-1 order-2">
-          <QuickActions />
+    <div className="space-y-4 p-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <StatsCards
+          total={statsData.total}
+          new={statsData.new}
+          inProgress={statsData.inProgress}
+          completed={statsData.completed}
+          archived={statsData.archived}
+        />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+        <div className="col-span-4">
+          <h2 className="text-2xl font-bold tracking-tight">
+            Messages récents
+          </h2>
+          <p className="text-muted-foreground">
+            Voici les 5 derniers messages reçus
+          </p>
         </div>
       </div>
 
-      <ContactTable contacts={contacts} defaultView="recent" />
+      <ContactTable
+        contacts={contacts.map(convertPrismaContactToContact)}
+        defaultView="recent"
+      />
     </div>
   );
 }

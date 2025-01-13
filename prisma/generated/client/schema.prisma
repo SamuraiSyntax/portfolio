@@ -1,0 +1,105 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+  output          = "./generated/client"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Contact {
+  id                     String        @id @default(uuid())
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+  name                   String
+  email                  String
+  phone                  String?
+  company                String?
+  position               String?
+  message                String
+  projectType            String?
+  projectScope           String?
+  budget                 Float?
+  deadline               DateTime?
+  existingSite           String?
+  targetAudience         String?
+  competitors            String[]
+  objectives             String[]
+  clientType             String?
+  industry               String?
+  companySize            String?
+  annualRevenue          Float?
+  preferredContactMethod String?
+  marketingSource        String?
+  newsletter             Boolean       @default(false)
+  lastContact            DateTime?
+  nextFollowUp           DateTime?
+  notes                  String?
+  assignedTo             String?
+  attachments            String[]
+  status                 ContactStatus @default(NEW)
+  priority               Priority      @default(NORMAL)
+  tags                   String[]
+  quotationAmount        Float?
+  contractValue          Float?
+  ipAddress              String?
+  userAgent              String?
+  locale                 String?
+  timezone               String?
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+}
+
+enum ContactStatus {
+  NEW
+  IN_PROGRESS
+  COMPLETED
+  ARCHIVED
+}
+
+enum Priority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
