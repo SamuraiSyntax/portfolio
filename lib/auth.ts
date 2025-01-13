@@ -10,8 +10,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async signIn({ profile }) {
-      // Vérification de l'email autorisé
       return profile?.email === process.env.ADMIN_EMAIL;
     },
   },
+  trustHost: true,
 });

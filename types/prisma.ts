@@ -1,4 +1,4 @@
-import { Contact as PrismaContactModel } from ".prisma/client";
+import { Prisma, Contact as PrismaContactModel } from "@prisma/client";
 
 export type PrismaContact = PrismaContactModel & {
   id: string;
@@ -9,3 +9,6 @@ export type PrismaContact = PrismaContactModel & {
   objectives: string[];
   attachments: string[];
 };
+
+export type ContactCreateInput = Prisma.ContactCreateInput;
+export type ContactUpdateInput = Prisma.ContactUpdateInput;
