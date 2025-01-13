@@ -1,31 +1,33 @@
 "use server";
 
-import { ContactService } from "@/lib/services/contact.service";
-import { formSchema } from "@/lib/types/contact";
+import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    console.log("Données reçues:", body);
+    const formData = await request.formData();
 
-    // Validation des données
-    const validatedData = formSchema.parse(body);
-    console.log("Données validées:", validatedData);
+    const contact = await prisma.contact.create({
+      data: {
+        name: formData.get("name") as string,
+        email: formData.get("email") as string,
+        phone: (formData.get("phone") as string) || null,
+        company: (formData.get("company") as string) || null,
+        message: formData.get("message") as string,
+        clientType: (formData.get("clientType") as string) || null,
+        projectType: (formData.get("projectType") as string) || null,
+        budget: formData.get("budget") ? Number(formData.get("budget")) : null,
+        deadline: formData.get("deadline")
+          ? new Date(formData.get("deadline") as string)
+          : null,
+        existingSite: (formData.get("existingSite") as string) || null,
+        status: "NEW",
+      },
+    });
 
-    // Création du contact via le service
-    const contact = await ContactService.create(validatedData);
-    console.log("Contact créé:", contact);
-
-    return NextResponse.json(
-      { message: "Contact créé avec succès", contact },
-      { status: 201 }
-    );
+    return NextResponse.json(contact);
   } catch (error) {
-    console.error("Erreur API contact:", error);
-    return NextResponse.json(
-      { message: "Erreur lors de la création du contact" },
-      { status: 500 }
-    );
+    console.error("[CONTACT_POST]", error);
+    return new NextResponse("Internal error", { status: 500 });
   }
 }
