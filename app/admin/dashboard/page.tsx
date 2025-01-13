@@ -4,6 +4,13 @@ import { prisma } from "@/lib/prisma";
 import { convertPrismaContactToContact } from "@/lib/utils/contact";
 import { ContactStatus } from "@/types/contact";
 
+interface StatusCount {
+  status: ContactStatus;
+  _count: {
+    _all: number;
+  };
+}
+
 export default async function DashboardPage() {
   const [contacts, stats] = await Promise.all([
     prisma.contact.findMany({
@@ -26,7 +33,7 @@ export default async function DashboardPage() {
   ]);
 
   const getStatusCount = (status: ContactStatus) => {
-    const stat = stats.find((s) => s.status === status);
+    const stat = (stats as StatusCount[]).find((s) => s.status === status);
     return stat ? stat._count._all : 0;
   };
 
@@ -41,13 +48,7 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-4 p-4">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <StatsCards
-          total={statsData.total}
-          new={statsData.new}
-          inProgress={statsData.inProgress}
-          completed={statsData.completed}
-          archived={statsData.archived}
-        />
+        <StatsCards {...statsData} />
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
