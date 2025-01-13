@@ -1226,15 +1226,15 @@ export namespace Prisma {
   export type ContactAvgAggregateOutputType = {
     budget: number | null
     annualRevenue: number | null
-    quotationAmount: number | null
     contractValue: number | null
+    quotationAmount: number | null
   }
 
   export type ContactSumAggregateOutputType = {
     budget: number | null
     annualRevenue: number | null
-    quotationAmount: number | null
     contractValue: number | null
+    quotationAmount: number | null
   }
 
   export type ContactMinAggregateOutputType = {
@@ -1243,35 +1243,35 @@ export namespace Prisma {
     updatedAt: Date | null
     name: string | null
     email: string | null
+    message: string | null
     phone: string | null
     company: string | null
-    position: string | null
-    message: string | null
+    clientType: string | null
     projectType: string | null
-    projectScope: string | null
     budget: number | null
     deadline: Date | null
     existingSite: string | null
-    targetAudience: string | null
-    clientType: string | null
-    industry: string | null
-    companySize: string | null
+    status: $Enums.ContactStatus | null
     annualRevenue: number | null
-    preferredContactMethod: string | null
+    assignedTo: string | null
+    companySize: string | null
+    contractValue: number | null
+    industry: string | null
+    ipAddress: string | null
+    lastContact: Date | null
+    locale: string | null
     marketingSource: string | null
     newsletter: boolean | null
-    lastContact: Date | null
     nextFollowUp: Date | null
     notes: string | null
-    assignedTo: string | null
-    status: $Enums.ContactStatus | null
+    position: string | null
+    preferredContactMethod: string | null
     priority: $Enums.Priority | null
+    projectScope: string | null
     quotationAmount: number | null
-    contractValue: number | null
-    ipAddress: string | null
-    userAgent: string | null
-    locale: string | null
+    targetAudience: string | null
     timezone: string | null
+    userAgent: string | null
   }
 
   export type ContactMaxAggregateOutputType = {
@@ -1280,35 +1280,35 @@ export namespace Prisma {
     updatedAt: Date | null
     name: string | null
     email: string | null
+    message: string | null
     phone: string | null
     company: string | null
-    position: string | null
-    message: string | null
+    clientType: string | null
     projectType: string | null
-    projectScope: string | null
     budget: number | null
     deadline: Date | null
     existingSite: string | null
-    targetAudience: string | null
-    clientType: string | null
-    industry: string | null
-    companySize: string | null
+    status: $Enums.ContactStatus | null
     annualRevenue: number | null
-    preferredContactMethod: string | null
+    assignedTo: string | null
+    companySize: string | null
+    contractValue: number | null
+    industry: string | null
+    ipAddress: string | null
+    lastContact: Date | null
+    locale: string | null
     marketingSource: string | null
     newsletter: boolean | null
-    lastContact: Date | null
     nextFollowUp: Date | null
     notes: string | null
-    assignedTo: string | null
-    status: $Enums.ContactStatus | null
+    position: string | null
+    preferredContactMethod: string | null
     priority: $Enums.Priority | null
+    projectScope: string | null
     quotationAmount: number | null
-    contractValue: number | null
-    ipAddress: string | null
-    userAgent: string | null
-    locale: string | null
+    targetAudience: string | null
     timezone: string | null
+    userAgent: string | null
   }
 
   export type ContactCountAggregateOutputType = {
@@ -1317,39 +1317,39 @@ export namespace Prisma {
     updatedAt: number
     name: number
     email: number
+    message: number
     phone: number
     company: number
-    position: number
-    message: number
+    clientType: number
     projectType: number
-    projectScope: number
     budget: number
     deadline: number
     existingSite: number
-    targetAudience: number
-    competitors: number
-    objectives: number
-    clientType: number
-    industry: number
-    companySize: number
+    status: number
     annualRevenue: number
-    preferredContactMethod: number
-    marketingSource: number
-    newsletter: number
-    lastContact: number
-    nextFollowUp: number
-    notes: number
     assignedTo: number
     attachments: number
-    status: number
-    priority: number
-    tags: number
-    quotationAmount: number
+    companySize: number
+    competitors: number
     contractValue: number
+    industry: number
     ipAddress: number
-    userAgent: number
+    lastContact: number
     locale: number
+    marketingSource: number
+    newsletter: number
+    nextFollowUp: number
+    notes: number
+    objectives: number
+    position: number
+    preferredContactMethod: number
+    priority: number
+    projectScope: number
+    quotationAmount: number
+    tags: number
+    targetAudience: number
     timezone: number
+    userAgent: number
     _all: number
   }
 
@@ -1357,15 +1357,15 @@ export namespace Prisma {
   export type ContactAvgAggregateInputType = {
     budget?: true
     annualRevenue?: true
-    quotationAmount?: true
     contractValue?: true
+    quotationAmount?: true
   }
 
   export type ContactSumAggregateInputType = {
     budget?: true
     annualRevenue?: true
-    quotationAmount?: true
     contractValue?: true
+    quotationAmount?: true
   }
 
   export type ContactMinAggregateInputType = {
@@ -1374,35 +1374,35 @@ export namespace Prisma {
     updatedAt?: true
     name?: true
     email?: true
+    message?: true
     phone?: true
     company?: true
-    position?: true
-    message?: true
+    clientType?: true
     projectType?: true
-    projectScope?: true
     budget?: true
     deadline?: true
     existingSite?: true
-    targetAudience?: true
-    clientType?: true
-    industry?: true
-    companySize?: true
+    status?: true
     annualRevenue?: true
-    preferredContactMethod?: true
+    assignedTo?: true
+    companySize?: true
+    contractValue?: true
+    industry?: true
+    ipAddress?: true
+    lastContact?: true
+    locale?: true
     marketingSource?: true
     newsletter?: true
-    lastContact?: true
     nextFollowUp?: true
     notes?: true
-    assignedTo?: true
-    status?: true
+    position?: true
+    preferredContactMethod?: true
     priority?: true
+    projectScope?: true
     quotationAmount?: true
-    contractValue?: true
-    ipAddress?: true
-    userAgent?: true
-    locale?: true
+    targetAudience?: true
     timezone?: true
+    userAgent?: true
   }
 
   export type ContactMaxAggregateInputType = {
@@ -1411,35 +1411,35 @@ export namespace Prisma {
     updatedAt?: true
     name?: true
     email?: true
+    message?: true
     phone?: true
     company?: true
-    position?: true
-    message?: true
+    clientType?: true
     projectType?: true
-    projectScope?: true
     budget?: true
     deadline?: true
     existingSite?: true
-    targetAudience?: true
-    clientType?: true
-    industry?: true
-    companySize?: true
+    status?: true
     annualRevenue?: true
-    preferredContactMethod?: true
+    assignedTo?: true
+    companySize?: true
+    contractValue?: true
+    industry?: true
+    ipAddress?: true
+    lastContact?: true
+    locale?: true
     marketingSource?: true
     newsletter?: true
-    lastContact?: true
     nextFollowUp?: true
     notes?: true
-    assignedTo?: true
-    status?: true
+    position?: true
+    preferredContactMethod?: true
     priority?: true
+    projectScope?: true
     quotationAmount?: true
-    contractValue?: true
-    ipAddress?: true
-    userAgent?: true
-    locale?: true
+    targetAudience?: true
     timezone?: true
+    userAgent?: true
   }
 
   export type ContactCountAggregateInputType = {
@@ -1448,39 +1448,39 @@ export namespace Prisma {
     updatedAt?: true
     name?: true
     email?: true
+    message?: true
     phone?: true
     company?: true
-    position?: true
-    message?: true
+    clientType?: true
     projectType?: true
-    projectScope?: true
     budget?: true
     deadline?: true
     existingSite?: true
-    targetAudience?: true
-    competitors?: true
-    objectives?: true
-    clientType?: true
-    industry?: true
-    companySize?: true
+    status?: true
     annualRevenue?: true
-    preferredContactMethod?: true
-    marketingSource?: true
-    newsletter?: true
-    lastContact?: true
-    nextFollowUp?: true
-    notes?: true
     assignedTo?: true
     attachments?: true
-    status?: true
-    priority?: true
-    tags?: true
-    quotationAmount?: true
+    companySize?: true
+    competitors?: true
     contractValue?: true
+    industry?: true
     ipAddress?: true
-    userAgent?: true
+    lastContact?: true
     locale?: true
+    marketingSource?: true
+    newsletter?: true
+    nextFollowUp?: true
+    notes?: true
+    objectives?: true
+    position?: true
+    preferredContactMethod?: true
+    priority?: true
+    projectScope?: true
+    quotationAmount?: true
+    tags?: true
+    targetAudience?: true
     timezone?: true
+    userAgent?: true
     _all?: true
   }
 
@@ -1576,39 +1576,39 @@ export namespace Prisma {
     updatedAt: Date
     name: string
     email: string
+    message: string
     phone: string | null
     company: string | null
-    position: string | null
-    message: string
+    clientType: string | null
     projectType: string | null
-    projectScope: string | null
     budget: number | null
     deadline: Date | null
     existingSite: string | null
-    targetAudience: string | null
-    competitors: string[]
-    objectives: string[]
-    clientType: string | null
-    industry: string | null
-    companySize: string | null
+    status: $Enums.ContactStatus
     annualRevenue: number | null
-    preferredContactMethod: string | null
-    marketingSource: string | null
-    newsletter: boolean
-    lastContact: Date | null
-    nextFollowUp: Date | null
-    notes: string | null
     assignedTo: string | null
     attachments: string[]
-    status: $Enums.ContactStatus
-    priority: $Enums.Priority
-    tags: string[]
-    quotationAmount: number | null
+    companySize: string | null
+    competitors: string[]
     contractValue: number | null
+    industry: string | null
     ipAddress: string | null
-    userAgent: string | null
+    lastContact: Date | null
     locale: string | null
+    marketingSource: string | null
+    newsletter: boolean
+    nextFollowUp: Date | null
+    notes: string | null
+    objectives: string[]
+    position: string | null
+    preferredContactMethod: string | null
+    priority: $Enums.Priority
+    projectScope: string | null
+    quotationAmount: number | null
+    tags: string[]
+    targetAudience: string | null
     timezone: string | null
+    userAgent: string | null
     _count: ContactCountAggregateOutputType | null
     _avg: ContactAvgAggregateOutputType | null
     _sum: ContactSumAggregateOutputType | null
@@ -1636,39 +1636,39 @@ export namespace Prisma {
     updatedAt?: boolean
     name?: boolean
     email?: boolean
+    message?: boolean
     phone?: boolean
     company?: boolean
-    position?: boolean
-    message?: boolean
+    clientType?: boolean
     projectType?: boolean
-    projectScope?: boolean
     budget?: boolean
     deadline?: boolean
     existingSite?: boolean
-    targetAudience?: boolean
-    competitors?: boolean
-    objectives?: boolean
-    clientType?: boolean
-    industry?: boolean
-    companySize?: boolean
+    status?: boolean
     annualRevenue?: boolean
-    preferredContactMethod?: boolean
-    marketingSource?: boolean
-    newsletter?: boolean
-    lastContact?: boolean
-    nextFollowUp?: boolean
-    notes?: boolean
     assignedTo?: boolean
     attachments?: boolean
-    status?: boolean
-    priority?: boolean
-    tags?: boolean
-    quotationAmount?: boolean
+    companySize?: boolean
+    competitors?: boolean
     contractValue?: boolean
+    industry?: boolean
     ipAddress?: boolean
-    userAgent?: boolean
+    lastContact?: boolean
     locale?: boolean
+    marketingSource?: boolean
+    newsletter?: boolean
+    nextFollowUp?: boolean
+    notes?: boolean
+    objectives?: boolean
+    position?: boolean
+    preferredContactMethod?: boolean
+    priority?: boolean
+    projectScope?: boolean
+    quotationAmount?: boolean
+    tags?: boolean
+    targetAudience?: boolean
     timezone?: boolean
+    userAgent?: boolean
   }, ExtArgs["result"]["contact"]>
 
   export type ContactSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1677,39 +1677,39 @@ export namespace Prisma {
     updatedAt?: boolean
     name?: boolean
     email?: boolean
+    message?: boolean
     phone?: boolean
     company?: boolean
-    position?: boolean
-    message?: boolean
+    clientType?: boolean
     projectType?: boolean
-    projectScope?: boolean
     budget?: boolean
     deadline?: boolean
     existingSite?: boolean
-    targetAudience?: boolean
-    competitors?: boolean
-    objectives?: boolean
-    clientType?: boolean
-    industry?: boolean
-    companySize?: boolean
+    status?: boolean
     annualRevenue?: boolean
-    preferredContactMethod?: boolean
-    marketingSource?: boolean
-    newsletter?: boolean
-    lastContact?: boolean
-    nextFollowUp?: boolean
-    notes?: boolean
     assignedTo?: boolean
     attachments?: boolean
-    status?: boolean
-    priority?: boolean
-    tags?: boolean
-    quotationAmount?: boolean
+    companySize?: boolean
+    competitors?: boolean
     contractValue?: boolean
+    industry?: boolean
     ipAddress?: boolean
-    userAgent?: boolean
+    lastContact?: boolean
     locale?: boolean
+    marketingSource?: boolean
+    newsletter?: boolean
+    nextFollowUp?: boolean
+    notes?: boolean
+    objectives?: boolean
+    position?: boolean
+    preferredContactMethod?: boolean
+    priority?: boolean
+    projectScope?: boolean
+    quotationAmount?: boolean
+    tags?: boolean
+    targetAudience?: boolean
     timezone?: boolean
+    userAgent?: boolean
   }, ExtArgs["result"]["contact"]>
 
   export type ContactSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1718,39 +1718,39 @@ export namespace Prisma {
     updatedAt?: boolean
     name?: boolean
     email?: boolean
+    message?: boolean
     phone?: boolean
     company?: boolean
-    position?: boolean
-    message?: boolean
+    clientType?: boolean
     projectType?: boolean
-    projectScope?: boolean
     budget?: boolean
     deadline?: boolean
     existingSite?: boolean
-    targetAudience?: boolean
-    competitors?: boolean
-    objectives?: boolean
-    clientType?: boolean
-    industry?: boolean
-    companySize?: boolean
+    status?: boolean
     annualRevenue?: boolean
-    preferredContactMethod?: boolean
-    marketingSource?: boolean
-    newsletter?: boolean
-    lastContact?: boolean
-    nextFollowUp?: boolean
-    notes?: boolean
     assignedTo?: boolean
     attachments?: boolean
-    status?: boolean
-    priority?: boolean
-    tags?: boolean
-    quotationAmount?: boolean
+    companySize?: boolean
+    competitors?: boolean
     contractValue?: boolean
+    industry?: boolean
     ipAddress?: boolean
-    userAgent?: boolean
+    lastContact?: boolean
     locale?: boolean
+    marketingSource?: boolean
+    newsletter?: boolean
+    nextFollowUp?: boolean
+    notes?: boolean
+    objectives?: boolean
+    position?: boolean
+    preferredContactMethod?: boolean
+    priority?: boolean
+    projectScope?: boolean
+    quotationAmount?: boolean
+    tags?: boolean
+    targetAudience?: boolean
     timezone?: boolean
+    userAgent?: boolean
   }, ExtArgs["result"]["contact"]>
 
   export type ContactSelectScalar = {
@@ -1759,42 +1759,42 @@ export namespace Prisma {
     updatedAt?: boolean
     name?: boolean
     email?: boolean
+    message?: boolean
     phone?: boolean
     company?: boolean
-    position?: boolean
-    message?: boolean
+    clientType?: boolean
     projectType?: boolean
-    projectScope?: boolean
     budget?: boolean
     deadline?: boolean
     existingSite?: boolean
-    targetAudience?: boolean
-    competitors?: boolean
-    objectives?: boolean
-    clientType?: boolean
-    industry?: boolean
-    companySize?: boolean
+    status?: boolean
     annualRevenue?: boolean
-    preferredContactMethod?: boolean
-    marketingSource?: boolean
-    newsletter?: boolean
-    lastContact?: boolean
-    nextFollowUp?: boolean
-    notes?: boolean
     assignedTo?: boolean
     attachments?: boolean
-    status?: boolean
-    priority?: boolean
-    tags?: boolean
-    quotationAmount?: boolean
+    companySize?: boolean
+    competitors?: boolean
     contractValue?: boolean
+    industry?: boolean
     ipAddress?: boolean
-    userAgent?: boolean
+    lastContact?: boolean
     locale?: boolean
+    marketingSource?: boolean
+    newsletter?: boolean
+    nextFollowUp?: boolean
+    notes?: boolean
+    objectives?: boolean
+    position?: boolean
+    preferredContactMethod?: boolean
+    priority?: boolean
+    projectScope?: boolean
+    quotationAmount?: boolean
+    tags?: boolean
+    targetAudience?: boolean
     timezone?: boolean
+    userAgent?: boolean
   }
 
-  export type ContactOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "email" | "phone" | "company" | "position" | "message" | "projectType" | "projectScope" | "budget" | "deadline" | "existingSite" | "targetAudience" | "competitors" | "objectives" | "clientType" | "industry" | "companySize" | "annualRevenue" | "preferredContactMethod" | "marketingSource" | "newsletter" | "lastContact" | "nextFollowUp" | "notes" | "assignedTo" | "attachments" | "status" | "priority" | "tags" | "quotationAmount" | "contractValue" | "ipAddress" | "userAgent" | "locale" | "timezone", ExtArgs["result"]["contact"]>
+  export type ContactOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "email" | "message" | "phone" | "company" | "clientType" | "projectType" | "budget" | "deadline" | "existingSite" | "status" | "annualRevenue" | "assignedTo" | "attachments" | "companySize" | "competitors" | "contractValue" | "industry" | "ipAddress" | "lastContact" | "locale" | "marketingSource" | "newsletter" | "nextFollowUp" | "notes" | "objectives" | "position" | "preferredContactMethod" | "priority" | "projectScope" | "quotationAmount" | "tags" | "targetAudience" | "timezone" | "userAgent", ExtArgs["result"]["contact"]>
 
   export type $ContactPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Contact"
@@ -1805,39 +1805,39 @@ export namespace Prisma {
       updatedAt: Date
       name: string
       email: string
+      message: string
       phone: string | null
       company: string | null
-      position: string | null
-      message: string
+      clientType: string | null
       projectType: string | null
-      projectScope: string | null
       budget: number | null
       deadline: Date | null
       existingSite: string | null
-      targetAudience: string | null
-      competitors: string[]
-      objectives: string[]
-      clientType: string | null
-      industry: string | null
-      companySize: string | null
+      status: $Enums.ContactStatus
       annualRevenue: number | null
-      preferredContactMethod: string | null
-      marketingSource: string | null
-      newsletter: boolean
-      lastContact: Date | null
-      nextFollowUp: Date | null
-      notes: string | null
       assignedTo: string | null
       attachments: string[]
-      status: $Enums.ContactStatus
-      priority: $Enums.Priority
-      tags: string[]
-      quotationAmount: number | null
+      companySize: string | null
+      competitors: string[]
       contractValue: number | null
+      industry: string | null
       ipAddress: string | null
-      userAgent: string | null
+      lastContact: Date | null
       locale: string | null
+      marketingSource: string | null
+      newsletter: boolean
+      nextFollowUp: Date | null
+      notes: string | null
+      objectives: string[]
+      position: string | null
+      preferredContactMethod: string | null
+      priority: $Enums.Priority
+      projectScope: string | null
+      quotationAmount: number | null
+      tags: string[]
+      targetAudience: string | null
       timezone: string | null
+      userAgent: string | null
     }, ExtArgs["result"]["contact"]>
     composites: {}
   }
@@ -2266,39 +2266,39 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"Contact", 'DateTime'>
     readonly name: FieldRef<"Contact", 'String'>
     readonly email: FieldRef<"Contact", 'String'>
+    readonly message: FieldRef<"Contact", 'String'>
     readonly phone: FieldRef<"Contact", 'String'>
     readonly company: FieldRef<"Contact", 'String'>
-    readonly position: FieldRef<"Contact", 'String'>
-    readonly message: FieldRef<"Contact", 'String'>
+    readonly clientType: FieldRef<"Contact", 'String'>
     readonly projectType: FieldRef<"Contact", 'String'>
-    readonly projectScope: FieldRef<"Contact", 'String'>
     readonly budget: FieldRef<"Contact", 'Float'>
     readonly deadline: FieldRef<"Contact", 'DateTime'>
     readonly existingSite: FieldRef<"Contact", 'String'>
-    readonly targetAudience: FieldRef<"Contact", 'String'>
-    readonly competitors: FieldRef<"Contact", 'String[]'>
-    readonly objectives: FieldRef<"Contact", 'String[]'>
-    readonly clientType: FieldRef<"Contact", 'String'>
-    readonly industry: FieldRef<"Contact", 'String'>
-    readonly companySize: FieldRef<"Contact", 'String'>
+    readonly status: FieldRef<"Contact", 'ContactStatus'>
     readonly annualRevenue: FieldRef<"Contact", 'Float'>
-    readonly preferredContactMethod: FieldRef<"Contact", 'String'>
-    readonly marketingSource: FieldRef<"Contact", 'String'>
-    readonly newsletter: FieldRef<"Contact", 'Boolean'>
-    readonly lastContact: FieldRef<"Contact", 'DateTime'>
-    readonly nextFollowUp: FieldRef<"Contact", 'DateTime'>
-    readonly notes: FieldRef<"Contact", 'String'>
     readonly assignedTo: FieldRef<"Contact", 'String'>
     readonly attachments: FieldRef<"Contact", 'String[]'>
-    readonly status: FieldRef<"Contact", 'ContactStatus'>
-    readonly priority: FieldRef<"Contact", 'Priority'>
-    readonly tags: FieldRef<"Contact", 'String[]'>
-    readonly quotationAmount: FieldRef<"Contact", 'Float'>
+    readonly companySize: FieldRef<"Contact", 'String'>
+    readonly competitors: FieldRef<"Contact", 'String[]'>
     readonly contractValue: FieldRef<"Contact", 'Float'>
+    readonly industry: FieldRef<"Contact", 'String'>
     readonly ipAddress: FieldRef<"Contact", 'String'>
-    readonly userAgent: FieldRef<"Contact", 'String'>
+    readonly lastContact: FieldRef<"Contact", 'DateTime'>
     readonly locale: FieldRef<"Contact", 'String'>
+    readonly marketingSource: FieldRef<"Contact", 'String'>
+    readonly newsletter: FieldRef<"Contact", 'Boolean'>
+    readonly nextFollowUp: FieldRef<"Contact", 'DateTime'>
+    readonly notes: FieldRef<"Contact", 'String'>
+    readonly objectives: FieldRef<"Contact", 'String[]'>
+    readonly position: FieldRef<"Contact", 'String'>
+    readonly preferredContactMethod: FieldRef<"Contact", 'String'>
+    readonly priority: FieldRef<"Contact", 'Priority'>
+    readonly projectScope: FieldRef<"Contact", 'String'>
+    readonly quotationAmount: FieldRef<"Contact", 'Float'>
+    readonly tags: FieldRef<"Contact", 'String[]'>
+    readonly targetAudience: FieldRef<"Contact", 'String'>
     readonly timezone: FieldRef<"Contact", 'String'>
+    readonly userAgent: FieldRef<"Contact", 'String'>
   }
     
 
@@ -5963,39 +5963,39 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     name: 'name',
     email: 'email',
+    message: 'message',
     phone: 'phone',
     company: 'company',
-    position: 'position',
-    message: 'message',
+    clientType: 'clientType',
     projectType: 'projectType',
-    projectScope: 'projectScope',
     budget: 'budget',
     deadline: 'deadline',
     existingSite: 'existingSite',
-    targetAudience: 'targetAudience',
-    competitors: 'competitors',
-    objectives: 'objectives',
-    clientType: 'clientType',
-    industry: 'industry',
-    companySize: 'companySize',
+    status: 'status',
     annualRevenue: 'annualRevenue',
-    preferredContactMethod: 'preferredContactMethod',
-    marketingSource: 'marketingSource',
-    newsletter: 'newsletter',
-    lastContact: 'lastContact',
-    nextFollowUp: 'nextFollowUp',
-    notes: 'notes',
     assignedTo: 'assignedTo',
     attachments: 'attachments',
-    status: 'status',
-    priority: 'priority',
-    tags: 'tags',
-    quotationAmount: 'quotationAmount',
+    companySize: 'companySize',
+    competitors: 'competitors',
     contractValue: 'contractValue',
+    industry: 'industry',
     ipAddress: 'ipAddress',
-    userAgent: 'userAgent',
+    lastContact: 'lastContact',
     locale: 'locale',
-    timezone: 'timezone'
+    marketingSource: 'marketingSource',
+    newsletter: 'newsletter',
+    nextFollowUp: 'nextFollowUp',
+    notes: 'notes',
+    objectives: 'objectives',
+    position: 'position',
+    preferredContactMethod: 'preferredContactMethod',
+    priority: 'priority',
+    projectScope: 'projectScope',
+    quotationAmount: 'quotationAmount',
+    tags: 'tags',
+    targetAudience: 'targetAudience',
+    timezone: 'timezone',
+    userAgent: 'userAgent'
   };
 
   export type ContactScalarFieldEnum = (typeof ContactScalarFieldEnum)[keyof typeof ContactScalarFieldEnum]
@@ -6112,13 +6112,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'ContactStatus'
    */
   export type EnumContactStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactStatus'>
@@ -6129,6 +6122,13 @@ export namespace Prisma {
    * Reference to a field of type 'ContactStatus[]'
    */
   export type ListEnumContactStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -6172,39 +6172,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Contact"> | Date | string
     name?: StringFilter<"Contact"> | string
     email?: StringFilter<"Contact"> | string
+    message?: StringFilter<"Contact"> | string
     phone?: StringNullableFilter<"Contact"> | string | null
     company?: StringNullableFilter<"Contact"> | string | null
-    position?: StringNullableFilter<"Contact"> | string | null
-    message?: StringFilter<"Contact"> | string
+    clientType?: StringNullableFilter<"Contact"> | string | null
     projectType?: StringNullableFilter<"Contact"> | string | null
-    projectScope?: StringNullableFilter<"Contact"> | string | null
     budget?: FloatNullableFilter<"Contact"> | number | null
     deadline?: DateTimeNullableFilter<"Contact"> | Date | string | null
     existingSite?: StringNullableFilter<"Contact"> | string | null
-    targetAudience?: StringNullableFilter<"Contact"> | string | null
-    competitors?: StringNullableListFilter<"Contact">
-    objectives?: StringNullableListFilter<"Contact">
-    clientType?: StringNullableFilter<"Contact"> | string | null
-    industry?: StringNullableFilter<"Contact"> | string | null
-    companySize?: StringNullableFilter<"Contact"> | string | null
+    status?: EnumContactStatusFilter<"Contact"> | $Enums.ContactStatus
     annualRevenue?: FloatNullableFilter<"Contact"> | number | null
-    preferredContactMethod?: StringNullableFilter<"Contact"> | string | null
-    marketingSource?: StringNullableFilter<"Contact"> | string | null
-    newsletter?: BoolFilter<"Contact"> | boolean
-    lastContact?: DateTimeNullableFilter<"Contact"> | Date | string | null
-    nextFollowUp?: DateTimeNullableFilter<"Contact"> | Date | string | null
-    notes?: StringNullableFilter<"Contact"> | string | null
     assignedTo?: StringNullableFilter<"Contact"> | string | null
     attachments?: StringNullableListFilter<"Contact">
-    status?: EnumContactStatusFilter<"Contact"> | $Enums.ContactStatus
-    priority?: EnumPriorityFilter<"Contact"> | $Enums.Priority
-    tags?: StringNullableListFilter<"Contact">
-    quotationAmount?: FloatNullableFilter<"Contact"> | number | null
+    companySize?: StringNullableFilter<"Contact"> | string | null
+    competitors?: StringNullableListFilter<"Contact">
     contractValue?: FloatNullableFilter<"Contact"> | number | null
+    industry?: StringNullableFilter<"Contact"> | string | null
     ipAddress?: StringNullableFilter<"Contact"> | string | null
-    userAgent?: StringNullableFilter<"Contact"> | string | null
+    lastContact?: DateTimeNullableFilter<"Contact"> | Date | string | null
     locale?: StringNullableFilter<"Contact"> | string | null
+    marketingSource?: StringNullableFilter<"Contact"> | string | null
+    newsletter?: BoolFilter<"Contact"> | boolean
+    nextFollowUp?: DateTimeNullableFilter<"Contact"> | Date | string | null
+    notes?: StringNullableFilter<"Contact"> | string | null
+    objectives?: StringNullableListFilter<"Contact">
+    position?: StringNullableFilter<"Contact"> | string | null
+    preferredContactMethod?: StringNullableFilter<"Contact"> | string | null
+    priority?: EnumPriorityFilter<"Contact"> | $Enums.Priority
+    projectScope?: StringNullableFilter<"Contact"> | string | null
+    quotationAmount?: FloatNullableFilter<"Contact"> | number | null
+    tags?: StringNullableListFilter<"Contact">
+    targetAudience?: StringNullableFilter<"Contact"> | string | null
     timezone?: StringNullableFilter<"Contact"> | string | null
+    userAgent?: StringNullableFilter<"Contact"> | string | null
   }
 
   export type ContactOrderByWithRelationInput = {
@@ -6213,39 +6213,39 @@ export namespace Prisma {
     updatedAt?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    message?: SortOrder
     phone?: SortOrderInput | SortOrder
     company?: SortOrderInput | SortOrder
-    position?: SortOrderInput | SortOrder
-    message?: SortOrder
+    clientType?: SortOrderInput | SortOrder
     projectType?: SortOrderInput | SortOrder
-    projectScope?: SortOrderInput | SortOrder
     budget?: SortOrderInput | SortOrder
     deadline?: SortOrderInput | SortOrder
     existingSite?: SortOrderInput | SortOrder
-    targetAudience?: SortOrderInput | SortOrder
-    competitors?: SortOrder
-    objectives?: SortOrder
-    clientType?: SortOrderInput | SortOrder
-    industry?: SortOrderInput | SortOrder
-    companySize?: SortOrderInput | SortOrder
+    status?: SortOrder
     annualRevenue?: SortOrderInput | SortOrder
-    preferredContactMethod?: SortOrderInput | SortOrder
-    marketingSource?: SortOrderInput | SortOrder
-    newsletter?: SortOrder
-    lastContact?: SortOrderInput | SortOrder
-    nextFollowUp?: SortOrderInput | SortOrder
-    notes?: SortOrderInput | SortOrder
     assignedTo?: SortOrderInput | SortOrder
     attachments?: SortOrder
-    status?: SortOrder
-    priority?: SortOrder
-    tags?: SortOrder
-    quotationAmount?: SortOrderInput | SortOrder
+    companySize?: SortOrderInput | SortOrder
+    competitors?: SortOrder
     contractValue?: SortOrderInput | SortOrder
+    industry?: SortOrderInput | SortOrder
     ipAddress?: SortOrderInput | SortOrder
-    userAgent?: SortOrderInput | SortOrder
+    lastContact?: SortOrderInput | SortOrder
     locale?: SortOrderInput | SortOrder
+    marketingSource?: SortOrderInput | SortOrder
+    newsletter?: SortOrder
+    nextFollowUp?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    objectives?: SortOrder
+    position?: SortOrderInput | SortOrder
+    preferredContactMethod?: SortOrderInput | SortOrder
+    priority?: SortOrder
+    projectScope?: SortOrderInput | SortOrder
+    quotationAmount?: SortOrderInput | SortOrder
+    tags?: SortOrder
+    targetAudience?: SortOrderInput | SortOrder
     timezone?: SortOrderInput | SortOrder
+    userAgent?: SortOrderInput | SortOrder
   }
 
   export type ContactWhereUniqueInput = Prisma.AtLeast<{
@@ -6257,39 +6257,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Contact"> | Date | string
     name?: StringFilter<"Contact"> | string
     email?: StringFilter<"Contact"> | string
+    message?: StringFilter<"Contact"> | string
     phone?: StringNullableFilter<"Contact"> | string | null
     company?: StringNullableFilter<"Contact"> | string | null
-    position?: StringNullableFilter<"Contact"> | string | null
-    message?: StringFilter<"Contact"> | string
+    clientType?: StringNullableFilter<"Contact"> | string | null
     projectType?: StringNullableFilter<"Contact"> | string | null
-    projectScope?: StringNullableFilter<"Contact"> | string | null
     budget?: FloatNullableFilter<"Contact"> | number | null
     deadline?: DateTimeNullableFilter<"Contact"> | Date | string | null
     existingSite?: StringNullableFilter<"Contact"> | string | null
-    targetAudience?: StringNullableFilter<"Contact"> | string | null
-    competitors?: StringNullableListFilter<"Contact">
-    objectives?: StringNullableListFilter<"Contact">
-    clientType?: StringNullableFilter<"Contact"> | string | null
-    industry?: StringNullableFilter<"Contact"> | string | null
-    companySize?: StringNullableFilter<"Contact"> | string | null
+    status?: EnumContactStatusFilter<"Contact"> | $Enums.ContactStatus
     annualRevenue?: FloatNullableFilter<"Contact"> | number | null
-    preferredContactMethod?: StringNullableFilter<"Contact"> | string | null
-    marketingSource?: StringNullableFilter<"Contact"> | string | null
-    newsletter?: BoolFilter<"Contact"> | boolean
-    lastContact?: DateTimeNullableFilter<"Contact"> | Date | string | null
-    nextFollowUp?: DateTimeNullableFilter<"Contact"> | Date | string | null
-    notes?: StringNullableFilter<"Contact"> | string | null
     assignedTo?: StringNullableFilter<"Contact"> | string | null
     attachments?: StringNullableListFilter<"Contact">
-    status?: EnumContactStatusFilter<"Contact"> | $Enums.ContactStatus
-    priority?: EnumPriorityFilter<"Contact"> | $Enums.Priority
-    tags?: StringNullableListFilter<"Contact">
-    quotationAmount?: FloatNullableFilter<"Contact"> | number | null
+    companySize?: StringNullableFilter<"Contact"> | string | null
+    competitors?: StringNullableListFilter<"Contact">
     contractValue?: FloatNullableFilter<"Contact"> | number | null
+    industry?: StringNullableFilter<"Contact"> | string | null
     ipAddress?: StringNullableFilter<"Contact"> | string | null
-    userAgent?: StringNullableFilter<"Contact"> | string | null
+    lastContact?: DateTimeNullableFilter<"Contact"> | Date | string | null
     locale?: StringNullableFilter<"Contact"> | string | null
+    marketingSource?: StringNullableFilter<"Contact"> | string | null
+    newsletter?: BoolFilter<"Contact"> | boolean
+    nextFollowUp?: DateTimeNullableFilter<"Contact"> | Date | string | null
+    notes?: StringNullableFilter<"Contact"> | string | null
+    objectives?: StringNullableListFilter<"Contact">
+    position?: StringNullableFilter<"Contact"> | string | null
+    preferredContactMethod?: StringNullableFilter<"Contact"> | string | null
+    priority?: EnumPriorityFilter<"Contact"> | $Enums.Priority
+    projectScope?: StringNullableFilter<"Contact"> | string | null
+    quotationAmount?: FloatNullableFilter<"Contact"> | number | null
+    tags?: StringNullableListFilter<"Contact">
+    targetAudience?: StringNullableFilter<"Contact"> | string | null
     timezone?: StringNullableFilter<"Contact"> | string | null
+    userAgent?: StringNullableFilter<"Contact"> | string | null
   }, "id">
 
   export type ContactOrderByWithAggregationInput = {
@@ -6298,39 +6298,39 @@ export namespace Prisma {
     updatedAt?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    message?: SortOrder
     phone?: SortOrderInput | SortOrder
     company?: SortOrderInput | SortOrder
-    position?: SortOrderInput | SortOrder
-    message?: SortOrder
+    clientType?: SortOrderInput | SortOrder
     projectType?: SortOrderInput | SortOrder
-    projectScope?: SortOrderInput | SortOrder
     budget?: SortOrderInput | SortOrder
     deadline?: SortOrderInput | SortOrder
     existingSite?: SortOrderInput | SortOrder
-    targetAudience?: SortOrderInput | SortOrder
-    competitors?: SortOrder
-    objectives?: SortOrder
-    clientType?: SortOrderInput | SortOrder
-    industry?: SortOrderInput | SortOrder
-    companySize?: SortOrderInput | SortOrder
+    status?: SortOrder
     annualRevenue?: SortOrderInput | SortOrder
-    preferredContactMethod?: SortOrderInput | SortOrder
-    marketingSource?: SortOrderInput | SortOrder
-    newsletter?: SortOrder
-    lastContact?: SortOrderInput | SortOrder
-    nextFollowUp?: SortOrderInput | SortOrder
-    notes?: SortOrderInput | SortOrder
     assignedTo?: SortOrderInput | SortOrder
     attachments?: SortOrder
-    status?: SortOrder
-    priority?: SortOrder
-    tags?: SortOrder
-    quotationAmount?: SortOrderInput | SortOrder
+    companySize?: SortOrderInput | SortOrder
+    competitors?: SortOrder
     contractValue?: SortOrderInput | SortOrder
+    industry?: SortOrderInput | SortOrder
     ipAddress?: SortOrderInput | SortOrder
-    userAgent?: SortOrderInput | SortOrder
+    lastContact?: SortOrderInput | SortOrder
     locale?: SortOrderInput | SortOrder
+    marketingSource?: SortOrderInput | SortOrder
+    newsletter?: SortOrder
+    nextFollowUp?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    objectives?: SortOrder
+    position?: SortOrderInput | SortOrder
+    preferredContactMethod?: SortOrderInput | SortOrder
+    priority?: SortOrder
+    projectScope?: SortOrderInput | SortOrder
+    quotationAmount?: SortOrderInput | SortOrder
+    tags?: SortOrder
+    targetAudience?: SortOrderInput | SortOrder
     timezone?: SortOrderInput | SortOrder
+    userAgent?: SortOrderInput | SortOrder
     _count?: ContactCountOrderByAggregateInput
     _avg?: ContactAvgOrderByAggregateInput
     _max?: ContactMaxOrderByAggregateInput
@@ -6347,39 +6347,39 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Contact"> | Date | string
     name?: StringWithAggregatesFilter<"Contact"> | string
     email?: StringWithAggregatesFilter<"Contact"> | string
+    message?: StringWithAggregatesFilter<"Contact"> | string
     phone?: StringNullableWithAggregatesFilter<"Contact"> | string | null
     company?: StringNullableWithAggregatesFilter<"Contact"> | string | null
-    position?: StringNullableWithAggregatesFilter<"Contact"> | string | null
-    message?: StringWithAggregatesFilter<"Contact"> | string
+    clientType?: StringNullableWithAggregatesFilter<"Contact"> | string | null
     projectType?: StringNullableWithAggregatesFilter<"Contact"> | string | null
-    projectScope?: StringNullableWithAggregatesFilter<"Contact"> | string | null
     budget?: FloatNullableWithAggregatesFilter<"Contact"> | number | null
     deadline?: DateTimeNullableWithAggregatesFilter<"Contact"> | Date | string | null
     existingSite?: StringNullableWithAggregatesFilter<"Contact"> | string | null
-    targetAudience?: StringNullableWithAggregatesFilter<"Contact"> | string | null
-    competitors?: StringNullableListFilter<"Contact">
-    objectives?: StringNullableListFilter<"Contact">
-    clientType?: StringNullableWithAggregatesFilter<"Contact"> | string | null
-    industry?: StringNullableWithAggregatesFilter<"Contact"> | string | null
-    companySize?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    status?: EnumContactStatusWithAggregatesFilter<"Contact"> | $Enums.ContactStatus
     annualRevenue?: FloatNullableWithAggregatesFilter<"Contact"> | number | null
-    preferredContactMethod?: StringNullableWithAggregatesFilter<"Contact"> | string | null
-    marketingSource?: StringNullableWithAggregatesFilter<"Contact"> | string | null
-    newsletter?: BoolWithAggregatesFilter<"Contact"> | boolean
-    lastContact?: DateTimeNullableWithAggregatesFilter<"Contact"> | Date | string | null
-    nextFollowUp?: DateTimeNullableWithAggregatesFilter<"Contact"> | Date | string | null
-    notes?: StringNullableWithAggregatesFilter<"Contact"> | string | null
     assignedTo?: StringNullableWithAggregatesFilter<"Contact"> | string | null
     attachments?: StringNullableListFilter<"Contact">
-    status?: EnumContactStatusWithAggregatesFilter<"Contact"> | $Enums.ContactStatus
-    priority?: EnumPriorityWithAggregatesFilter<"Contact"> | $Enums.Priority
-    tags?: StringNullableListFilter<"Contact">
-    quotationAmount?: FloatNullableWithAggregatesFilter<"Contact"> | number | null
+    companySize?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    competitors?: StringNullableListFilter<"Contact">
     contractValue?: FloatNullableWithAggregatesFilter<"Contact"> | number | null
+    industry?: StringNullableWithAggregatesFilter<"Contact"> | string | null
     ipAddress?: StringNullableWithAggregatesFilter<"Contact"> | string | null
-    userAgent?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    lastContact?: DateTimeNullableWithAggregatesFilter<"Contact"> | Date | string | null
     locale?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    marketingSource?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    newsletter?: BoolWithAggregatesFilter<"Contact"> | boolean
+    nextFollowUp?: DateTimeNullableWithAggregatesFilter<"Contact"> | Date | string | null
+    notes?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    objectives?: StringNullableListFilter<"Contact">
+    position?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    preferredContactMethod?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    priority?: EnumPriorityWithAggregatesFilter<"Contact"> | $Enums.Priority
+    projectScope?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    quotationAmount?: FloatNullableWithAggregatesFilter<"Contact"> | number | null
+    tags?: StringNullableListFilter<"Contact">
+    targetAudience?: StringNullableWithAggregatesFilter<"Contact"> | string | null
     timezone?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    userAgent?: StringNullableWithAggregatesFilter<"Contact"> | string | null
   }
 
   export type AccountWhereInput = {
@@ -6589,39 +6589,39 @@ export namespace Prisma {
     updatedAt?: Date | string
     name: string
     email: string
+    message: string
     phone?: string | null
     company?: string | null
-    position?: string | null
-    message: string
+    clientType?: string | null
     projectType?: string | null
-    projectScope?: string | null
     budget?: number | null
     deadline?: Date | string | null
     existingSite?: string | null
-    targetAudience?: string | null
-    competitors?: ContactCreatecompetitorsInput | string[]
-    objectives?: ContactCreateobjectivesInput | string[]
-    clientType?: string | null
-    industry?: string | null
-    companySize?: string | null
+    status?: $Enums.ContactStatus
     annualRevenue?: number | null
-    preferredContactMethod?: string | null
-    marketingSource?: string | null
-    newsletter?: boolean
-    lastContact?: Date | string | null
-    nextFollowUp?: Date | string | null
-    notes?: string | null
     assignedTo?: string | null
     attachments?: ContactCreateattachmentsInput | string[]
-    status?: $Enums.ContactStatus
-    priority?: $Enums.Priority
-    tags?: ContactCreatetagsInput | string[]
-    quotationAmount?: number | null
+    companySize?: string | null
+    competitors?: ContactCreatecompetitorsInput | string[]
     contractValue?: number | null
+    industry?: string | null
     ipAddress?: string | null
-    userAgent?: string | null
+    lastContact?: Date | string | null
     locale?: string | null
+    marketingSource?: string | null
+    newsletter?: boolean
+    nextFollowUp?: Date | string | null
+    notes?: string | null
+    objectives?: ContactCreateobjectivesInput | string[]
+    position?: string | null
+    preferredContactMethod?: string | null
+    priority?: $Enums.Priority
+    projectScope?: string | null
+    quotationAmount?: number | null
+    tags?: ContactCreatetagsInput | string[]
+    targetAudience?: string | null
     timezone?: string | null
+    userAgent?: string | null
   }
 
   export type ContactUncheckedCreateInput = {
@@ -6630,39 +6630,39 @@ export namespace Prisma {
     updatedAt?: Date | string
     name: string
     email: string
+    message: string
     phone?: string | null
     company?: string | null
-    position?: string | null
-    message: string
+    clientType?: string | null
     projectType?: string | null
-    projectScope?: string | null
     budget?: number | null
     deadline?: Date | string | null
     existingSite?: string | null
-    targetAudience?: string | null
-    competitors?: ContactCreatecompetitorsInput | string[]
-    objectives?: ContactCreateobjectivesInput | string[]
-    clientType?: string | null
-    industry?: string | null
-    companySize?: string | null
+    status?: $Enums.ContactStatus
     annualRevenue?: number | null
-    preferredContactMethod?: string | null
-    marketingSource?: string | null
-    newsletter?: boolean
-    lastContact?: Date | string | null
-    nextFollowUp?: Date | string | null
-    notes?: string | null
     assignedTo?: string | null
     attachments?: ContactCreateattachmentsInput | string[]
-    status?: $Enums.ContactStatus
-    priority?: $Enums.Priority
-    tags?: ContactCreatetagsInput | string[]
-    quotationAmount?: number | null
+    companySize?: string | null
+    competitors?: ContactCreatecompetitorsInput | string[]
     contractValue?: number | null
+    industry?: string | null
     ipAddress?: string | null
-    userAgent?: string | null
+    lastContact?: Date | string | null
     locale?: string | null
+    marketingSource?: string | null
+    newsletter?: boolean
+    nextFollowUp?: Date | string | null
+    notes?: string | null
+    objectives?: ContactCreateobjectivesInput | string[]
+    position?: string | null
+    preferredContactMethod?: string | null
+    priority?: $Enums.Priority
+    projectScope?: string | null
+    quotationAmount?: number | null
+    tags?: ContactCreatetagsInput | string[]
+    targetAudience?: string | null
     timezone?: string | null
+    userAgent?: string | null
   }
 
   export type ContactUpdateInput = {
@@ -6671,39 +6671,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     company?: NullableStringFieldUpdateOperationsInput | string | null
-    position?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: StringFieldUpdateOperationsInput | string
+    clientType?: NullableStringFieldUpdateOperationsInput | string | null
     projectType?: NullableStringFieldUpdateOperationsInput | string | null
-    projectScope?: NullableStringFieldUpdateOperationsInput | string | null
     budget?: NullableFloatFieldUpdateOperationsInput | number | null
     deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     existingSite?: NullableStringFieldUpdateOperationsInput | string | null
-    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    competitors?: ContactUpdatecompetitorsInput | string[]
-    objectives?: ContactUpdateobjectivesInput | string[]
-    clientType?: NullableStringFieldUpdateOperationsInput | string | null
-    industry?: NullableStringFieldUpdateOperationsInput | string | null
-    companySize?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
     annualRevenue?: NullableFloatFieldUpdateOperationsInput | number | null
-    preferredContactMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    marketingSource?: NullableStringFieldUpdateOperationsInput | string | null
-    newsletter?: BoolFieldUpdateOperationsInput | boolean
-    lastContact?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    nextFollowUp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
     assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: ContactUpdateattachmentsInput | string[]
-    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    tags?: ContactUpdatetagsInput | string[]
-    quotationAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    companySize?: NullableStringFieldUpdateOperationsInput | string | null
+    competitors?: ContactUpdatecompetitorsInput | string[]
     contractValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContact?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     locale?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingSource?: NullableStringFieldUpdateOperationsInput | string | null
+    newsletter?: BoolFieldUpdateOperationsInput | boolean
+    nextFollowUp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: ContactUpdateobjectivesInput | string[]
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredContactMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    projectScope?: NullableStringFieldUpdateOperationsInput | string | null
+    quotationAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    tags?: ContactUpdatetagsInput | string[]
+    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ContactUncheckedUpdateInput = {
@@ -6712,39 +6712,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     company?: NullableStringFieldUpdateOperationsInput | string | null
-    position?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: StringFieldUpdateOperationsInput | string
+    clientType?: NullableStringFieldUpdateOperationsInput | string | null
     projectType?: NullableStringFieldUpdateOperationsInput | string | null
-    projectScope?: NullableStringFieldUpdateOperationsInput | string | null
     budget?: NullableFloatFieldUpdateOperationsInput | number | null
     deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     existingSite?: NullableStringFieldUpdateOperationsInput | string | null
-    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    competitors?: ContactUpdatecompetitorsInput | string[]
-    objectives?: ContactUpdateobjectivesInput | string[]
-    clientType?: NullableStringFieldUpdateOperationsInput | string | null
-    industry?: NullableStringFieldUpdateOperationsInput | string | null
-    companySize?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
     annualRevenue?: NullableFloatFieldUpdateOperationsInput | number | null
-    preferredContactMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    marketingSource?: NullableStringFieldUpdateOperationsInput | string | null
-    newsletter?: BoolFieldUpdateOperationsInput | boolean
-    lastContact?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    nextFollowUp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
     assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: ContactUpdateattachmentsInput | string[]
-    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    tags?: ContactUpdatetagsInput | string[]
-    quotationAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    companySize?: NullableStringFieldUpdateOperationsInput | string | null
+    competitors?: ContactUpdatecompetitorsInput | string[]
     contractValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContact?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     locale?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingSource?: NullableStringFieldUpdateOperationsInput | string | null
+    newsletter?: BoolFieldUpdateOperationsInput | boolean
+    nextFollowUp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: ContactUpdateobjectivesInput | string[]
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredContactMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    projectScope?: NullableStringFieldUpdateOperationsInput | string | null
+    quotationAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    tags?: ContactUpdatetagsInput | string[]
+    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ContactCreateManyInput = {
@@ -6753,39 +6753,39 @@ export namespace Prisma {
     updatedAt?: Date | string
     name: string
     email: string
+    message: string
     phone?: string | null
     company?: string | null
-    position?: string | null
-    message: string
+    clientType?: string | null
     projectType?: string | null
-    projectScope?: string | null
     budget?: number | null
     deadline?: Date | string | null
     existingSite?: string | null
-    targetAudience?: string | null
-    competitors?: ContactCreatecompetitorsInput | string[]
-    objectives?: ContactCreateobjectivesInput | string[]
-    clientType?: string | null
-    industry?: string | null
-    companySize?: string | null
+    status?: $Enums.ContactStatus
     annualRevenue?: number | null
-    preferredContactMethod?: string | null
-    marketingSource?: string | null
-    newsletter?: boolean
-    lastContact?: Date | string | null
-    nextFollowUp?: Date | string | null
-    notes?: string | null
     assignedTo?: string | null
     attachments?: ContactCreateattachmentsInput | string[]
-    status?: $Enums.ContactStatus
-    priority?: $Enums.Priority
-    tags?: ContactCreatetagsInput | string[]
-    quotationAmount?: number | null
+    companySize?: string | null
+    competitors?: ContactCreatecompetitorsInput | string[]
     contractValue?: number | null
+    industry?: string | null
     ipAddress?: string | null
-    userAgent?: string | null
+    lastContact?: Date | string | null
     locale?: string | null
+    marketingSource?: string | null
+    newsletter?: boolean
+    nextFollowUp?: Date | string | null
+    notes?: string | null
+    objectives?: ContactCreateobjectivesInput | string[]
+    position?: string | null
+    preferredContactMethod?: string | null
+    priority?: $Enums.Priority
+    projectScope?: string | null
+    quotationAmount?: number | null
+    tags?: ContactCreatetagsInput | string[]
+    targetAudience?: string | null
     timezone?: string | null
+    userAgent?: string | null
   }
 
   export type ContactUpdateManyMutationInput = {
@@ -6794,39 +6794,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     company?: NullableStringFieldUpdateOperationsInput | string | null
-    position?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: StringFieldUpdateOperationsInput | string
+    clientType?: NullableStringFieldUpdateOperationsInput | string | null
     projectType?: NullableStringFieldUpdateOperationsInput | string | null
-    projectScope?: NullableStringFieldUpdateOperationsInput | string | null
     budget?: NullableFloatFieldUpdateOperationsInput | number | null
     deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     existingSite?: NullableStringFieldUpdateOperationsInput | string | null
-    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    competitors?: ContactUpdatecompetitorsInput | string[]
-    objectives?: ContactUpdateobjectivesInput | string[]
-    clientType?: NullableStringFieldUpdateOperationsInput | string | null
-    industry?: NullableStringFieldUpdateOperationsInput | string | null
-    companySize?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
     annualRevenue?: NullableFloatFieldUpdateOperationsInput | number | null
-    preferredContactMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    marketingSource?: NullableStringFieldUpdateOperationsInput | string | null
-    newsletter?: BoolFieldUpdateOperationsInput | boolean
-    lastContact?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    nextFollowUp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
     assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: ContactUpdateattachmentsInput | string[]
-    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    tags?: ContactUpdatetagsInput | string[]
-    quotationAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    companySize?: NullableStringFieldUpdateOperationsInput | string | null
+    competitors?: ContactUpdatecompetitorsInput | string[]
     contractValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContact?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     locale?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingSource?: NullableStringFieldUpdateOperationsInput | string | null
+    newsletter?: BoolFieldUpdateOperationsInput | boolean
+    nextFollowUp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: ContactUpdateobjectivesInput | string[]
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredContactMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    projectScope?: NullableStringFieldUpdateOperationsInput | string | null
+    quotationAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    tags?: ContactUpdatetagsInput | string[]
+    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ContactUncheckedUpdateManyInput = {
@@ -6835,39 +6835,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     company?: NullableStringFieldUpdateOperationsInput | string | null
-    position?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: StringFieldUpdateOperationsInput | string
+    clientType?: NullableStringFieldUpdateOperationsInput | string | null
     projectType?: NullableStringFieldUpdateOperationsInput | string | null
-    projectScope?: NullableStringFieldUpdateOperationsInput | string | null
     budget?: NullableFloatFieldUpdateOperationsInput | number | null
     deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     existingSite?: NullableStringFieldUpdateOperationsInput | string | null
-    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    competitors?: ContactUpdatecompetitorsInput | string[]
-    objectives?: ContactUpdateobjectivesInput | string[]
-    clientType?: NullableStringFieldUpdateOperationsInput | string | null
-    industry?: NullableStringFieldUpdateOperationsInput | string | null
-    companySize?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
     annualRevenue?: NullableFloatFieldUpdateOperationsInput | number | null
-    preferredContactMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    marketingSource?: NullableStringFieldUpdateOperationsInput | string | null
-    newsletter?: BoolFieldUpdateOperationsInput | boolean
-    lastContact?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    nextFollowUp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
     assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: ContactUpdateattachmentsInput | string[]
-    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    tags?: ContactUpdatetagsInput | string[]
-    quotationAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    companySize?: NullableStringFieldUpdateOperationsInput | string | null
+    competitors?: ContactUpdatecompetitorsInput | string[]
     contractValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContact?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     locale?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingSource?: NullableStringFieldUpdateOperationsInput | string | null
+    newsletter?: BoolFieldUpdateOperationsInput | boolean
+    nextFollowUp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: ContactUpdateobjectivesInput | string[]
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredContactMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    projectScope?: NullableStringFieldUpdateOperationsInput | string | null
+    quotationAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    tags?: ContactUpdatetagsInput | string[]
+    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AccountCreateInput = {
@@ -7149,6 +7149,13 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type EnumContactStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactStatusFilter<$PrismaModel> | $Enums.ContactStatus
+  }
+
   export type StringNullableListFilter<$PrismaModel = never> = {
     equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     has?: string | StringFieldRefInput<$PrismaModel> | null
@@ -7160,13 +7167,6 @@ export namespace Prisma {
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type EnumContactStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumContactStatusFilter<$PrismaModel> | $Enums.ContactStatus
   }
 
   export type EnumPriorityFilter<$PrismaModel = never> = {
@@ -7187,46 +7187,46 @@ export namespace Prisma {
     updatedAt?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    message?: SortOrder
     phone?: SortOrder
     company?: SortOrder
-    position?: SortOrder
-    message?: SortOrder
+    clientType?: SortOrder
     projectType?: SortOrder
-    projectScope?: SortOrder
     budget?: SortOrder
     deadline?: SortOrder
     existingSite?: SortOrder
-    targetAudience?: SortOrder
-    competitors?: SortOrder
-    objectives?: SortOrder
-    clientType?: SortOrder
-    industry?: SortOrder
-    companySize?: SortOrder
+    status?: SortOrder
     annualRevenue?: SortOrder
-    preferredContactMethod?: SortOrder
-    marketingSource?: SortOrder
-    newsletter?: SortOrder
-    lastContact?: SortOrder
-    nextFollowUp?: SortOrder
-    notes?: SortOrder
     assignedTo?: SortOrder
     attachments?: SortOrder
-    status?: SortOrder
-    priority?: SortOrder
-    tags?: SortOrder
-    quotationAmount?: SortOrder
+    companySize?: SortOrder
+    competitors?: SortOrder
     contractValue?: SortOrder
+    industry?: SortOrder
     ipAddress?: SortOrder
-    userAgent?: SortOrder
+    lastContact?: SortOrder
     locale?: SortOrder
+    marketingSource?: SortOrder
+    newsletter?: SortOrder
+    nextFollowUp?: SortOrder
+    notes?: SortOrder
+    objectives?: SortOrder
+    position?: SortOrder
+    preferredContactMethod?: SortOrder
+    priority?: SortOrder
+    projectScope?: SortOrder
+    quotationAmount?: SortOrder
+    tags?: SortOrder
+    targetAudience?: SortOrder
     timezone?: SortOrder
+    userAgent?: SortOrder
   }
 
   export type ContactAvgOrderByAggregateInput = {
     budget?: SortOrder
     annualRevenue?: SortOrder
-    quotationAmount?: SortOrder
     contractValue?: SortOrder
+    quotationAmount?: SortOrder
   }
 
   export type ContactMaxOrderByAggregateInput = {
@@ -7235,35 +7235,35 @@ export namespace Prisma {
     updatedAt?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    message?: SortOrder
     phone?: SortOrder
     company?: SortOrder
-    position?: SortOrder
-    message?: SortOrder
+    clientType?: SortOrder
     projectType?: SortOrder
-    projectScope?: SortOrder
     budget?: SortOrder
     deadline?: SortOrder
     existingSite?: SortOrder
-    targetAudience?: SortOrder
-    clientType?: SortOrder
-    industry?: SortOrder
-    companySize?: SortOrder
+    status?: SortOrder
     annualRevenue?: SortOrder
-    preferredContactMethod?: SortOrder
+    assignedTo?: SortOrder
+    companySize?: SortOrder
+    contractValue?: SortOrder
+    industry?: SortOrder
+    ipAddress?: SortOrder
+    lastContact?: SortOrder
+    locale?: SortOrder
     marketingSource?: SortOrder
     newsletter?: SortOrder
-    lastContact?: SortOrder
     nextFollowUp?: SortOrder
     notes?: SortOrder
-    assignedTo?: SortOrder
-    status?: SortOrder
+    position?: SortOrder
+    preferredContactMethod?: SortOrder
     priority?: SortOrder
+    projectScope?: SortOrder
     quotationAmount?: SortOrder
-    contractValue?: SortOrder
-    ipAddress?: SortOrder
-    userAgent?: SortOrder
-    locale?: SortOrder
+    targetAudience?: SortOrder
     timezone?: SortOrder
+    userAgent?: SortOrder
   }
 
   export type ContactMinOrderByAggregateInput = {
@@ -7272,42 +7272,42 @@ export namespace Prisma {
     updatedAt?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    message?: SortOrder
     phone?: SortOrder
     company?: SortOrder
-    position?: SortOrder
-    message?: SortOrder
+    clientType?: SortOrder
     projectType?: SortOrder
-    projectScope?: SortOrder
     budget?: SortOrder
     deadline?: SortOrder
     existingSite?: SortOrder
-    targetAudience?: SortOrder
-    clientType?: SortOrder
-    industry?: SortOrder
-    companySize?: SortOrder
+    status?: SortOrder
     annualRevenue?: SortOrder
-    preferredContactMethod?: SortOrder
+    assignedTo?: SortOrder
+    companySize?: SortOrder
+    contractValue?: SortOrder
+    industry?: SortOrder
+    ipAddress?: SortOrder
+    lastContact?: SortOrder
+    locale?: SortOrder
     marketingSource?: SortOrder
     newsletter?: SortOrder
-    lastContact?: SortOrder
     nextFollowUp?: SortOrder
     notes?: SortOrder
-    assignedTo?: SortOrder
-    status?: SortOrder
+    position?: SortOrder
+    preferredContactMethod?: SortOrder
     priority?: SortOrder
+    projectScope?: SortOrder
     quotationAmount?: SortOrder
-    contractValue?: SortOrder
-    ipAddress?: SortOrder
-    userAgent?: SortOrder
-    locale?: SortOrder
+    targetAudience?: SortOrder
     timezone?: SortOrder
+    userAgent?: SortOrder
   }
 
   export type ContactSumOrderByAggregateInput = {
     budget?: SortOrder
     annualRevenue?: SortOrder
-    quotationAmount?: SortOrder
     contractValue?: SortOrder
+    quotationAmount?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -7390,14 +7390,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type EnumContactStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
@@ -7406,6 +7398,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumContactStatusFilter<$PrismaModel>
     _max?: NestedEnumContactStatusFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type EnumPriorityWithAggregatesFilter<$PrismaModel = never> = {
@@ -7573,15 +7573,15 @@ export namespace Prisma {
     image?: SortOrder
   }
 
+  export type ContactCreateattachmentsInput = {
+    set: string[]
+  }
+
   export type ContactCreatecompetitorsInput = {
     set: string[]
   }
 
   export type ContactCreateobjectivesInput = {
-    set: string[]
-  }
-
-  export type ContactCreateattachmentsInput = {
     set: string[]
   }
 
@@ -7613,12 +7613,16 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
-  export type ContactUpdatecompetitorsInput = {
+  export type EnumContactStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ContactStatus
+  }
+
+  export type ContactUpdateattachmentsInput = {
     set?: string[]
     push?: string | string[]
   }
 
-  export type ContactUpdateobjectivesInput = {
+  export type ContactUpdatecompetitorsInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -7627,13 +7631,9 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type ContactUpdateattachmentsInput = {
+  export type ContactUpdateobjectivesInput = {
     set?: string[]
     push?: string | string[]
-  }
-
-  export type EnumContactStatusFieldUpdateOperationsInput = {
-    set?: $Enums.ContactStatus
   }
 
   export type EnumPriorityFieldUpdateOperationsInput = {
@@ -7826,16 +7826,16 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedEnumContactStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumContactStatusFilter<$PrismaModel> | $Enums.ContactStatus
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedEnumPriorityFilter<$PrismaModel = never> = {
@@ -7945,14 +7945,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedEnumContactStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
@@ -7961,6 +7953,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumContactStatusFilter<$PrismaModel>
     _max?: NestedEnumContactStatusFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumPriorityWithAggregatesFilter<$PrismaModel = never> = {

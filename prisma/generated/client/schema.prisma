@@ -1,7 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["postgresqlExtensions"]
   output          = "./generated/client"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
@@ -16,39 +16,39 @@ model Contact {
   updatedAt              DateTime      @updatedAt
   name                   String
   email                  String
+  message                String
   phone                  String?
   company                String?
-  position               String?
-  message                String
+  clientType             String?
   projectType            String?
-  projectScope           String?
   budget                 Float?
   deadline               DateTime?
   existingSite           String?
-  targetAudience         String?
-  competitors            String[]
-  objectives             String[]
-  clientType             String?
-  industry               String?
-  companySize            String?
+  status                 ContactStatus @default(NEW)
   annualRevenue          Float?
-  preferredContactMethod String?
-  marketingSource        String?
-  newsletter             Boolean       @default(false)
-  lastContact            DateTime?
-  nextFollowUp           DateTime?
-  notes                  String?
   assignedTo             String?
   attachments            String[]
-  status                 ContactStatus @default(NEW)
-  priority               Priority      @default(NORMAL)
-  tags                   String[]
-  quotationAmount        Float?
+  companySize            String?
+  competitors            String[]
   contractValue          Float?
+  industry               String?
   ipAddress              String?
-  userAgent              String?
+  lastContact            DateTime?
   locale                 String?
+  marketingSource        String?
+  newsletter             Boolean       @default(false)
+  nextFollowUp           DateTime?
+  notes                  String?
+  objectives             String[]
+  position               String?
+  preferredContactMethod String?
+  priority               Priority      @default(NORMAL)
+  projectScope           String?
+  quotationAmount        Float?
+  tags                   String[]
+  targetAudience         String?
   timezone               String?
+  userAgent              String?
 }
 
 model Account {
