@@ -1,76 +1,92 @@
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  // Ajoutez cette ligne pour spécifier la version
-  relationMode = "prisma"
-}
-
 generator client {
-  provider = "prisma-client-js"
-  // Ajoutez ces options pour la compatibilité
+  provider        = "prisma-client-js"
   previewFeatures = ["postgresqlExtensions"]
 }
 
-// Le reste du schéma reste identique
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
 model Contact {
-  id            String        @id @default(uuid())
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  
-  // Informations personnelles
-  name          String
-  email         String
-  phone         String?
-  company       String?
-  position      String?       // Poste dans l'entreprise
-  
-  // Détails du projet
-  message       String        @db.Text
-  projectType   String?
-  projectScope  String?       // Envergure du projet
-  budget        Float?
-  deadline      DateTime?
-  
-  // Informations techniques
-  existingSite  String?
-  targetAudience String?      // Public cible
-  competitors   String[]      // Liste des concurrents
-  objectives    String[]      // Objectifs du projet
-  
-  // Informations business
-  clientType    String?       // B2B, B2C, etc.
-  industry      String?       // Secteur d'activité
-  companySize   String?       // Taille de l'entreprise
-  annualRevenue Float?        // Chiffre d'affaires
-  
-  // Préférences marketing
-  preferredContactMethod String? // Email, téléphone, etc.
-  marketingSource String?      // Comment ils nous ont trouvé
-  newsletter     Boolean       @default(false)
-  
-  // Suivi commercial
-  lastContact    DateTime?     // Dernière interaction
-  nextFollowUp   DateTime?     // Prochaine relance
-  notes          String?       @db.Text // Notes internes
-  assignedTo     String?      // Responsable du suivi
-  
-  // Documents
-  attachments    String[]     // URLs des pièces jointes
-  
-  // Status et classification
-  status        ContactStatus @default(NEW)
-  priority      Priority      @default(NORMAL)
-  tags          String[]      // Tags pour la classification
-  
-  // Données financières
-  quotationAmount Float?      // Montant du devis
-  contractValue  Float?       // Valeur du contrat signé
-  
-  // Métadonnées
-  ipAddress     String?      // IP de soumission
-  userAgent     String?      // Navigateur utilisé
-  locale        String?      // Langue préférée
-  timezone      String?      // Fuseau horaire
+  id                     String        @id @default(uuid())
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+  name                   String
+  email                  String
+  phone                  String?
+  company                String?
+  position               String?
+  message                String
+  projectType            String?
+  projectScope           String?
+  budget                 Float?
+  deadline               DateTime?
+  existingSite           String?
+  targetAudience         String?
+  competitors            String[]
+  objectives             String[]
+  clientType             String?
+  industry               String?
+  companySize            String?
+  annualRevenue          Float?
+  preferredContactMethod String?
+  marketingSource        String?
+  newsletter             Boolean       @default(false)
+  lastContact            DateTime?
+  nextFollowUp           DateTime?
+  notes                  String?
+  assignedTo             String?
+  attachments            String[]
+  status                 ContactStatus @default(NEW)
+  priority               Priority      @default(NORMAL)
+  tags                   String[]
+  quotationAmount        Float?
+  contractValue          Float?
+  ipAddress              String?
+  userAgent              String?
+  locale                 String?
+  timezone               String?
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
 }
 
 enum ContactStatus {
@@ -85,41 +101,4 @@ enum Priority {
   NORMAL
   HIGH
   URGENT
-}
-
-model Account {
- id                String  @id @default(cuid())
- userId            String
- type              String
- provider          String
- providerAccountId String
- refresh_token     String? @db.Text
- access_token      String? @db.Text
- expires_at        Int?
- token_type        String?
- scope             String?
- id_token          String? @db.Text
- session_state     String?
- user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- @@unique([provider, providerAccountId])
- @@index([userId])
-}
-
-model Session {
- id           String   @id @default(cuid())
- sessionToken String   @unique
- userId       String
- expires      DateTime
- user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- @@index([userId])
-}
-
-model User {
- id            String    @id @default(cuid())
- name          String?
- email         String?   @unique
- emailVerified DateTime?
- image         String?
- accounts      Account[]
- sessions      Session[]
 }
