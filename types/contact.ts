@@ -1,16 +1,13 @@
-export enum ContactStatus {
-  NEW = "NEW",
-  IN_PROGRESS = "IN_PROGRESS",
-  COMPLETED = "COMPLETED",
-  ARCHIVED = "ARCHIVED",
-}
+import {
+  ContactStatus as PrismaContactStatus,
+  Priority as PrismaPriority,
+} from "@prisma/client";
 
-export enum Priority {
-  LOW = "LOW",
-  NORMAL = "NORMAL",
-  HIGH = "HIGH",
-  URGENT = "URGENT",
-}
+export type ContactStatus = PrismaContactStatus;
+export type Priority = PrismaPriority;
+
+export const ContactStatus = PrismaContactStatus;
+export const Priority = PrismaPriority;
 
 export interface Contact {
   id: string;
@@ -52,3 +49,20 @@ export interface Contact {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface ContactFilters {
+  status?: ContactStatus;
+  priority?: Priority;
+  search?: string;
+  dateRange?: {
+    start: Date;
+    end: Date;
+  };
+}
+
+export interface ContactSort {
+  field: keyof Contact;
+  direction: "asc" | "desc";
+}
+
+export type ContactView = "all" | "recent" | "archived";

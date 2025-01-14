@@ -50,6 +50,10 @@ export const formSchema = z.object({
   budget: z.string().optional(),
   deadline: z.string().optional(),
   existingSite: z.string().optional(),
+  attachments: z.array(z.string()).optional(),
+  competitors: z.array(z.string()).optional(),
+  objectives: z.array(z.string()).optional(),
+  tags: z.array(z.string()).optional(),
 });
 
 export type FormValues = z.infer<typeof formSchema>;

@@ -1,10 +1,10 @@
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Contact {
@@ -13,54 +13,54 @@ model Contact {
   updatedAt              DateTime      @updatedAt
   name                   String
   email                  String
-  message                String
-  phone                  String?
-  company                String?
-  clientType             String?
-  projectType            String?
-  budget                 Float?
+  message               String        @db.Text
+  phone                  String?       @db.VarChar(20)
+  company                String?       @db.VarChar(100)
+  clientType             String?       @db.VarChar(50)
+  projectType            String?       @db.VarChar(50)
+  budget                 Decimal?      @db.Decimal(10, 2)
   deadline               DateTime?
-  existingSite           String?
-  status                 ContactStatus @default(NEW)
-  annualRevenue          Float?
-  assignedTo             String?
-  attachments            String[]
-  companySize            String?
-  competitors            String[]
-  contractValue          Float?
-  industry               String?
-  ipAddress              String?
-  lastContact            DateTime?
-  locale                 String?
-  marketingSource        String?
-  newsletter             Boolean       @default(false)
-  nextFollowUp           DateTime?
-  notes                  String?
-  objectives             String[]
-  position               String?
-  preferredContactMethod String?
-  priority               Priority      @default(NORMAL)
-  projectScope           String?
-  quotationAmount        Float?
-  tags                   String[]
-  targetAudience         String?
-  timezone               String?
-  userAgent              String?
+  existingSite          String?       @db.VarChar(255)
+  status                ContactStatus @default(NEW)
+  annualRevenue         Decimal?      @db.Decimal(15, 2)
+  assignedTo            String?       @db.VarChar(100)
+  attachments           Json?         // Stocké comme JSON au lieu d'un array
+  companySize           String?       @db.VarChar(50)
+  competitors           Json?         // Stocké comme JSON au lieu d'un array
+  contractValue         Decimal?      @db.Decimal(10, 2)
+  industry              String?       @db.VarChar(100)
+  ipAddress             String?       @db.VarChar(45)
+  lastContact           DateTime?
+  locale                String?       @db.VarChar(10)
+  marketingSource       String?       @db.VarChar(100)
+  newsletter            Boolean       @default(false)
+  nextFollowUp          DateTime?
+  notes                 String?       @db.Text
+  objectives            Json?         // Stocké comme JSON au lieu d'un array
+  position              String?       @db.VarChar(100)
+  preferredContactMethod String?      @db.VarChar(50)
+  priority              Priority      @default(NORMAL)
+  projectScope          String?       @db.Text
+  quotationAmount       Decimal?      @db.Decimal(10, 2)
+  tags                  Json?         // Stocké comme JSON au lieu d'un array
+  targetAudience        String?       @db.Text
+  timezone              String?       @db.VarChar(50)
+  userAgent             String?       @db.Text
 }
 
 model Account {
   id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
+  userId            String  @db.VarChar(255)
+  type              String  @db.VarChar(50)
+  provider          String  @db.VarChar(50)
+  providerAccountId String  @db.VarChar(255)
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
+  token_type        String? @db.VarChar(50)
+  scope             String? @db.Text
+  id_token          String? @db.Text
+  session_state     String? @db.Text
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
@@ -69,8 +69,8 @@ model Account {
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
+  sessionToken String   @unique @db.VarChar(255)
+  userId       String   @db.VarChar(255)
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -79,10 +79,10 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
+  name          String?   @db.VarChar(100)
+  email         String?   @unique @db.VarChar(100)
   emailVerified DateTime?
-  image         String?
+  image         String?   @db.Text
   accounts      Account[]
   sessions      Session[]
 }

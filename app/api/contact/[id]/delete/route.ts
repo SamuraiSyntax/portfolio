@@ -4,10 +4,8 @@ import { ContactService } from "@/lib/services/contact.service";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { NextResponse } from "next/server";
 
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const { searchParams } = new URL(request.url);
   const token = searchParams.get("token");
   const contactId = params.id;

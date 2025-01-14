@@ -1,4 +1,5 @@
 import { Prisma } from "@prisma/client";
+import { ContactStatus, Priority } from "./contact";
 
 export type PrismaContact = {
   id: string;
@@ -10,19 +11,19 @@ export type PrismaContact = {
   message: string;
   projectType: string | null;
   projectScope: string | null;
-  budget: number | null;
+  budget: Prisma.Decimal | null;
   deadline: Date | null;
   existingSite: string | null;
-  status: string;
-  priority: string;
-  tags: string[];
+  status: ContactStatus;
+  priority: Priority;
+  tags: Prisma.JsonValue;
   targetAudience: string | null;
-  competitors: string[];
-  objectives: string[];
+  competitors: Prisma.JsonValue;
+  objectives: Prisma.JsonValue;
   clientType: string | null;
   industry: string | null;
   companySize: string | null;
-  annualRevenue: number | null;
+  annualRevenue: Prisma.Decimal | null;
   preferredContactMethod: string | null;
   marketingSource: string | null;
   newsletter: boolean;
@@ -30,9 +31,9 @@ export type PrismaContact = {
   nextFollowUp: Date | null;
   notes: string | null;
   assignedTo: string | null;
-  attachments: string[];
-  quotationAmount: number | null;
-  contractValue: number | null;
+  attachments: Prisma.JsonValue;
+  quotationAmount: Prisma.Decimal | null;
+  contractValue: Prisma.Decimal | null;
   ipAddress: string | null;
   userAgent: string | null;
   locale: string | null;

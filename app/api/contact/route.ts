@@ -1,33 +1,49 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
+import { ContactService } from "@/lib/services/contact.service";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const formData = await request.formData();
+    const contentType = request.headers.get("content-type");
 
-    const contact = await prisma.contact.create({
-      data: {
-        name: formData.get("name") as string,
-        email: formData.get("email") as string,
-        phone: (formData.get("phone") as string) || null,
-        company: (formData.get("company") as string) || null,
-        message: formData.get("message") as string,
-        clientType: (formData.get("clientType") as string) || null,
-        projectType: (formData.get("projectType") as string) || null,
-        budget: formData.get("budget") ? Number(formData.get("budget")) : null,
-        deadline: formData.get("deadline")
-          ? new Date(formData.get("deadline") as string)
-          : null,
-        existingSite: (formData.get("existingSite") as string) || null,
-        status: "NEW",
-      },
+    let data;
+    if (contentType?.includes("application/json")) {
+      data = await request.json();
+    } else if (
+      contentType?.includes("multipart/form-data") ||
+      contentType?.includes("application/x-www-form-urlencoded")
+    ) {
+      const formData = await request.formData();
+      data = Object.fromEntries(formData);
+    } else {
+      return new NextResponse(
+        "Content-Type invalide. Utilisez application/json, multipart/form-data ou application/x-www-form-urlencoded",
+        { status: 415 }
+      );
+    }
+
+    // Validation des champs requis
+    const requiredFields = ["name", "email", "message"];
+    for (const field of requiredFields) {
+      if (!data[field]) {
+        return new NextResponse(`Le champ ${field} est requis`, {
+          status: 400,
+        });
+      }
+    }
+
+    // Utilisation du ContactService pour créer le contact et envoyer l'email
+    const contact = await ContactService.create(data);
+
+    return NextResponse.json(contact, {
+      status: 201,
     });
-
-    return NextResponse.json(contact);
   } catch (error) {
     console.error("[CONTACT_POST]", error);
-    return new NextResponse("Internal error", { status: 500 });
+    return new NextResponse(
+      error instanceof Error ? error.message : "Erreur interne du serveur",
+      { status: 500 }
+    );
   }
 }

@@ -81,6 +81,11 @@ export function ContactDesktopCell({
     });
   };
 
+  // Fonction utilitaire pour gérer les tableaux JSON
+  const safeArray = <T,>(value: T[] | null): T[] => {
+    return Array.isArray(value) ? value : [];
+  };
+
   return (
     <>
       <TableCell className="hidden md:table-cell">
@@ -157,7 +162,9 @@ export function ContactDesktopCell({
         </span>
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {contact.tags.length > 0 ? contact.tags.join(", ") : "-"}
+        {safeArray(contact.tags).length > 0
+          ? safeArray(contact.tags).join(", ")
+          : "-"}
       </TableCell>
 
       {/* Informations techniques */}
@@ -190,10 +197,14 @@ export function ContactDesktopCell({
         {contact.targetAudience || "-"}
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {contact.competitors.length > 0 ? contact.competitors.join(", ") : "-"}
+        {safeArray(contact.competitors).length > 0
+          ? safeArray(contact.competitors).join(", ")
+          : "-"}
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {contact.objectives.length > 0 ? contact.objectives.join(", ") : "-"}
+        {safeArray(contact.objectives).length > 0
+          ? safeArray(contact.objectives).join(", ")
+          : "-"}
       </TableCell>
 
       {/* Informations business */}
@@ -237,8 +248,8 @@ export function ContactDesktopCell({
 
       {/* Documents */}
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {contact.attachments.length > 0
-          ? `${contact.attachments.length} fichier(s)`
+        {safeArray(contact.attachments).length > 0
+          ? `${safeArray(contact.attachments).length} fichier(s)`
           : "-"}
       </TableCell>
 

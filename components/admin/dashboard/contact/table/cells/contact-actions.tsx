@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { toast } from "@/hooks/use-toast";
 import { Contact, ContactStatus, Priority } from "@/types/contact";
 import {
   Archive,
@@ -50,6 +51,40 @@ export function ContactActions({
   onEdit,
   onAction,
 }: ContactActionsProps) {
+  const handleEmailClick = async () => {
+    try {
+      // Création du template d'email
+      const subject = `RE: ${
+        contact.projectType || "Votre demande de contact"
+      }`;
+      const body = `Bonjour ${
+        contact.name
+      },\n\nMerci pour votre message concernant ${
+        contact.projectType || "votre projet"
+      }.\n\nCordialement,\n[Votre nom]`;
+
+      // Construction de l'URL Gmail
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+        contact.email
+      )}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      // Ouvrir Gmail dans un nouvel onglet
+      window.open(gmailUrl, "_blank");
+    } catch (error) {
+      toast({
+        title: "Erreur lors de l'ouverture de Gmail",
+        description: error instanceof Error ? error.message : "Erreur inconnue",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handlePhoneClick = () => {
+    if (contact.phone) {
+      window.location.href = `tel:${contact.phone}`;
+    }
+  };
+
   return (
     <div className="flex items-center justify-end gap-2">
       <DropdownMenu>
@@ -70,16 +105,12 @@ export function ContactActions({
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem
-            onClick={() => (window.location.href = `mailto:${contact.email}`)}
-          >
+          <DropdownMenuItem onClick={handleEmailClick}>
             <Mail className="h-4 w-4 mr-2" />
             Envoyer un email
           </DropdownMenuItem>
           {contact.phone && (
-            <DropdownMenuItem
-              onClick={() => (window.location.href = `tel:${contact.phone}`)}
-            >
+            <DropdownMenuItem onClick={handlePhoneClick}>
               <Phone className="h-4 w-4 mr-2" />
               Appeler
             </DropdownMenuItem>
@@ -121,11 +152,11 @@ export function ContactActions({
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem onClick={() => onView()}>
+          <DropdownMenuItem onClick={onView}>
             <Calendar className="h-4 w-4 mr-2" />
             Planifier un suivi
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onView()}>
+          <DropdownMenuItem onClick={onView}>
             <FileText className="h-4 w-4 mr-2" />
             Ajouter une note
           </DropdownMenuItem>

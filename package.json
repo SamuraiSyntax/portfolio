@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "db": "mysql -h 109.234.166.47 -P 3306 -u sopi7959_portfolio_admin -pvmaFshjAxmcu sopi7959_portfolio_next",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -11,6 +12,7 @@
     "vercel-build": "prisma generate && next build"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.7.4",
     "@hookform/resolvers": "^3.9.1",
     "@prisma/client": "^6.2.1",
     "@radix-ui/react-accordion": "^1.2.2",
@@ -49,12 +51,12 @@
     "input-otp": "^1.4.1",
     "lucide-react": "^0.468.0",
     "motion": "^11.15.0",
-    "next": "14.2.16",
+    "next": "^15.1.4",
     "next-auth": "^5.0.0-beta.25",
     "next-themes": "^0.4.4",
-    "react": "^18",
+    "react": "^19.0.0",
     "react-day-picker": "^8.10.1",
-    "react-dom": "^18",
+    "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "react-icons": "^5.4.0",
     "react-resizable-panels": "^2.1.7",
