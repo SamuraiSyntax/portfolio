@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ContactStatus, Priority } from "@prisma/client";
+import { Decimal } from "@prisma/client/runtime/library";
 import { NextResponse } from "next/server";
 
 export async function PUT(
@@ -26,7 +27,9 @@ export async function PUT(
         message: data.message as string,
         clientType: (data.clientType as string) || null,
         projectType: (data.projectType as string) || null,
-        budget: data.budget ? Number(data.budget) : null,
+        budget: data.budget
+          ? new Decimal(data.budget as string).toNumber()
+          : null,
         status: (data.status as ContactStatus) || "NEW",
         priority: (data.priority as Priority) || "NORMAL",
       },

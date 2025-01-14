@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { convertPrismaContactToContact } from "@/lib/utils/contact";
+import { PrismaContact } from "@/types/prisma";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -10,7 +11,11 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json(contacts.map(convertPrismaContactToContact));
+    return NextResponse.json(
+      contacts.map((contact) =>
+        convertPrismaContactToContact(contact as PrismaContact)
+      )
+    );
   } catch (error) {
     console.error("[CONTACTS_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
@@ -31,7 +36,9 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json(convertPrismaContactToContact(contact));
+    return NextResponse.json(
+      convertPrismaContactToContact(contact as PrismaContact)
+    );
   } catch (error) {
     console.error("[CONTACT_POST]", error);
     return new NextResponse("Internal error", { status: 500 });

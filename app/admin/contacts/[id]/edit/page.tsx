@@ -1,29 +1,23 @@
 import { ContactForm } from "@/components/admin/dashboard/contact/contact-form";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
 
-export default async function EditContactPage(props: {
-  params: Promise<{ id: string }>;
+export default async function EditContactPage({
+  params,
+}: {
+  params: { id: string };
 }) {
-  const params = await props.params;
   const { id } = params;
-
-  const session = await auth();
-  if (!session) {
-    redirect("/admin");
-  }
 
   const contact = await prisma.contact.findUnique({
     where: { id },
   });
 
   if (!contact) {
-    notFound();
+    return <div>Contact not found</div>;
   }
 
   const contactData = {
@@ -33,7 +27,7 @@ export default async function EditContactPage(props: {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between">
         <Link href={`/admin/contacts/${id}`}>
           <Button variant="ghost" size="icon">
             <ArrowLeft className="h-4 w-4" />
