@@ -1,5 +1,6 @@
 import { Contact, ContactStatus, Priority } from "@/types/contact";
 import { PrismaContact } from "@/types/prisma";
+import { Decimal } from "@prisma/client/runtime/library";
 
 export function convertPrismaContactToContact(
   prismaContact: PrismaContact
@@ -14,7 +15,7 @@ export function convertPrismaContactToContact(
     message: prismaContact.message,
     projectType: prismaContact.projectType,
     projectScope: prismaContact.projectScope,
-    budget: prismaContact.budget ? Number(prismaContact.budget) : null,
+    budget: prismaContact.budget as Decimal | null,
     deadline: prismaContact.deadline,
     existingSite: prismaContact.existingSite,
     status: prismaContact.status as ContactStatus,

@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { convertPrismaContactToContact } from "@/lib/utils/contact";
-import { PrismaContact } from "@/types/prisma";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
@@ -28,6 +26,11 @@ export default async function EditContactPage(props: {
     notFound();
   }
 
+  const contactData = {
+    ...contact,
+    budget: contact.budget ? contact.budget.toNumber() : null,
+  };
+
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center gap-4">
@@ -40,10 +43,7 @@ export default async function EditContactPage(props: {
       </div>
 
       <Card className="p-6">
-        <ContactForm
-          contact={convertPrismaContactToContact(contact as PrismaContact)}
-          isEditing={true}
-        />
+        <ContactForm contact={contactData} isEditing={true} />
       </Card>
     </div>
   );

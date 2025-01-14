@@ -1,7 +1,7 @@
 import { ContactTable } from "@/components/admin/dashboard/contact/contact-table";
 import { StatsCards } from "@/components/admin/dashboard/stats/stats-cards";
 import { prisma } from "@/lib/prisma";
-import { ContactStatus } from "@/types/contact";
+import { Contact, ContactStatus } from "@/types/contact";
 
 interface StatusCount {
   status: ContactStatus;
@@ -78,7 +78,10 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <ContactTable contacts={convertedContacts} defaultView="recent" />
+      <ContactTable
+        contacts={convertedContacts as Contact[]}
+        defaultView="recent"
+      />
     </div>
   );
 }

@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { convertPrismaContactToContact } from "@/lib/utils/contact";
+import { PrismaContact } from "@/types/prisma";
+import { Decimal } from "@prisma/client/runtime/library";
 import { ArrowLeft, Edit } from "lucide-react";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
@@ -27,6 +29,11 @@ export default async function ContactPage(props: {
     notFound();
   }
 
+  const contactData = convertPrismaContactToContact(contact as PrismaContact);
+  contactData.budget = contactData.budget
+    ? new Decimal(contactData.budget.toNumber())
+    : null;
+
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
@@ -47,7 +54,7 @@ export default async function ContactPage(props: {
       </div>
 
       <Card className="p-6">
-        <ContactDetails contact={convertPrismaContactToContact(contact)} />
+        <ContactDetails contact={contactData} />
       </Card>
     </div>
   );

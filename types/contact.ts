@@ -2,6 +2,7 @@ import {
   ContactStatus as PrismaContactStatus,
   Priority as PrismaPriority,
 } from "@prisma/client";
+import { Decimal } from "@prisma/client/runtime/library";
 
 export type ContactStatus = PrismaContactStatus;
 export type Priority = PrismaPriority;
@@ -19,7 +20,7 @@ export interface Contact {
   message: string;
   projectType: string | null;
   projectScope: string | null;
-  budget: number | null;
+  budget: Decimal | null;
   deadline: Date | null;
   existingSite: string | null;
   status: ContactStatus;
