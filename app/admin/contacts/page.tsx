@@ -10,13 +10,13 @@ export default async function ContactsPage() {
     },
   });
 
+  const convertedContacts = contacts.map((contact) =>
+    convertPrismaContactToContact(contact as PrismaContact)
+  );
+
   return (
     <div className="p-4">
-      <ContactTable
-        contacts={contacts.map((contact) =>
-          convertPrismaContactToContact(contact as PrismaContact)
-        )}
-      />
+      <ContactTable contacts={convertedContacts} />
     </div>
   );
 }
