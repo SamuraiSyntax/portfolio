@@ -9,6 +9,7 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
+    const id = params.id;
     const session = await auth();
     if (!session) {
       return new NextResponse("Non autorisé", { status: 401 });
@@ -18,7 +19,7 @@ export async function PUT(
     const data = Object.fromEntries(formData);
 
     const contact = await prisma.contact.update({
-      where: { id: params.id },
+      where: { id: id },
       data: {
         name: data.name as string,
         email: data.email as string,
@@ -49,9 +50,10 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
+    const id = params.id;
     const { status } = await request.json();
     const contact = await prisma.contact.update({
-      where: { id: params.id },
+      where: { id: id },
       data: { status },
     });
     return NextResponse.json(contact);
@@ -68,8 +70,9 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    const id = params.id;
     await prisma.contact.delete({
-      where: { id: params.id },
+      where: { id: id },
     });
     return NextResponse.json({ success: true });
   } catch (error) {
