@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { convertPrismaContactToContact } from "@/lib/utils/contact";
 import { PrismaContact } from "@/types/prisma";
 import { NextResponse } from "next/server";

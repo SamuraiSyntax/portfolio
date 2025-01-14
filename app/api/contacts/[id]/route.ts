@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { ContactStatus, Priority } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 import { NextResponse } from "next/server";

@@ -2,7 +2,7 @@ import { ContactDetails } from "@/components/admin/dashboard/contact/contact-det
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { convertPrismaContactToContact } from "@/lib/utils/contact";
 import { PrismaContact } from "@/types/prisma";
 import { Decimal } from "@prisma/client/runtime/library";

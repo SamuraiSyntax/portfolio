@@ -1,7 +1,7 @@
 import { ContactForm } from "@/components/admin/dashboard/contact/contact-form";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 

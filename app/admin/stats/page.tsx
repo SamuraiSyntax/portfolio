@@ -1,5 +1,5 @@
 import { StatsDisplay } from "@/components/admin/dashboard/stats/stats-display";
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

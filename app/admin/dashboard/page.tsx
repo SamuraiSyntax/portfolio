@@ -1,6 +1,6 @@
 import { ContactTable } from "@/components/admin/dashboard/contact/contact-table";
 import { StatsCards } from "@/components/admin/dashboard/stats/stats-cards";
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { Contact, ContactStatus } from "@/types/contact";
 
 interface StatusCount {

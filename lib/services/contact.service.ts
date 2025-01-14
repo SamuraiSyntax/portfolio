@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { EmailService } from "@/lib/services/email.service";
 import { FormValues } from "@/lib/types/contact";
 import { Prisma } from "@prisma/client";
