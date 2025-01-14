@@ -2,14 +2,15 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ContactStatus, Priority } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
+
   try {
-    const id = params.id;
     const session = await auth();
     if (!session) {
       return new NextResponse("Non autorisé", { status: 401 });
@@ -19,7 +20,7 @@ export async function PUT(
     const data = Object.fromEntries(formData);
 
     const contact = await prisma.contact.update({
-      where: { id: id },
+      where: { id },
       data: {
         name: data.name as string,
         email: data.email as string,
@@ -46,14 +47,15 @@ export async function PUT(
 }
 
 export async function PATCH(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
+
   try {
-    const id = params.id;
     const { status } = await request.json();
     const contact = await prisma.contact.update({
-      where: { id: id },
+      where: { id },
       data: { status },
     });
     return NextResponse.json(contact);
@@ -66,13 +68,14 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
+
   try {
-    const id = params.id;
     await prisma.contact.delete({
-      where: { id: id },
+      where: { id },
     });
     return NextResponse.json({ success: true });
   } catch (error) {
