@@ -5,12 +5,10 @@ import { prisma } from "@/lib/prisma";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-export default async function EditContactPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+type tParams = Promise<{ id: string }>;
+
+export default async function EditContactPage(props: { params: tParams }) {
+  const { id } = await props.params;
 
   const contact = await prisma.contact.findUnique({
     where: { id },
