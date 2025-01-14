@@ -8,9 +8,9 @@ import Link from "next/link";
 export default async function EditContactPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const { id } = params;
+  const { id } = await params;
 
   const contact = await prisma.contact.findUnique({
     where: { id },
