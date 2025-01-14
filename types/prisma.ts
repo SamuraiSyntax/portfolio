@@ -1,6 +1,6 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, Contact as PrismaContactModel } from "@prisma/client";
 
-export type PrismaContact = {
+export type PrismaContact = PrismaContactModel & {
   id: string;
   createdAt: Date;
   updatedAt: Date;
