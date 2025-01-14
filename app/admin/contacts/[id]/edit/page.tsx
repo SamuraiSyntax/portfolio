@@ -4,10 +4,10 @@ import { Card } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { convertPrismaContactToContact } from "@/lib/utils/contact";
+import { PrismaContact } from "@/types/prisma";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import React from "react";
 
 export default async function EditContactPage(props: {
   params: Promise<{ id: string }>;
@@ -41,7 +41,7 @@ export default async function EditContactPage(props: {
 
       <Card className="p-6">
         <ContactForm
-          contact={convertPrismaContactToContact(contact)}
+          contact={convertPrismaContactToContact(contact as PrismaContact)}
           isEditing={true}
         />
       </Card>

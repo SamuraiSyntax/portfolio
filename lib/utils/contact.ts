@@ -1,4 +1,4 @@
-import { Contact } from "@/types/contact";
+import { Contact, ContactStatus, Priority } from "@/types/contact";
 import { PrismaContact } from "@/types/prisma";
 
 export function convertPrismaContactToContact(
@@ -17,10 +17,10 @@ export function convertPrismaContactToContact(
     budget: prismaContact.budget ? Number(prismaContact.budget) : null,
     deadline: prismaContact.deadline,
     existingSite: prismaContact.existingSite,
-    status: prismaContact.status,
-    priority: prismaContact.priority,
+    status: prismaContact.status as ContactStatus,
+    priority: prismaContact.priority as Priority,
     tags: (prismaContact.tags as string[]) || [],
-    targetAudience: prismaContact.targetAudience,
+    targetAudience: prismaContact.targetAudience as string | null,
     competitors: (prismaContact.competitors as string[]) || [],
     objectives: (prismaContact.objectives as string[]) || [],
     clientType: prismaContact.clientType,
@@ -31,7 +31,7 @@ export function convertPrismaContactToContact(
       : null,
     preferredContactMethod: prismaContact.preferredContactMethod,
     marketingSource: prismaContact.marketingSource,
-    newsletter: prismaContact.newsletter,
+    newsletter: prismaContact.newsletter as boolean,
     lastContact: prismaContact.lastContact,
     nextFollowUp: prismaContact.nextFollowUp,
     notes: prismaContact.notes,
