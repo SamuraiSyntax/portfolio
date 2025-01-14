@@ -15,7 +15,7 @@ export function useContact(initialContact?: Contact) {
       setError(null);
 
       try {
-        const { data, error } = await contactService.updateContact(
+        const { data, error } = await contactService.update(
           contact.id,
           updatedContact
         );
@@ -42,7 +42,7 @@ export function useContact(initialContact?: Contact) {
     setError(null);
 
     try {
-      const { data, error } = await contactService.getContact(contact.id);
+      const { data, error } = await contactService.getById(contact.id);
       if (error) throw new Error(error);
       if (data) setContact(data);
     } catch (err) {
