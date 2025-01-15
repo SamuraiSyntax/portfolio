@@ -1,7 +1,6 @@
 import prisma from "@/lib/prisma";
 import { EmailService } from "@/lib/services/email.service";
 import { FormValues } from "@/lib/types/contact";
-import { Prisma } from "@prisma/client";
 
 export class ContactService {
   static async create(data: FormValues) {
@@ -20,11 +19,11 @@ export class ContactService {
         budget: data.budget ? parseFloat(data.budget) : null,
         deadline: data.deadline ? new Date(data.deadline) : null,
         existingSite: data.existingSite || null,
-        // Conversion des arrays en JSON pour MySQL
-        attachments: data.attachments ? data.attachments : Prisma.JsonNull,
-        competitors: data.competitors ? data.competitors : Prisma.JsonNull,
-        objectives: data.objectives ? data.objectives : Prisma.JsonNull,
-        tags: data.tags ? data.tags : Prisma.JsonNull,
+        // Conversion des arrays en string JSON pour MySQL
+        attachments: data.attachments ? JSON.stringify(data.attachments) : null,
+        competitors: data.competitors ? JSON.stringify(data.competitors) : null,
+        objectives: data.objectives ? JSON.stringify(data.objectives) : null,
+        tags: data.tags ? JSON.stringify(data.tags) : null,
       };
 
       const contact = await prisma.contact.create({
