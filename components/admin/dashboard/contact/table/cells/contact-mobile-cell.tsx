@@ -48,6 +48,15 @@ export function ContactMobileCell({
     return colors[status] || colors.NEW;
   };
 
+  const formatDate = (date: Date | null) => {
+    if (!date) return "-";
+    return new Date(date).toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
   return (
     <TableCell className="p-4 md:hidden">
       <div className="flex flex-col space-y-4">
@@ -114,11 +123,7 @@ export function ContactMobileCell({
             {contact.status}
           </span>
           <span className="text-sm text-muted-foreground">
-            {contact.updatedAt.toLocaleDateString("fr-FR", {
-              day: "2-digit",
-              month: "short",
-              year: "numeric",
-            })}
+            {formatDate(contact.updatedAt)}
           </span>
         </div>
       </div>

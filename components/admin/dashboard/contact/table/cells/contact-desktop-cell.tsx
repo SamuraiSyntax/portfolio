@@ -72,7 +72,7 @@ export function ContactDesktopCell({
     }).format(amount);
   };
 
-  const formatDate = (date: Date | null) => {
+  const formatDate = (date: Date | string | null) => {
     if (!date) return "-";
     return new Date(date).toLocaleDateString("fr-FR", {
       day: "2-digit",
@@ -234,10 +234,10 @@ export function ContactDesktopCell({
 
       {/* Suivi commercial */}
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {contact.lastContact ? formatDate(contact.lastContact) : "-"}
+        {formatDate(contact.lastContact)}
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {contact.nextFollowUp ? formatDate(contact.nextFollowUp) : "-"}
+        {formatDate(contact.nextFollowUp)}
       </TableCell>
       <TableCell className="hidden md:table-cell max-w-[200px] truncate whitespace-nowrap">
         {contact.notes || "-"}
