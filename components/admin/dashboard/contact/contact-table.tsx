@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { useContactFilters } from "@/hooks/contact/useContactFilters";
 import { useContactPagination } from "@/hooks/contact/useContactPagination";
 import { Contact, ContactView } from "@/types/contact";
+import { useEffect, useState } from "react";
 import { TableContainer } from "./table/table-container";
 import { TableContent } from "./table/table-content";
 import { TableHeader } from "./table/table-header";
@@ -20,6 +21,23 @@ export function ContactTable({
   defaultView = "all",
   showTitle = true,
 }: ContactTableProps) {
+  const [contacts, setContacts] = useState(initialContacts);
+
+  // Rafraîchir les données
+  const refreshData = async () => {
+    try {
+      const response = await fetch("/api/contacts");
+      const newContacts = await response.json();
+      setContacts(newContacts);
+    } catch (error) {
+      console.error("Erreur lors du rafraîchissement des contacts:", error);
+    }
+  };
+
+  useEffect(() => {
+    refreshData();
+  }, []);
+
   // État et filtres
   const {
     view,
@@ -27,7 +45,7 @@ export function ContactTable({
     filteredContacts,
     handleViewChange,
     handleSearchChange,
-  } = useContactFilters(initialContacts, defaultView);
+  } = useContactFilters(contacts, defaultView);
 
   // Pagination
   const {

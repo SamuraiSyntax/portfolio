@@ -2,7 +2,7 @@ import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { toast } from "@/hooks/use-toast";
 import { Contact } from "@/types/contact";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ContactHead } from "./contact-head";
 import { ContactRow } from "./contact-row";
 
@@ -12,6 +12,15 @@ interface TableContentProps {
 
 export function TableContent({ contacts }: TableContentProps) {
   const router = useRouter();
+
+  useEffect(() => {
+    // Rafraîchir la page toutes les 30 secondes
+    const interval = setInterval(() => {
+      router.refresh();
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [router]);
 
   const [selectedContacts, setSelectedContacts] = useState<Set<string>>(
     new Set()
