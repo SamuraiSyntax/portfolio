@@ -136,7 +136,7 @@ export function ContactDesktopCell({
         {contact.projectScope || "-"}
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {contact.budget ? formatCurrency(contact.budget.toNumber()) : "-"}
+        {contact.budget ? formatCurrency(contact.budget) : "-"}
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap">
         {contact.deadline ? formatDate(contact.deadline) : "-"}
@@ -243,7 +243,7 @@ export function ContactDesktopCell({
         {contact.notes || "-"}
       </TableCell>
       <TableCell className="hidden md:table-cell whitespace-nowrap">
-        {contact.assignedTo || "-"}
+        {contact.assignedUserId || "-"}
       </TableCell>
 
       {/* Documents */}

@@ -5,7 +5,6 @@ import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { convertPrismaContactToContact } from "@/lib/utils/contact";
 import { PrismaContact } from "@/types/prisma";
-import { Decimal } from "@prisma/client/runtime/library";
 import { ArrowLeft, Edit } from "lucide-react";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
@@ -30,9 +29,7 @@ export default async function ContactPage(props: {
   }
 
   const contactData = convertPrismaContactToContact(contact as PrismaContact);
-  contactData.budget = contactData.budget
-    ? new Decimal(contactData.budget.toNumber())
-    : null;
+  contactData.budget = contactData.budget ? Number(contactData.budget) : null;
 
   return (
     <div className="container mx-auto p-6 space-y-6">

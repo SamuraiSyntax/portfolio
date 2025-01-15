@@ -102,7 +102,7 @@ export function ContactDetails({ contact }: ContactDetailsProps) {
             {contact.budget && (
               <div className="flex items-center gap-2">
                 <CreditCard className="h-4 w-4 text-muted-foreground" />
-                <span>Budget: {formatCurrency(contact.budget.toNumber())}</span>
+                <span>Budget: {formatCurrency(contact.budget)}</span>
               </div>
             )}
             {contact.deadline && (

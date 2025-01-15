@@ -19,11 +19,11 @@ export class ContactService {
         budget: data.budget ? parseFloat(data.budget) : null,
         deadline: data.deadline ? new Date(data.deadline) : null,
         existingSite: data.existingSite || null,
-        // Conversion des arrays en string JSON pour MySQL
-        attachments: data.attachments ? JSON.stringify(data.attachments) : null,
-        competitors: data.competitors ? JSON.stringify(data.competitors) : null,
-        objectives: data.objectives ? JSON.stringify(data.objectives) : null,
-        tags: data.tags ? JSON.stringify(data.tags) : null,
+        // Conversion en JSON valide pour Prisma
+        attachments: data.attachments ? data.attachments : [],
+        competitors: data.competitors ? data.competitors : [],
+        objectives: data.objectives ? data.objectives : [],
+        tags: data.tags ? data.tags : [],
       };
 
       const contact = await prisma.contact.create({

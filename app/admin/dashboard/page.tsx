@@ -39,11 +39,13 @@ export default async function DashboardPage() {
     quotationAmount: contact.quotationAmount
       ? Number(contact.quotationAmount)
       : null,
-    tags: contact.tags ? contact.tags.split(",") : [],
-    competitors: contact.competitors ? contact.competitors.split(",") : [],
-    objectives: contact.objectives ? contact.objectives.split(",") : [],
-    attachments: contact.attachments ? contact.attachments.split(",") : [],
-  }));
+    tags: contact.tags ? (contact.tags as string[]) : [],
+    competitors: contact.competitors ? (contact.competitors as string[]) : [],
+    objectives: contact.objectives ? (contact.objectives as string[]) : [],
+    attachments: contact.attachments ? (contact.attachments as string[]) : [],
+    assignedTo: contact.assignedUserId,
+    userId: contact.assignedUserId ?? "",
+  })) as Contact[];
 
   const getStatusCount = (status: ContactStatus) => {
     const stat = (stats as StatusCount[]).find((s) => s.status === status);
