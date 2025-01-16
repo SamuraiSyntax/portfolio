@@ -3,6 +3,7 @@ import { AuthProviders } from "@/components/providers/auth-providers";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Loader } from "@/components/ui/loader";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import "./globals.css";
@@ -40,6 +41,7 @@ export default function RootLayout({
               {children}
               <BlendCursor />
               <Toaster richColors position="top-right" />
+              <SpeedInsights />
               <Analytics />
             </main>
           </ThemeProvider>
