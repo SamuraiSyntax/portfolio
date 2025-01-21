@@ -1,6 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +14,6 @@ import { Mail } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { FaSignOutAlt } from "react-icons/fa";
-import { Button } from "../../ui/button";
 
 export function NavBar() {
   const { data: session } = useSession();

@@ -1,15 +1,15 @@
 "use client";
 
+import PDFViewerModal from "@/components/home/modals/PDFViewerModal";
 import { Button } from "@/components/ui/button";
+import { DialogTitle } from "@/components/ui/dialog";
 import { Modal } from "@/components/ui/modal";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { education, experience, linkCV } from "@/lib/constants/resume";
 import { neobrutalismClassPrimary } from "@/lib/styles";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useState } from "react";
 import { FaBriefcase, FaDownload, FaGraduationCap } from "react-icons/fa";
-import { DialogTitle } from "../../ui/dialog";
-import PDFViewerModal from "./PDFViewerModal";
 
 interface CVModalProps {
   isOpen: boolean;

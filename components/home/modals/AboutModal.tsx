@@ -5,7 +5,7 @@ import { Modal } from "@/components/ui/modal";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SKILLS } from "@/lib/constants";
 import { neobrutalismClassPrimary } from "@/lib/styles";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { FaDatabase, FaReact, FaWordpress } from "react-icons/fa";
 import { SiNextdotjs, SiPrisma, SiTailwindcss } from "react-icons/si";
 

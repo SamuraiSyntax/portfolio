@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { DialogTitle } from "@/components/ui/dialog";
 import { Modal } from "@/components/ui/modal";
 import { neobrutalismClassPrimary } from "@/lib/styles";
 import { FaDownload, FaShare } from "react-icons/fa";
 import { toast } from "sonner";
-import { DialogTitle } from "../../ui/dialog";
 
 interface PDFViewerModalProps {
   isOpen: boolean;

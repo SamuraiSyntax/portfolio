@@ -1,11 +1,11 @@
 "use client";
 
+import { ContactForm } from "@/components/contact/ContactForm";
+import { DialogTitle } from "@/components/ui/dialog";
 import { Modal } from "@/components/ui/modal";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { FaEnvelope } from "react-icons/fa";
-import { ContactForm } from "../../contact/ContactForm";
-import { DialogTitle } from "../../ui/dialog";
 
 interface ContactModalProps {
   isOpen: boolean;

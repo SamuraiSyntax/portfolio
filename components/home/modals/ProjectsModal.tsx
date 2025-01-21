@@ -1,15 +1,15 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { DialogTitle } from "@/components/ui/dialog";
 import { Modal } from "@/components/ui/modal";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PROJECTS } from "@/lib/constants/projects";
 import { neobrutalismClassPrimary } from "@/lib/styles";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
 import { FaExternalLinkAlt, FaFilter, FaGithub } from "react-icons/fa";
-import { DialogTitle } from "../../ui/dialog";
 
 interface ProjectsModalProps {
   isOpen: boolean;

@@ -1,10 +1,10 @@
+import { ContactHead } from "@/components/admin/dashboard/contact/table/contact-head";
+import { ContactRow } from "@/components/admin/dashboard/contact/table/contact-row";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { toast } from "@/hooks/use-toast";
 import { Contact } from "@/types/contact";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ContactHead } from "./contact-head";
-import { ContactRow } from "./contact-row";
 
 interface TableContentProps {
   contacts: Contact[];

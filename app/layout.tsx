@@ -1,27 +1,83 @@
-import { NavBar } from "@/components/admin/auth/nav-bar";
+import LayoutContent from "@/components/layout/layout-content";
 import { AuthProviders } from "@/components/providers/auth-providers";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-import { Loader } from "@/components/ui/loader";
+import { ScrollToTop } from "@/components/utils/scroll-to-top";
+import Header from "@/components/v2/header";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import type { Metadata } from "next";
-import dynamic from "next/dynamic";
+import { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const Toaster = dynamic(() => import("sonner").then((mod) => mod.Toaster));
-const BlendCursor = dynamic(() =>
-  import("@/components/ui/blend-cursor").then((mod) => mod.BlendCursor)
-);
-const BackgroundAnimated = dynamic(() =>
-  import("@/components/ui/background-animated").then(
-    (mod) => mod.BackgroundAnimated
-  )
-);
+const ubuntu = localFont({
+  src: [
+    {
+      path: "./fonts/ubuntu-300.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "./fonts/ubuntu-300italic.woff2",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "./fonts/ubuntu-400.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/ubuntu-400italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "./fonts/ubuntu-500.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/ubuntu-500italic.woff2",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "./fonts/ubuntu-700.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/ubuntu-700italic.woff2",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+  display: "swap",
+  preload: true,
+  variable: "--font-ubuntu",
+});
 
 export const metadata: Metadata = {
-  title: "Bernard Rogier | Développeur Web",
+  title: "Bernard Rogier | Développeur Web Expert WordPress & Next.js",
   description:
-    "Développeur web passionné basé en France, spécialisé dans la création de sites web modernes et performants.",
+    "Développeur web freelance spécialisé dans la création de sites WordPress performants et d'applications web modernes avec Next.js. Solutions sur mesure pour votre entreprise.",
+  keywords: [
+    "développeur web",
+    "WordPress",
+    "Next.js",
+    "freelance",
+    "développement web",
+  ],
+  authors: [{ name: "Bernard Rogier" }],
+  creator: "Bernard Rogier",
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: "https://dev-nanard.fr",
+    title: "Bernard Rogier | Développeur Web Expert",
+    description: "Solutions web professionnelles avec WordPress et Next.js",
+    siteName: "Bernard Rogier",
+  },
 };
 
 export default function RootLayout({
@@ -30,20 +86,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="fr" className={ubuntu.className} suppressHydrationWarning>
+      <head>
+        <meta name="mobile-web-app-capable" content="yes" />
+      </head>
       <body>
         <AuthProviders>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-            <main className="min-h-screen relative">
-              <Loader />
-              <BackgroundAnimated />
-              <NavBar />
-              {children}
-              <BlendCursor />
-              <Toaster richColors position="top-right" />
-              <SpeedInsights />
-              <Analytics />
-            </main>
+            <ScrollToTop />
+            <Header />
+            <LayoutContent>{children}</LayoutContent>
+            <SpeedInsights />
+            <Analytics />
           </ThemeProvider>
         </AuthProviders>
       </body>

@@ -1,17 +1,17 @@
 "use client";
 
+import { ContactFormFields } from "@/components/contact/ContactFormFields";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Progress } from "@/components/ui/progress";
 import { neobrutalismClassPrimary } from "@/lib/styles";
 import { FormValues, formSchema } from "@/lib/types/contact";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaPaperPlane } from "react-icons/fa";
 import { toast } from "sonner";
-import { ContactFormFields } from "./ContactFormFields";
 
 interface ContactFormProps {
   onClose: () => void;
@@ -106,23 +106,25 @@ export function ContactForm({ onClose }: ContactFormProps) {
         initial="hidden"
         animate="show"
         onSubmit={form.handleSubmit(handleSubmit)}
-        className="space-y-6"
+        className={`max-h-[450px] md:max-h-[80vh] overflow-y-auto flex flex-col p-0 bg-muted/50 hover:bg-muted backdrop-blur-sm rounded-lg shadow-md border border-primary border-opacity-50 ${neobrutalismClassPrimary} transition-all duration-300`}
       >
         <ContactFormFields form={form} />
 
         {/* Barre de progression et bouton */}
         <motion.div
           variants={formAnimation}
-          className="sticky bottom-0 space-y-2 bg-background/80 backdrop-blur-sm pt-4"
+          className="sticky bottom-0 flex flex-col gap-2 p-3 pt-0 bg-muted"
         >
-          <div className="space-y-1">
+          <div className="flex flex-col gap-1">
             <Progress
               value={progress}
               className="h-1 transition-all duration-300"
             />
             <p className="text-xs text-muted-foreground text-center">
               {progress === 100 ? (
-                <span className="text-primary">Formulaire complet ✨</span>
+                <span className="text-primary text-xs">
+                  Formulaire complet ✨
+                </span>
               ) : (
                 `Progression : ${Math.round(progress)}%`
               )}
@@ -132,15 +134,15 @@ export function ContactForm({ onClose }: ContactFormProps) {
           <Button
             type="submit"
             disabled={isSubmitting || progress !== 100}
-            className={`w-full ${neobrutalismClassPrimary} transition-all duration-300 hover:scale-[1.02]`}
+            className={`p-2 h-auto w-full transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-primary/50 disabled:text-white text-xs`}
           >
             {isSubmitting ? (
-              <span className="flex items-center justify-center gap-2">
+              <span className="flex items-center justify-center gap-2 text-xs">
                 <div className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full" />
                 Envoi en cours...
               </span>
             ) : (
-              <span className="flex items-center justify-center gap-2">
+              <span className="flex items-center justify-center gap-2 text-xs">
                 <FaPaperPlane
                   className={`transition-transform duration-300 ${
                     progress === 100

@@ -1,17 +1,17 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { Button } from "../../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../ui/card";
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export function LoginForm({
   className,

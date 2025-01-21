@@ -22,18 +22,18 @@ export default async function ContactsPage() {
     );
 
     return (
-      <div className="container mx-auto p-6">
+      <section className="container mx-auto flex flex-col gap-4 pt-20">
         <h1 className="text-2xl font-bold mb-6">Gestion des contacts</h1>
         <ContactTable contacts={convertedContacts} />
-      </div>
+      </section>
     );
   } catch (error) {
     console.error("Erreur lors de la récupération des contacts:", error);
     return (
-      <div className="container mx-auto p-6">
+      <section className="container mx-auto flex flex-col gap-4 pt-20">
         <h1 className="text-2xl font-bold mb-6">Erreur</h1>
         <p>Une erreur est survenue lors du chargement des contacts.</p>
-      </div>
+      </section>
     );
   }
 }

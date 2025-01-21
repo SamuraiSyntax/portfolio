@@ -1,9 +1,9 @@
 "use client";
 
+import { ContactDesktopCell } from "@/components/admin/dashboard/contact/table/cells/contact-desktop-cell";
+import { ContactMobileCell } from "@/components/admin/dashboard/contact/table/cells/contact-mobile-cell";
 import { TableRow } from "@/components/ui/table";
 import { Contact } from "@/types/contact";
-import { ContactDesktopCell } from "./cells/contact-desktop-cell";
-import { ContactMobileCell } from "./cells/contact-mobile-cell";
 
 interface ContactRowProps {
   contact: Contact;

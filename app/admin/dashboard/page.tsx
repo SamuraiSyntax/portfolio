@@ -64,12 +64,12 @@ export default async function DashboardPage() {
   };
 
   return (
-    <div className="space-y-4 p-4">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+    <div className="container mx-auto flex flex-col gap-4 pt-20">
+      <section className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         <StatsCards {...statsData} />
-      </div>
+      </section>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+      <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <div className="col-span-4">
           <h2 className="text-2xl font-bold tracking-tight">
             Messages récents
@@ -78,7 +78,7 @@ export default async function DashboardPage() {
             Voici les 5 derniers messages reçus
           </p>
         </div>
-      </div>
+      </section>
 
       <ContactTable
         contacts={convertedContacts as Contact[]}

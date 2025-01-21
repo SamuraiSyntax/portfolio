@@ -51,18 +51,18 @@ export default async function StatsPage() {
   try {
     const stats = await getStats();
     return (
-      <div className="container mx-auto p-6">
+      <section className="container mx-auto flex flex-col gap-4 pt-20">
         <h1 className="text-2xl font-bold mb-6">Statistiques</h1>
         <StatsDisplay stats={stats} />
-      </div>
+      </section>
     );
   } catch (error) {
     return (
-      <div className="container mx-auto p-6">
+      <section className="container mx-auto flex flex-col gap-4 pt-20">
         <h1 className="text-2xl font-bold mb-6">Erreur</h1>
         <p>Une erreur est survenue lors du chargement des statistiques.</p>
         <p>{error instanceof Error ? error.message : "Erreur inconnue"}</p>
-      </div>
+      </section>
     );
   }
 }

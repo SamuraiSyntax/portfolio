@@ -1,14 +1,14 @@
 "use client";
 
+import { TableContainer } from "@/components/admin/dashboard/contact/table/table-container";
+import { TableContent } from "@/components/admin/dashboard/contact/table/table-content";
+import { TableHeader } from "@/components/admin/dashboard/contact/table/table-header";
+import { TablePagination } from "@/components/admin/dashboard/contact/table/table-pagination";
 import { Card } from "@/components/ui/card";
 import { useContactFilters } from "@/hooks/contact/useContactFilters";
 import { useContactPagination } from "@/hooks/contact/useContactPagination";
 import { Contact, ContactView } from "@/types/contact";
 import { useEffect, useState } from "react";
-import { TableContainer } from "./table/table-container";
-import { TableContent } from "./table/table-content";
-import { TableHeader } from "./table/table-header";
-import { TablePagination } from "./table/table-pagination";
 
 interface ContactTableProps {
   contacts: Contact[];

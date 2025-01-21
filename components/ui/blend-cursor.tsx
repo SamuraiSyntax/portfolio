@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 export const BlendCursor = () => {
@@ -72,7 +72,7 @@ export const BlendCursor = () => {
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference transition-all duration-0"
         animate={{
           x: mousePosition.x - (isHovering ? 24 : 16),
           y: mousePosition.y - (isHovering ? 24 : 16),

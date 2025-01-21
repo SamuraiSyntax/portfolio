@@ -1,52 +1,99 @@
-import ProfileSection from "@/components/home/sections/ProfileSection";
-import dynamic from "next/dynamic";
+import { LoadingSpinner } from "@/components/atoms/LoadingSpinner";
+import { ContactSection } from "@/components/organisms/contact/ContactSection";
+import { HeroSection } from "@/components/organisms/HeroSection";
+import { ProjectsSection } from "@/components/organisms/projects/ProjectsSection";
+import { ServicesPreviewSection } from "@/components/organisms/services/ServicesPreviewSection";
+import { TestimonialsSection } from "@/components/organisms/testimonials/TestimonialsSection";
+import Footer from "@/components/v2/footer";
+import { Metadata } from "next";
+import { Suspense } from "react";
 
-const FreelanceSection = dynamic(
-  () => import("@/components/home/sections/FreelanceSection"),
-  {
-    loading: () => <div className="animate-pulse h-full bg-muted rounded-lg" />,
-  }
-);
-
-const MainContent = dynamic(
-  () => import("@/components/home/sections/MainContent"),
-  {
-    loading: () => <div className="animate-pulse h-full bg-muted rounded-lg" />,
-  }
-);
-
-const OptionsSection = dynamic(
-  () => import("@/components/home/sections/OptionsSection"),
-  {
-    loading: () => <div className="animate-pulse h-full bg-muted rounded-lg" />,
-  }
-);
-
-const Footer = dynamic(() => import("@/components/home/sections/Footer"), {
-  loading: () => <div className="animate-pulse h-8 bg-muted" />,
-});
+export const metadata: Metadata = {
+  title: "Bernard Rogier | Développeur WordPress & Intégrateur Web",
+  description:
+    "Développeur web spécialisé WordPress, je crée des sites web sur mesure et performants. Passionné par l'innovation, je me forme continuellement sur React/Next.js pour enrichir mes solutions.",
+  keywords: [
+    "développeur WordPress",
+    "intégrateur web",
+    "création site WordPress",
+    "développeur web",
+    "intégration web",
+    "maintenance WordPress",
+    "Bernard Rogier",
+    "développement sur mesure",
+    "React Next.js",
+    "sites web professionnels",
+  ],
+  authors: [{ name: "Bernard Rogier" }],
+  creator: "Bernard Rogier",
+  publisher: "Bernard Rogier",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://www.dev-nanard.fr",
+  },
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: "https://www.dev-nanard.fr",
+    siteName: "Bernard Rogier - Développeur Web Full Stack",
+    title: "Bernard Rogier | Développeur WordPress & Intégrateur Web",
+    description:
+      "Développeur web spécialisé WordPress, créateur de solutions web sur mesure et performantes",
+    images: [
+      {
+        url: "https://www.dev-nanard.fr/images/og-home.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Bernard Rogier - Développeur Web Full Stack",
+        type: "image/jpeg",
+      },
+    ],
+  },
+  category: "Portfolio",
+  other: {
+    "theme-color": "#0f172a",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "apple-mobile-web-app-title": "Bernard Rogier - Développeur Web",
+  },
+};
 
 export default function Home() {
   return (
-    <div className="min-h-screen p-8 flex flex-col justify-center items-center gap-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 my-auto w-full h-full">
-        <div className="order-1 sm:col-span-1 sm:order-1 lg:col-span-1 content-center flex flex-col gap-6">
-          <ProfileSection />
-          <div className="hidden lg:block xl:hidden">
-            <FreelanceSection />
-          </div>
-        </div>
-        <div className="order-2 sm:col-span-2 sm:order-3 lg:order-2 lg:col-span-2 content-center">
-          <MainContent />
-        </div>
-        <div className="block lg:hidden xl:block order-4 sm:col-span-1 sm:order-2 lg:order-3 lg:col-span-1 content-center">
-          <FreelanceSection />
-        </div>
-        <div className="order-4 sm:col-span-2 lg:order-4 lg:col-span-4">
-          <OptionsSection />
-        </div>
-      </div>
+    <>
+      <HeroSection
+        title="Développeur WordPress"
+        subtitle="Solutions web professionnelles et sur mesure"
+        highlight="Innovation & Performance"
+      />
+
+      <Suspense fallback={<LoadingSpinner size="lg" />}>
+        <ServicesPreviewSection color="muted" waveType="type1" zIndex={10} />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner size="lg" />}>
+        <ProjectsSection color="background" waveType="type2" zIndex={20} />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner size="lg" />}>
+        <TestimonialsSection color="muted" waveType="type3" zIndex={30} />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner size="lg" />}>
+        <ContactSection color="background" waveType="type3" zIndex={40} />
+      </Suspense>
+
       <Footer />
-    </div>
+    </>
   );
 }
