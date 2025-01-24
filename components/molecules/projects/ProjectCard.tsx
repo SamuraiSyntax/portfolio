@@ -11,7 +11,7 @@ import {
 import { decodeHTMLEntities, truncateText } from "@/lib/utils";
 import { WPProject } from "@/types/wordpress";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ProjectCardProps {
   project: WPProject;
@@ -19,6 +19,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, color = "muted" }: ProjectCardProps) {
+  const router = useRouter();
   const imageUrl = project.project_meta?.featured_image || "/placeholder.jpg";
   const description =
     truncateText(project.project_meta?.description || "", 100) || "";
@@ -86,11 +87,13 @@ export function ProjectCard({ project, color = "muted" }: ProjectCardProps) {
       </CardContent>
       <CardFooter className="p-4 pt-0 mt-auto">
         {project.project_meta?.url && (
-          <Link href={`/projects/${project.slug}`} className="w-full">
-            <Button variant="outline" className="w-full">
-              En savoir plus
-            </Button>
-          </Link>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => router.push(`/projects/${project.slug}`)}
+          >
+            En savoir plus
+          </Button>
         )}
       </CardFooter>
     </Card>

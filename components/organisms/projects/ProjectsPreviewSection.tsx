@@ -108,6 +108,7 @@ export function ProjectsPreviewSection({
 
         {/* Mobile education carousel */}
         <section
+          id="projets-mobile"
           className={`flex md:hidden items-center border-none border-0 group sticky top-0 bg-background min-h-screen px-4`}
           style={{ zIndex: zIndex }}
         >

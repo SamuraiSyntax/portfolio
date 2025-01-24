@@ -11,10 +11,11 @@ import { getServiceIcon } from "@/lib/icons";
 import { decodeHTMLEntities, formatPrice, truncateText } from "@/lib/utils";
 import { WPService } from "@/types/wordpress";
 import { motion } from "motion/react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaCheck } from "react-icons/fa";
 
 export function ServiceDetailCard({ service }: { service: WPService }) {
+  const router = useRouter();
   const IconComponent = getServiceIcon(service.service_meta.icon);
 
   return (
@@ -65,14 +66,16 @@ export function ServiceDetailCard({ service }: { service: WPService }) {
       </CardContent>
 
       <CardFooter className="flex flex-col md:flex-row gap-4">
-        <Link href={`/services/${service.slug}`} className="flex-1">
-          <Button variant="outline" className="w-full">
-            En savoir plus
-          </Button>
-        </Link>
-        <Link href="/contact" className="flex-1">
-          <Button className="w-full">Demander un devis</Button>
-        </Link>
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={() => router.push(`/services/${service.slug}`)}
+        >
+          En savoir plus
+        </Button>
+        <Button className="w-full" onClick={() => router.push("/contact")}>
+          Demander un devis
+        </Button>
       </CardFooter>
     </Card>
   );

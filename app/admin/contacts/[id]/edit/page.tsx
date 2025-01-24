@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import prisma from "@/lib/prisma";
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
 type tParams = Promise<{ id: string }>;
 
@@ -26,11 +26,13 @@ export default async function EditContactPage(props: { params: tParams }) {
   return (
     <div className="w-full h-full container mx-auto flex flex-col gap-4 pt-20">
       <div className="flex items-center justify-between">
-        <Link href={`/admin/contacts/${id}`}>
-          <Button variant="ghost" size="icon">
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-        </Link>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => redirect(`/admin/contacts/${id}`)}
+        >
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
         <h1 className="text-2xl font-bold">Modifier le contact</h1>
       </div>
 

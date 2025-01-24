@@ -4,7 +4,6 @@ import { SectionDivider } from "@/components/atoms/SectionDivider";
 import { NavigationCard } from "@/components/molecules/NavigationCard";
 import { ContactSection } from "@/components/organisms/contact/ContactSection";
 import { HeroSection } from "@/components/organisms/HeroSection";
-import { Button } from "@/components/ui/button";
 import Footer from "@/components/v2/footer";
 import { decodeHTMLEntities, truncateText } from "@/lib/utils";
 import { wpFetch } from "@/lib/wordpress";
@@ -226,11 +225,10 @@ function ProjectDetails({
                 href={project.project_meta.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="w-full group flex items-center justify-center bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 rounded-md"
               >
-                <Button className="w-full group" size="lg">
-                  Voir le projet en ligne
-                  <FaExternalLinkAlt className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                Voir le projet en ligne
+                <FaExternalLinkAlt className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
             )}
           </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -30,10 +29,22 @@ export function HeroSection({
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
-    e.preventDefault();
-    const targetId = href.replace(/.*#/, "");
-    const elem = document.getElementById(targetId);
-    elem?.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.replace("#", "");
+      const isMobile = window.innerWidth < 768;
+
+      const excludedIds = ["contact"];
+      // Ajouter automatiquement le suffixe "-mobile" si on est sur mobile
+      const mobileTargetId =
+        isMobile && !excludedIds.includes(targetId)
+          ? `${targetId}-mobile`
+          : targetId;
+
+      const elem = document.getElementById(mobileTargetId);
+
+      elem?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   // Classes spécifiques pour mobile
@@ -97,25 +108,16 @@ export function HeroSection({
             <Link
               href={primaryButtonLink}
               onClick={(e) => handleScroll(e, primaryButtonLink)}
+              className={`w-full sm:w-auto flex items-center justify-center ${mobileClasses.button} ${desktopClasses.button} bg-primary text-primary-foreground hover:bg-primary/90 shadow h-9 px-4 py-2 rounded-md`}
             >
-              <Button
-                size="default"
-                className={`w-full sm:w-auto ${mobileClasses.button} ${desktopClasses.button}`}
-              >
-                {primaryButtonText}
-              </Button>
+              {primaryButtonText}
             </Link>
             <Link
               href={secondaryButtonLink}
               onClick={(e) => handleScroll(e, secondaryButtonLink)}
+              className={`w-full sm:w-auto flex items-center justify-center ${mobileClasses.button} ${desktopClasses.button} bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow h-9 px-4 py-2 rounded-md`}
             >
-              <Button
-                variant="outline"
-                size="default"
-                className={`w-full sm:w-auto ${mobileClasses.button} ${desktopClasses.button}`}
-              >
-                {secondaryButtonText}
-              </Button>
+              {secondaryButtonText}
             </Link>
           </motion.div>
         </div>

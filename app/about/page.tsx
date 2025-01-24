@@ -63,7 +63,7 @@ const aboutContent = {
   description: `Passionné par le développement web, je me spécialise dans la création de sites WordPress performants et professionnels. Mon approche combine expertise technique et créativité pour concevoir des solutions web adaptées à chaque projet. Curieux et en constante évolution, j'explore les technologies modernes comme React et Next.js pour enrichir mes compétences.`,
   image: "/me.jpg",
   stats: [
-    { number: "1+", label: "Année d'expérience" },
+    { number: "2+", label: "Année d'expérience" },
     { number: "5+", label: "Projets WordPress" },
   ],
 };

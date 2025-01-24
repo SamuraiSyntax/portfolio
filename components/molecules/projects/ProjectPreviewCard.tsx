@@ -10,7 +10,7 @@ import {
 import { decodeHTMLEntities } from "@/lib/utils";
 import { WPProject } from "@/types/wordpress";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function ProjectPreviewCard({
   project,
@@ -19,6 +19,7 @@ export function ProjectPreviewCard({
   project: WPProject;
   color: string;
 }) {
+  const router = useRouter();
   const colorClass = color === "muted" ? "bg-background/50" : "bg-muted/50";
   const hoverColorClass = color === "muted" ? "bg-background" : "bg-muted";
 
@@ -54,14 +55,13 @@ export function ProjectPreviewCard({
         )}
       </CardContent>
       <CardFooter className="p-4 mt-auto">
-        <Link href={`/projects/${project.slug}`} className="w-full">
-          <Button
-            variant="ghost"
-            className={`w-full ${btnColorClass} hover:${btnHoverColorClass} text-primary hover:text-white`}
-          >
-            En savoir plus
-          </Button>
-        </Link>
+        <Button
+          variant="ghost"
+          className={`w-full ${btnColorClass} hover:${btnHoverColorClass} text-primary hover:text-white`}
+          onClick={() => router.push(`/projects/${project.slug}`)}
+        >
+          En savoir plus
+        </Button>
       </CardFooter>
     </Card>
   );

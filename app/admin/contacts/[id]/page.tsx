@@ -6,7 +6,6 @@ import prisma from "@/lib/prisma";
 import { convertPrismaContactToContact } from "@/lib/utils/contact";
 import { PrismaContact } from "@/types/prisma";
 import { ArrowLeft, Edit } from "lucide-react";
-import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
 export default async function ContactPage(props: {
@@ -35,19 +34,19 @@ export default async function ContactPage(props: {
     <div className="w-full h-full container mx-auto flex flex-col gap-4 pt-20">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/admin/contacts">
-            <Button variant="ghost" size="icon">
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
-          </Link>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => redirect("/admin/contacts")}
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
           <h1 className="text-2xl font-bold">Détails du contact</h1>
         </div>
-        <Link href={`/admin/contacts/${id}/edit`}>
-          <Button>
-            <Edit className="h-4 w-4 mr-2" />
-            Modifier
-          </Button>
-        </Link>
+        <Button onClick={() => redirect(`/admin/contacts/${id}/edit`)}>
+          <Edit className="h-4 w-4 mr-2" />
+          Modifier
+        </Button>
       </div>
 
       <Card className="p-6">

@@ -16,7 +16,7 @@ import {
   AccordionTrigger,
 } from "@radix-ui/react-accordion";
 import { motion } from "motion/react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   FaCode,
@@ -47,6 +47,7 @@ export function ServiceCard({
   openAccordion: string | null;
   setOpenAccordion: (id: string | null) => void;
 }) {
+  const router = useRouter();
   const IconComponent = service.service_meta?.icon
     ? iconMap[service.service_meta.icon]
     : FaCode;
@@ -124,9 +125,9 @@ export function ServiceCard({
           </Accordion>
         </CardContent>
         <CardFooter className="flex-none pt-6 md:p-6 p-4">
-          <Link href="#contact" className="w-full">
-            <Button className="w-full">Demander un devis</Button>
-          </Link>
+          <Button className="w-full" onClick={() => router.push("/contact")}>
+            Demander un devis
+          </Button>
         </CardFooter>
       </Card>
     </motion.div>
