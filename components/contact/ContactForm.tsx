@@ -120,7 +120,9 @@ export function ContactForm({ onClose }: ContactFormProps) {
       form.reset();
       onClose();
     } catch (error) {
-      toast.error("Une erreur est survenue lors de l'envoi du message.");
+      toast.error(
+        "Une erreur est survenue lors de l'envoi du message. " + error
+      );
     } finally {
       setIsSubmitting(false);
     }
