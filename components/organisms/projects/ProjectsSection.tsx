@@ -93,7 +93,7 @@ export function ProjectsSection({
           <CarouselContent>
             {projects.map((project) => (
               <CarouselItem key={project.id} className="w-full h-full">
-                <ProjectCard project={project} />
+                <ProjectCard project={project} color="muted" />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -114,7 +114,7 @@ export function ProjectsSection({
               variants={fadeInUp}
               className="w-full h-full"
             >
-              <ProjectCard project={project} />
+              <ProjectCard project={project} color="muted" />
             </motion.div>
           ))}
         </motion.div>
