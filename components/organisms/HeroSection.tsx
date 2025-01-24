@@ -56,7 +56,7 @@ export function HeroSection({
 
   return (
     <section
-      className={`min-h-screen flex items-center overflow-hidden sticky top-0
+      className={`min-h-screen relative flex items-center overflow-hidden
         ${mobileClasses.section} ${desktopClasses.section} ${className}`}
       style={{ zIndex: 10 }}
     >

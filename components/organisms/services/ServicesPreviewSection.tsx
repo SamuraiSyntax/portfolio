@@ -30,7 +30,7 @@ export function ServicesPreviewSection({
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
 
-  const className = `min-h-screen flex items-center relative border-none border-0 group sticky top-0 bg-${color}${
+  const className = `min-h-screen flex items-center relative border-none border-0 group sticky top-0 py-16 px-4 lg:py-24 lg:px-8 bg-${color}${
     utility ? `-${utility}` : ""
   }`;
 
