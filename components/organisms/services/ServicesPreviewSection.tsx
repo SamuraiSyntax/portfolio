@@ -56,7 +56,7 @@ export function ServicesPreviewSection({
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}
         >
-          <CarouselContent className="w-full h-full mx-auto">
+          <CarouselContent className="w-full h-full mx-auto py-12">
             {services.map((service) => (
               <CarouselItem
                 key={service.id}
@@ -78,7 +78,7 @@ export function ServicesPreviewSection({
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}
         >
-          <CarouselContent className="w-full h-full py-10">
+          <CarouselContent className="w-full h-full py-12">
             {services.map((service) => (
               <CarouselItem
                 key={service.id}

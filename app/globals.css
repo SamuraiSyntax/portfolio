@@ -43,7 +43,7 @@
     --border: 28 2% 92%;
     --input: 28 2% 92%;
     --primary: 28 58% 24%;
-    --primary-foreground: 28 58% 84%;
+    --primary-foreground: 28 58% 90%;
     --secondary: 28 18% 84%;
     --secondary-foreground: 28 18% 24%;
     --accent: 28 28% 75%;
@@ -70,8 +70,8 @@
     --card-foreground: 28 39% 97%;
     --border: 28 2% 15%;
     --input: 28 2% 15%;
-    --primary: 28 58% 24%;
-    --primary-foreground: 28 58% 84%;
+    --primary: 28 36% 63%;
+    --primary-foreground: 28 58% 9%;
     --secondary: 28 2% 8%;
     --secondary-foreground: 28 2% 68%;
     --accent: 28 10% 15%;
