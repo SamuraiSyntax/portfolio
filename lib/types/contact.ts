@@ -56,4 +56,7 @@ export const formSchema = z.object({
   tags: z.array(z.string()).optional(),
 });
 
-export type FormValues = z.infer<typeof formSchema>;
+export type FormValues = z.infer<typeof formSchema> & {
+  honeypot?: string;
+  userAgent?: string;
+};

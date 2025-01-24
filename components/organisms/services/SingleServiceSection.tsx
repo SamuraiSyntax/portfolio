@@ -82,13 +82,14 @@ export function SingleServiceSection({
   } ${className}`;
 
   return (
-    <section className={containerClass} style={{ zIndex }}>
+    <section id="services" className={containerClass} style={{ zIndex }}>
       <SectionDivider
         color={color}
         colorReverse={colorReverse}
         utility={utilityReverse}
         reverse={reverse}
         waveType={waveType}
+        zIndex={zIndex}
       />
 
       <div

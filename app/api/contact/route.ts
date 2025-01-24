@@ -5,9 +5,13 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const contentType = request.headers.get("content-type");
+    // Récupération de l'IP du client
+    const forwarded = request.headers.get("x-forwarded-for");
+    const clientIp = forwarded ? forwarded.split(",")[0] : "127.0.0.1";
 
+    const contentType = request.headers.get("content-type");
     let data;
+
     if (contentType?.includes("application/json")) {
       data = await request.json();
     } else if (
@@ -23,6 +27,9 @@ export async function POST(request: Request) {
       );
     }
 
+    // Ajout des informations du client
+    data.userAgent = request.headers.get("user-agent");
+
     // Validation des champs requis
     const requiredFields = ["name", "email", "message"];
     for (const field of requiredFields) {
@@ -34,15 +41,21 @@ export async function POST(request: Request) {
     }
 
     // Utilisation du ContactService pour créer le contact et envoyer l'email
-    const contact = await ContactService.create(data);
+    const result = await ContactService.create(data, clientIp);
 
-    return NextResponse.json(contact, {
-      status: 201,
-    });
+    if (!result.success) {
+      return NextResponse.json(result, { status: 400 });
+    }
+
+    return NextResponse.json(result, { status: 201 });
   } catch (error) {
     console.error("[CONTACT_POST]", error);
-    return new NextResponse(
-      error instanceof Error ? error.message : "Erreur interne du serveur",
+    return NextResponse.json(
+      {
+        success: false,
+        error:
+          error instanceof Error ? error.message : "Erreur interne du serveur",
+      },
       { status: 500 }
     );
   }

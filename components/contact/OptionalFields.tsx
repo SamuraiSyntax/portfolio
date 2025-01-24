@@ -23,7 +23,7 @@ export function OptionalFields({ form }: OptionalFieldsProps) {
         control={form.control}
         name="company"
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="space-y-2 px-2">
             <FormLabel className="flex items-center gap-2 text-xs">
               <FaBuilding className="h-4 w-4" />
               Entreprise
@@ -44,7 +44,7 @@ export function OptionalFields({ form }: OptionalFieldsProps) {
         control={form.control}
         name="budget"
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="space-y-2 px-2">
             <FormLabel className="flex items-center gap-2 text-xs">
               <FaMoneyBill className="h-4 w-4" />
               Budget estimé
@@ -66,7 +66,7 @@ export function OptionalFields({ form }: OptionalFieldsProps) {
         control={form.control}
         name="deadline"
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="space-y-2 px-2">
             <FormLabel className="flex items-center gap-2 text-xs">
               <FaCalendar className="h-4 w-4" />
               Date souhaitée
@@ -83,7 +83,7 @@ export function OptionalFields({ form }: OptionalFieldsProps) {
         control={form.control}
         name="existingSite"
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="space-y-2 px-2">
             <FormLabel className="flex items-center gap-2 text-xs">
               <FaGlobe className="h-4 w-4" />
               Site web existant

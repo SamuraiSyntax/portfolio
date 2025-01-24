@@ -3,11 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { ReactNode } from "react";
 
 interface HeroSectionProps {
   title?: string;
   highlight?: string;
-  subtitle?: string;
+  subtitle?: string | ReactNode;
   primaryButtonText?: string;
   primaryButtonLink?: string;
   secondaryButtonText?: string;
@@ -25,6 +26,16 @@ export function HeroSection({
   secondaryButtonLink = "/services",
   className = "",
 }: HeroSectionProps) {
+  const handleScroll = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+    const targetId = href.replace(/.*#/, "");
+    const elem = document.getElementById(targetId);
+    elem?.scrollIntoView({ behavior: "smooth" });
+  };
+
   // Classes spécifiques pour mobile
   const mobileClasses = {
     section: "py-16 px-4",
@@ -45,8 +56,9 @@ export function HeroSection({
 
   return (
     <section
-      className={`min-h-screen flex items-center overflow-hidden sticky top-0 z-[10] 
+      className={`min-h-screen flex items-center overflow-hidden sticky top-0
         ${mobileClasses.section} ${desktopClasses.section} ${className}`}
+      style={{ zIndex: 10 }}
     >
       <div className="container mx-auto">
         <div className="max-w-4xl mx-auto text-center">
@@ -60,7 +72,7 @@ export function HeroSection({
             >
               {title}
               <span
-                className={`text-primary block ${mobileClasses.highlight} ${desktopClasses.highlight}`}
+                className={`text-primary block animate-pulse animate-thrice animate-duration-1000 animate-delay-0 animate-ease-in-out animate-normal animate-fill-both ${mobileClasses.highlight} ${desktopClasses.highlight}`}
               >
                 {highlight}
               </span>
@@ -68,12 +80,12 @@ export function HeroSection({
           </motion.div>
 
           <motion.p
-            className={`mb-6 text-muted-foreground ${mobileClasses.subtitle} ${desktopClasses.subtitle}`}
+            className={`mb-6 text-muted-foreground flex flex-wrap gap-2 justify-center ${mobileClasses.subtitle} ${desktopClasses.subtitle}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            {subtitle}
+            {typeof subtitle === "string" ? subtitle : subtitle}
           </motion.p>
 
           <motion.div
@@ -82,7 +94,10 @@ export function HeroSection({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <Link href={primaryButtonLink}>
+            <Link
+              href={primaryButtonLink}
+              onClick={(e) => handleScroll(e, primaryButtonLink)}
+            >
               <Button
                 size="default"
                 className={`w-full sm:w-auto ${mobileClasses.button} ${desktopClasses.button}`}
@@ -90,7 +105,10 @@ export function HeroSection({
                 {primaryButtonText}
               </Button>
             </Link>
-            <Link href={secondaryButtonLink}>
+            <Link
+              href={secondaryButtonLink}
+              onClick={(e) => handleScroll(e, secondaryButtonLink)}
+            >
               <Button
                 variant="outline"
                 size="default"

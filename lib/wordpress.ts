@@ -1,6 +1,4 @@
-import { Article, WPService } from "@/types/wordpress";
-
-import { WPPost } from "@/types/wordpress";
+import { Article, WPPost, WPService } from "@/types/wordpress";
 
 const WP_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
@@ -8,30 +6,49 @@ interface WPFetchOptions {
   endpoint: string;
   query?: Record<string, string>;
   embed?: boolean;
+  method?: string;
+  body?: Record<string, unknown>;
+  token?: string;
 }
 
 export async function wpFetch<T>({
   endpoint,
   query = {},
   embed = false,
+  method = "GET",
+  body,
+  token,
 }: WPFetchOptions): Promise<T> {
   try {
     const queryParams = new URLSearchParams(query);
     if (embed) queryParams.append("_embed", "");
 
-    const url = `${WP_API_URL}/wp-json/wp/v2/${endpoint}${
+    const url = `${WP_API_URL}/${endpoint}${
       queryParams.toString() ? `?${queryParams.toString()}` : ""
     }`;
 
-    const response = await fetch(url, {
-      headers: {
-        Accept: "application/json",
-      },
+    const headers: HeadersInit = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
+    const options: RequestInit = {
+      method,
+      headers,
       next: {
-        revalidate: 3600, // Cache pendant 1 heure
         tags: [endpoint],
       },
-    });
+    };
+
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+
+    const response = await fetch(url, options);
 
     if (!response.ok) {
       throw new Error(

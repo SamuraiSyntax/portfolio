@@ -4,7 +4,9 @@ import { BasicFields } from "@/components/contact/BasicFields";
 import { MessageField } from "@/components/contact/MessageField";
 import { OptionalFields } from "@/components/contact/OptionalFields";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { FormValues } from "@/lib/types/contact";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
@@ -13,19 +15,28 @@ interface ContactFormFieldsProps {
   form: UseFormReturn<FormValues>;
 }
 
+const optionalFieldsAnimation = {
+  initial: { opacity: 0, height: 0 },
+  animate: { opacity: 1, height: "auto" },
+  exit: { opacity: 0, height: 0 },
+  transition: { duration: 0.3 },
+};
+
 export function ContactFormFields({ form }: ContactFormFieldsProps) {
   const [showOptional, setShowOptional] = useState(false);
 
   return (
-    <div className="flex flex-col gap-3 p-3">
+    <div className="space-y-6">
       <BasicFields form={form} />
       <MessageField form={form} />
 
-      <div className="flex flex-col gap-2">
+      <div className="space-y-4">
+        <Separator className="my-4" />
+
         <Button
           type="button"
           variant="ghost"
-          className="p-1 h-auto w-full flex items-center justify-center gap-2 text-muted-foreground hover:text-primary text-xs"
+          className="w-full flex items-center justify-center gap-2 text-muted-foreground hover:text-primary"
           onClick={() => setShowOptional(!showOptional)}
         >
           {showOptional ? (
@@ -41,7 +52,16 @@ export function ContactFormFields({ form }: ContactFormFieldsProps) {
           )}
         </Button>
 
-        {showOptional && <OptionalFields form={form} />}
+        <AnimatePresence>
+          {showOptional && (
+            <motion.div
+              {...optionalFieldsAnimation}
+              className="overflow-hidden"
+            >
+              <OptionalFields form={form} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

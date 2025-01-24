@@ -32,7 +32,7 @@ export default async function ContactPage(props: {
   contactData.budget = contactData.budget ? Number(contactData.budget) : null;
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="w-full h-full container mx-auto flex flex-col gap-4 pt-20">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href="/admin/contacts">

@@ -70,6 +70,7 @@ export function ServicesSection({
         reverse={reverse}
         waveType={waveType}
         utility={utilityReverse}
+        zIndex={zIndex}
       />
       <div className="container mx-auto py-20 flex flex-col gap-6">
         <motion.div

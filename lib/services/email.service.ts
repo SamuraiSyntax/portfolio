@@ -150,8 +150,6 @@ export class EmailService {
           </div>
         `,
       });
-
-      console.log("Email de notification envoyé avec succès");
     } catch (error) {
       console.error("Erreur lors de l'envoi de l'email:", error);
       throw error;

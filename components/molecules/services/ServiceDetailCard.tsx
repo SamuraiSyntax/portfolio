@@ -8,7 +8,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { getServiceIcon } from "@/lib/icons";
-import { decodeHTMLEntities, formatPrice } from "@/lib/utils";
+import { decodeHTMLEntities, formatPrice, truncateText } from "@/lib/utils";
 import { WPService } from "@/types/wordpress";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -18,7 +18,7 @@ export function ServiceDetailCard({ service }: { service: WPService }) {
   const IconComponent = getServiceIcon(service.service_meta.icon);
 
   return (
-    <Card className="h-full hover:shadow-lg transition-shadow flex flex-col justify-between gap-4">
+    <Card className="h-full w-full hover:shadow-lg transition-shadow flex flex-col justify-between gap-4">
       <CardHeader className="space-y-4 pb-0">
         <div className="flex items-start gap-4">
           {IconComponent && (
@@ -41,7 +41,7 @@ export function ServiceDetailCard({ service }: { service: WPService }) {
         <div
           className="prose prose-sm max-w-none text-muted-foreground"
           dangerouslySetInnerHTML={{
-            __html: service.content.rendered,
+            __html: truncateText(service.content.rendered, 100),
           }}
         />
 
@@ -64,7 +64,7 @@ export function ServiceDetailCard({ service }: { service: WPService }) {
         </div>
       </CardContent>
 
-      <CardFooter className="flex gap-4">
+      <CardFooter className="flex flex-col md:flex-row gap-4">
         <Link href={`/services/${service.slug}`} className="flex-1">
           <Button variant="outline" className="w-full">
             En savoir plus

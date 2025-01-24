@@ -58,13 +58,14 @@ export function ProjectsSection({
   }`;
 
   return (
-    <section className={`${className}`} style={{ zIndex: zIndex }}>
+    <section id="projets" className={`${className}`} style={{ zIndex: zIndex }}>
       <SectionDivider
         color={color || "muted"}
         colorReverse={colorReverse}
         utility={utilityReverse}
         reverse={reverse}
         waveType={waveType}
+        zIndex={zIndex}
       />
       <div className="container mx-auto py-20 flex flex-col gap-6">
         <motion.div
@@ -91,10 +92,8 @@ export function ProjectsSection({
         >
           <CarouselContent>
             {projects.map((project) => (
-              <CarouselItem key={project.id}>
-                <div className="group">
-                  <ProjectCard project={project} />
-                </div>
+              <CarouselItem key={project.id} className="w-full h-full">
+                <ProjectCard project={project} />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -104,7 +103,7 @@ export function ProjectsSection({
 
         {/* Grille pour desktop */}
         <motion.div
-          className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12"
+          className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 w-full h-full"
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
@@ -113,7 +112,7 @@ export function ProjectsSection({
             <motion.div
               key={project.id}
               variants={fadeInUp}
-              className="h-full group"
+              className="w-full h-full"
             >
               <ProjectCard project={project} />
             </motion.div>

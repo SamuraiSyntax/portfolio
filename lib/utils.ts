@@ -48,25 +48,20 @@ export function formatPrice(price: string): string {
 }
 
 export function decodeHTMLEntities(text: string): string {
-  if (typeof window === "undefined") {
-    // Version serveur
-    return text.replace(/&([^;]+);/g, (match, entity) => {
-      const entities: { [key: string]: string } = {
-        amp: "&",
-        apos: "'",
-        lt: "<",
-        gt: ">",
-        quot: '"',
-        nbsp: " ",
-      };
-      return entities[entity] || match;
-    });
-  }
+  const entities: { [key: string]: string } = {
+    "&amp;": "&",
+    "&lt;": "<",
+    "&gt;": ">",
+    "&quot;": '"',
+    "&#039;": "'",
+    "&#8211;": "–",
+    "&ndash;": "–",
+    "&mdash;": "—",
+  };
 
-  // Version client
-  const textarea = document.createElement("textarea");
-  textarea.innerHTML = text;
-  return textarea.value;
+  return text.replace(/&[^;]+;/g, (entity) => {
+    return entities[entity] || entity;
+  });
 }
 
 export function stripHtml(html: string): string {

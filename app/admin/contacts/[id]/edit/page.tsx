@@ -24,7 +24,7 @@ export default async function EditContactPage(props: { params: tParams }) {
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="w-full h-full container mx-auto flex flex-col gap-4 pt-20">
       <div className="flex items-center justify-between">
         <Link href={`/admin/contacts/${id}`}>
           <Button variant="ghost" size="icon">

@@ -37,96 +37,215 @@ export function AboutSection({
   utility,
   zIndex,
 }: AboutSectionProps) {
-  const className = `min-h-screen flex items-center relative border-none border-0 group sticky top-0 bg-${color}${
+  const classNameDesktop = `hidden md:flex min-h-screen items-center relative border-none border-0 group sticky top-0 bg-${color}${
+    utility ? `-${utility}` : ""
+  }`;
+
+  const classNameMobile = `flex md:hidden items-center relative border-none border-0 group sticky top-0 bg-${color}${
     utility ? `-${utility}` : ""
   }`;
 
   return (
-    <section className={`${className}`} style={{ zIndex: zIndex }}>
-      <SectionDivider
-        color={color || "muted"}
-        colorReverse={colorReverse}
-        reverse={reverse}
-        waveType={waveType}
-      />
-      <div className="container mx-auto px-4 py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-        >
-          <SectionTitle title={title} subtitle={subtitle} />
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-12 items-center mt-12">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="relative col-span-1"
-          >
-            <div className="relative aspect-square rounded-2xl overflow-hidden">
-              <Image
-                src={image}
-                alt="Bernard Ngandu"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-              />
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent" />
-            </div>
-          </motion.div>
-
+    <>
+      {/* Desktop */}
+      <section
+        id="about"
+        className={`${classNameDesktop}`}
+        style={{ zIndex: zIndex }}
+      >
+        <SectionDivider
+          color={color || "muted"}
+          colorReverse={colorReverse}
+          reverse={reverse}
+          waveType={waveType}
+          zIndex={zIndex}
+        />
+        <div className="container mx-auto px-4 py-12 md:py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.5 }}
-            className="space-y-6 col-span-2"
+            className="mb-12"
           >
-            <p className="text-lg text-muted-foreground">{description}</p>
+            <SectionTitle title={title} subtitle={subtitle} />
+          </motion.div>
 
-            <div className="grid grid-cols-2 md:grid-cols-2 gap-6 mt-8">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
-                  className="text-center p-4 rounded-xl bg-background/50 hover:bg-background backdrop-blur-sm"
-                >
-                  <div className="text-3xl font-bold text-primary mb-2">
-                    {stat.number}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {stat.label}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              transition={{ duration: 0.5 }}
+              className="relative lg:sticky lg:top-24"
             >
-              <Link
-                href="/contact"
-                className="inline-flex items-center mt-6 text-primary hover:text-primary/80 transition-colors"
-              >
-                En savoir plus
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+              <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
+                <Image
+                  src={image}
+                  alt="Bernard Ngandu"
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-80 transition-opacity group-hover:opacity-100" />
+              </div>
             </motion.div>
-          </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-8 lg:col-span-2"
+            >
+              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+                {description}
+              </p>
+
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 md:gap-6">
+                {stats.map((stat, index) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
+                    className="text-center p-6 rounded-xl bg-background/50 hover:bg-background backdrop-blur-sm transition-all duration-300 hover:shadow-lg"
+                  >
+                    <div className="text-4xl font-bold text-primary mb-2">
+                      {stat.number}
+                    </div>
+                    <div className="text-sm font-medium text-muted-foreground">
+                      {stat.label}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center px-6 py-3 text-primary bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors"
+                >
+                  En savoir plus
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Mobile */}
+      <>
+        {/* Mobile titre */}
+        <section
+          id="about"
+          className={`${classNameMobile}`}
+          style={{ zIndex: zIndex }}
+        >
+          <SectionDivider
+            color={color || "muted"}
+            colorReverse={colorReverse}
+            reverse={reverse}
+            waveType={waveType}
+            zIndex={zIndex}
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
+            className="container mx-auto px-4 py-12 md:py-20"
+          >
+            <SectionTitle title={title} subtitle={subtitle} />
+          </motion.div>
+        </section>
+
+        {/* Mobile image */}
+        <section className={`${classNameMobile}`} style={{ zIndex: zIndex }}>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="relative h-full w-full px-4"
+          >
+            <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl h-full w-full">
+              <Image
+                src={image}
+                alt="Bernard Ngandu"
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105 h-full w-full"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-80 transition-opacity group-hover:opacity-100" />
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Mobile description */}
+        <section
+          className={`flex md:hidden items-center border-none border-0 group sticky top-0 bg-background min-h-screen`}
+          style={{ zIndex: zIndex }}
+        >
+          <div className="grid grid-cols-1 gap-8 items-start px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-8"
+            >
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                {description}
+              </p>
+
+              <div className="grid grid-cols-2 gap-4">
+                {stats.map((stat, index) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
+                    className="text-center p-6 rounded-xl bg-muted/50 hover:bg-muted backdrop-blur-sm transition-all duration-300 hover:shadow-lg"
+                  >
+                    <div className="text-4xl font-bold text-primary mb-2">
+                      {stat.number}
+                    </div>
+                    <div className="text-sm font-medium text-muted-foreground">
+                      {stat.label}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center px-6 py-3 text-primary bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors"
+                >
+                  Me contacter
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+      </>
+    </>
   );
 }

@@ -69,7 +69,7 @@ export default async function StatsPage() {
   ];
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="w-full h-full container mx-auto flex flex-col gap-4 pt-20">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardHeader>

@@ -35,8 +35,12 @@ export function ServicesPreviewSection({
   }`;
 
   return (
-    <section className={`${className}`} style={{ zIndex }}>
-      <SectionDivider color={color || "muted"} waveType={waveType} />
+    <section id="services" className={`${className}`} style={{ zIndex }}>
+      <SectionDivider
+        color={color || "muted"}
+        waveType={waveType}
+        zIndex={zIndex}
+      />
       <div className="container mx-auto py-5 flex flex-col gap-6">
         <SectionTitle
           title="Mes Services"
@@ -84,8 +88,8 @@ export function ServicesPreviewSection({
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2" />
-          <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2" />
+          <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 bg-background hover:bg-primary text-muted-foreground hover:text-white" />
+          <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 bg-background hover:bg-primary text-muted-foreground hover:text-white" />
         </Carousel>
       </div>
     </section>

@@ -3,8 +3,17 @@
 import { SectionDivider } from "@/components/atoms/SectionDivider";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-import { MdEmail, MdLocationOn, MdPhone } from "react-icons/md";
+import {
+  FaCode,
+  FaEnvelope,
+  FaGithub,
+  FaHome,
+  FaLinkedin,
+  FaTools,
+  FaTwitter,
+  FaUser,
+} from "react-icons/fa";
+import { MdEmail, MdLocationOn } from "react-icons/md";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -34,19 +43,17 @@ export default function Footer() {
     {
       title: "Navigation",
       links: [
-        { label: "Accueil", href: "/" },
-        { label: "À propos", href: "/about" },
-        { label: "Services", href: "/services" },
-        { label: "Projets", href: "/projects" },
-        { label: "Blog", href: "/blog" },
-        { label: "Contact", href: "/contact" },
+        { href: "/", label: "Accueil", icon: <FaHome /> },
+        { href: "/about", label: "À propos de moi", icon: <FaUser /> },
+        { href: "/services", label: "Mes services", icon: <FaTools /> },
+        { href: "/projects", label: "Mes projets", icon: <FaCode /> },
+        { href: "/contact", label: "Me contacter", icon: <FaEnvelope /> },
       ],
     },
     {
       title: "Contact",
       contact: {
         email: "contact@dev-nanard.fr",
-        phone: "+33 6 12 34 56 78",
         address: "Bordeaux, France",
       },
     },
@@ -57,7 +64,7 @@ export default function Footer() {
       className="bg-secondary text-primary flex items-center group sticky top-0"
       style={{ zIndex: 1000 }}
     >
-      <SectionDivider color="secondary" waveType="type3" />
+      <SectionDivider color="secondary" waveType="type3" zIndex={1000} />
 
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8">
@@ -99,8 +106,9 @@ export default function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-muted-foreground hover:text-primary transition-colors"
+                        className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
                       >
+                        {link.icon}
                         {link.label}
                       </Link>
                     </li>
@@ -117,12 +125,6 @@ export default function Footer() {
                     </a>
                   </p>
                   <p className="flex items-center gap-2 hover:text-primary transition-colors">
-                    <MdPhone className="w-5 h-5" />
-                    <a href={`tel:${section.contact.phone}`}>
-                      {section.contact.phone}
-                    </a>
-                  </p>
-                  <p className="flex items-center gap-2 hover:text-primary transition-colors">
                     <MdLocationOn className="w-5 h-5" />
                     {section.contact.address}
                   </p>
@@ -133,7 +135,7 @@ export default function Footer() {
         </div>
 
         <motion.div
-          className="mt-12 pt-8 border-t border-muted-foreground"
+          className="mt-4 pt-4 border-t border-muted-foreground"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

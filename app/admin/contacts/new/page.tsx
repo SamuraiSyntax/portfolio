@@ -10,7 +10,7 @@ export default async function NewContactPage() {
   }
 
   return (
-    <div className="p-4">
+    <div className="w-full h-full container mx-auto flex flex-col gap-4 pt-20">
       <ContactForm />
     </div>
   );

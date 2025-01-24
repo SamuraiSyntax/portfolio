@@ -44,6 +44,10 @@ export default function ServicesPage() {
         title="Solutions WordPress Sur Mesure"
         highlight="Sites Web Professionnels"
         subtitle="Développeur spécialisé WordPress, je conçois des sites web performants et évolutifs. Mon expertise technique et ma veille constante sur les nouvelles technologies garantissent des solutions adaptées à vos objectifs."
+        primaryButtonText="Voir mes services"
+        primaryButtonLink="#services"
+        secondaryButtonText="Voir mes projets"
+        secondaryButtonLink="/projects"
       />
       <ServiceDetailSection color="muted" waveType="type2" zIndex={10} />
       <ContactSection color="background" waveType="type1" zIndex={20} />

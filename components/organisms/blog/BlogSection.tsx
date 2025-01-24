@@ -46,6 +46,7 @@ export function BlogSection({
         colorReverse={colorReverse}
         reverse={reverse}
         waveType={waveType}
+        zIndex={zIndex}
       />
       <motion.div
         className="container mx-auto px-4"

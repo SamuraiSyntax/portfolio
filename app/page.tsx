@@ -1,7 +1,7 @@
 import { LoadingSpinner } from "@/components/atoms/LoadingSpinner";
 import { ContactSection } from "@/components/organisms/contact/ContactSection";
 import { HeroSection } from "@/components/organisms/HeroSection";
-import { ProjectsSection } from "@/components/organisms/projects/ProjectsSection";
+import { ProjectsPreviewSection } from "@/components/organisms/projects/ProjectsPreviewSection";
 import { ServicesPreviewSection } from "@/components/organisms/services/ServicesPreviewSection";
 import { TestimonialsSection } from "@/components/organisms/testimonials/TestimonialsSection";
 import Footer from "@/components/v2/footer";
@@ -75,6 +75,10 @@ export default function Home() {
         title="Développeur WordPress"
         subtitle="Solutions web professionnelles et sur mesure"
         highlight="Innovation & Performance"
+        primaryButtonText="Voir mes projets"
+        primaryButtonLink="#projets"
+        secondaryButtonText="Découvrir mes services"
+        secondaryButtonLink="#services"
       />
 
       <Suspense fallback={<LoadingSpinner size="lg" />}>
@@ -82,7 +86,11 @@ export default function Home() {
       </Suspense>
 
       <Suspense fallback={<LoadingSpinner size="lg" />}>
-        <ProjectsSection color="background" waveType="type2" zIndex={20} />
+        <ProjectsPreviewSection
+          color="background"
+          waveType="type2"
+          zIndex={20}
+        />
       </Suspense>
 
       <Suspense fallback={<LoadingSpinner size="lg" />}>

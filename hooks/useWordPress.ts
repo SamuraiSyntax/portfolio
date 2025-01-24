@@ -152,7 +152,7 @@ export function useTestimonials(): UseWPListResponse<WPTestimonial> {
       try {
         const testimonials = await fetchWPData<WPTestimonial[]>("testimonials");
         setState({
-          data: testimonials,
+          data: Array.isArray(testimonials) ? testimonials : [],
           isLoading: false,
           error: null,
         });

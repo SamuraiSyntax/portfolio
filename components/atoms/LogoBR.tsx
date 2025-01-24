@@ -15,6 +15,7 @@ export default function LogoBR({
 }: LogoBRProps) {
   const letterRRef = useRef<SVGTSpanElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const svg = svgRef.current;
@@ -29,22 +30,38 @@ export default function LogoBR({
     );
 
     // Animation initiale après chargement
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
       const x = 0;
 
       fullNames?.forEach((name) => ((name as HTMLElement).style.opacity = "0"));
       letterR.setAttribute("transform", "translate(" + x + " 0)");
-    }, 500);
+
+      timeoutRef.current = setTimeout(() => {
+        svg.setAttribute("width", "50");
+
+        letterR.setAttribute("transform-origin", "center");
+        letterR.setAttribute("transform", "translate(" + x + " 0) rotate(-10)");
+      }, 600);
+    }, 300);
 
     const handleHover = () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
       const x = 120;
 
-      letterR.setAttribute("transform", "translate(" + x + " 0)");
+      letterR.setAttribute("transform", "translate(" + x + " 0) rotate(0)");
+      // Augmenter la taille du SVG
+      svg.setAttribute("width", "250");
 
-      fullNames?.forEach((name) => ((name as HTMLElement).style.opacity = "1"));
+      timeoutRef.current = setTimeout(() => {
+        fullNames?.forEach(
+          (name) => ((name as HTMLElement).style.opacity = "1")
+        );
+      }, 300);
     };
 
     const handleMouseLeave = () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
       const x = 0;
 
       // Cacher le texte
@@ -52,6 +69,18 @@ export default function LogoBR({
 
       // Replacer le R
       letterR.setAttribute("transform", "translate(" + x + " 0)");
+
+      // Réduire la taille du SVG
+      timeoutRef.current = setTimeout(() => {
+        svg.setAttribute("width", "50");
+        timeoutRef.current = setTimeout(() => {
+          letterR.setAttribute("transform-origin", "center");
+          letterR.setAttribute(
+            "transform",
+            "translate(" + x + " 0) rotate(-10)"
+          );
+        }, 300);
+      }, 300);
     };
 
     svg.addEventListener("mouseenter", handleHover);
@@ -60,6 +89,7 @@ export default function LogoBR({
     return () => {
       svg.removeEventListener("mouseenter", handleHover);
       svg.removeEventListener("mouseleave", handleMouseLeave);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
 
@@ -74,8 +104,6 @@ export default function LogoBR({
       <defs>
         <style type="text/css">
           {`
-            @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
-            
             .letter-b, .letter-r {
               font-family: 'Ubuntu', sans-serif;
               font-weight: 500;
@@ -88,7 +116,7 @@ export default function LogoBR({
             
             .full-name {              
               font-family: 'Ubuntu', sans-serif;
-              font-weight: 400;
+              font-weight: 300;
               font-style: normal;
               font-size: 35px;
               opacity: 1;

@@ -3,7 +3,10 @@
 import { SectionDivider } from "@/components/atoms/SectionDivider";
 import { SectionTitle } from "@/components/atoms/SectionTitle";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
+import { FaEnvelope } from "react-icons/fa";
 
 interface ContactSectionProps {
   color?: string;
@@ -48,39 +51,48 @@ export function ContactSection({
     form: "lg:px-4 lg:max-w-2xl lg:mx-auto",
   };
 
-  const containerClass = `min-h-screen relative border-none border-0 group sticky top-0 bg-${color}${
-    utility ? `-${utility}` : ""
-  } ${mobileClasses.section} ${desktopClasses.section} ${className}`;
+  const containerClass = `min-h-screen relative border-none border-0 group sticky top-0 h-full flex flex-col items-center justify-center ${
+    mobileClasses.container
+  } ${desktopClasses.container} bg-${color}${utility ? `-${utility}` : ""} ${
+    mobileClasses.section
+  } ${desktopClasses.section} ${className}`;
 
   return (
-    <section className={containerClass} style={{ zIndex }}>
+    <section id="contact" className={containerClass} style={{ zIndex }}>
       <SectionDivider
         color={color}
         colorReverse={colorReverse}
         utility={utilityReverse}
         reverse={reverse}
         waveType={waveType}
+        zIndex={zIndex}
       />
 
-      <div
-        className={`container mx-auto flex flex-col ${mobileClasses.container} ${desktopClasses.container}`}
-      >
-        <SectionTitle
-          title={title}
-          subtitle={subtitle}
-          description={description}
-        />
+      <SectionTitle
+        title={title}
+        subtitle={subtitle}
+        description={description}
+      />
 
-        <motion.div
-          className={`w-full group ${mobileClasses.form} ${desktopClasses.form}`}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <ContactForm onClose={() => {}} />
-        </motion.div>
-      </div>
+      <motion.div
+        className={`w-full flex justify-center ${mobileClasses.form} ${desktopClasses.form}`}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="flex items-center gap-2">
+              <FaEnvelope className="w-4 h-4" />
+              Me contacter
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[600px]">
+            <ContactForm onClose={() => {}} />
+          </DialogContent>
+        </Dialog>
+      </motion.div>
     </section>
   );
 }

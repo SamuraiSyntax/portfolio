@@ -1,16 +1,19 @@
 "use client";
 
-import { ContactFormFields } from "@/components/contact/ContactFormFields";
+import { BasicFields } from "@/components/contact/BasicFields";
+import { MessageField } from "@/components/contact/MessageField";
+import { OptionalFields } from "@/components/contact/OptionalFields";
 import { Button } from "@/components/ui/button";
+import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { Progress } from "@/components/ui/progress";
 import { neobrutalismClassPrimary } from "@/lib/styles";
 import { FormValues, formSchema } from "@/lib/types/contact";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaPaperPlane } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaPaperPlane } from "react-icons/fa";
 import { toast } from "sonner";
 
 interface ContactFormProps {
@@ -18,20 +21,41 @@ interface ContactFormProps {
 }
 
 const formAnimation = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, x: -20 },
   show: {
     opacity: 1,
-    y: 0,
+    x: 0,
     transition: {
       type: "spring",
       stiffness: 300,
       damping: 30,
     },
   },
+  exit: {
+    opacity: 0,
+    x: 20,
+    transition: {
+      duration: 0.2,
+    },
+  },
 };
 
+const steps = [
+  {
+    title: "Informations de base",
+    subtitle: "Commençons par faire connaissance",
+  },
+  { title: "Votre message", subtitle: "Décrivez votre projet" },
+  {
+    title: "Détails additionnels",
+    subtitle: "Ajoutez plus d'informations (optionnel)",
+  },
+];
+
 export function ContactForm({ onClose }: ContactFormProps) {
+  const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showOptionalFields, setShowOptionalFields] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -52,48 +76,51 @@ export function ContactForm({ onClose }: ContactFormProps) {
   const { name, email, message } = form.watch();
   const errors = form.formState.errors;
 
-  const isFieldValid = (value: string, fieldName: keyof FormValues) =>
-    value.length > 0 && !errors[fieldName];
+  const canProceedToStep2 = name && email && !errors.name && !errors.email;
+  const canProceedToStep3 = message && !errors.message;
 
-  const validFieldsCount = [
-    isFieldValid(name || "", "name"),
-    isFieldValid(email || "", "email"),
-    isFieldValid(message || "", "message"),
-  ].filter(Boolean).length;
-
-  const progress = (validFieldsCount / 3) * 100;
-
-  const handleSubmit = async (data: FormValues) => {
-    if (progress !== 100) {
-      toast.error("Veuillez remplir tous les champs requis");
+  const handleNext = () => {
+    if (currentStep === 0 && !canProceedToStep2) {
+      toast.error("Veuillez remplir correctement tous les champs");
       return;
     }
+    if (currentStep === 1 && !canProceedToStep3) {
+      toast.error("Veuillez ajouter un message valide");
+      return;
+    }
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+  };
 
+  const handleBack = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
+  };
+
+  const handleSubmit = async (data: FormValues) => {
     try {
       setIsSubmitting(true);
-      console.log("Données soumises:", data);
-
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error("Erreur lors de l'envoi");
-      }
-
       const result = await response.json();
-      console.log("Réponse:", result);
+
+      if (!result.success) {
+        if (result.remainingTime) {
+          const minutes = Math.ceil(result.remainingTime / (1000 * 60));
+          toast.error(`${result.error} Réessayez dans ${minutes} minutes.`);
+        } else {
+          toast.error(result.error);
+        }
+        return;
+      }
 
       toast.success("Message envoyé avec succès!");
       form.reset();
       onClose();
     } catch (error) {
-      console.error("Erreur:", error);
-      toast.error("Erreur lors de l'envoi du message");
+      toast.error("Une erreur est survenue lors de l'envoi du message.");
     } finally {
       setIsSubmitting(false);
     }
@@ -101,63 +128,131 @@ export function ContactForm({ onClose }: ContactFormProps) {
 
   return (
     <Form {...form}>
-      <motion.form
+      <motion.div
         variants={formAnimation}
         initial="hidden"
         animate="show"
-        onSubmit={form.handleSubmit(handleSubmit)}
-        className={`max-h-[450px] md:max-h-[80vh] overflow-y-auto flex flex-col p-0 bg-muted/50 hover:bg-muted backdrop-blur-sm rounded-lg shadow-md border border-primary border-opacity-50 ${neobrutalismClassPrimary} transition-all duration-300`}
+        className="relative"
       >
-        <ContactFormFields form={form} />
+        <DialogHeader className="space-y-3 mb-6">
+          <DialogTitle className="text-xl font-semibold">
+            {steps[currentStep].title}
+          </DialogTitle>
+          <p className="text-sm text-muted-foreground">
+            {steps[currentStep].subtitle}
+          </p>
+          <Progress
+            value={(currentStep + 1) * (100 / steps.length)}
+            className="h-1.5 transition-all duration-300"
+          />
+        </DialogHeader>
 
-        {/* Barre de progression et bouton */}
-        <motion.div
-          variants={formAnimation}
-          className="sticky bottom-0 flex flex-col gap-2 p-3 pt-0 bg-muted"
+        <motion.form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="space-y-6"
         >
-          <div className="flex flex-col gap-1">
-            <Progress
-              value={progress}
-              className="h-1 transition-all duration-300"
-            />
-            <p className="text-xs text-muted-foreground text-center">
-              {progress === 100 ? (
-                <span className="text-primary text-xs">
-                  Formulaire complet ✨
-                </span>
-              ) : (
-                `Progression : ${Math.round(progress)}%`
-              )}
-            </p>
+          <div className="max-h-[60vh] overflow-y-auto pr-2">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentStep}
+                variants={formAnimation}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+                className="space-y-4"
+              >
+                {currentStep === 0 && (
+                  <div className="space-y-4">
+                    <BasicFields form={form} />
+                  </div>
+                )}
+
+                {currentStep === 1 && (
+                  <div className="space-y-4">
+                    <MessageField form={form} />
+                  </div>
+                )}
+
+                {currentStep === 2 && (
+                  <div className="space-y-4">
+                    {!showOptionalFields ? (
+                      <div className="flex flex-col items-center gap-4 py-4">
+                        <p className="text-center text-muted-foreground">
+                          Souhaitez-vous ajouter plus de détails à votre message
+                          ?
+                        </p>
+                        <div className="flex gap-4">
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => setShowOptionalFields(true)}
+                          >
+                            Ajouter des détails
+                          </Button>
+                          <Button
+                            type="submit"
+                            className={neobrutalismClassPrimary}
+                            disabled={isSubmitting}
+                          >
+                            Envoyer maintenant
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <OptionalFields form={form} />
+                    )}
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
-          <Button
-            type="submit"
-            disabled={isSubmitting || progress !== 100}
-            className={`p-2 h-auto w-full transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-primary/50 disabled:text-white text-xs`}
-          >
-            {isSubmitting ? (
-              <span className="flex items-center justify-center gap-2 text-xs">
-                <div className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full" />
-                Envoi en cours...
-              </span>
-            ) : (
-              <span className="flex items-center justify-center gap-2 text-xs">
-                <FaPaperPlane
-                  className={`transition-transform duration-300 ${
-                    progress === 100
-                      ? "translate-x-0 opacity-100"
-                      : "-translate-x-2 opacity-50"
-                  }`}
-                />
-                {progress === 100
-                  ? "Envoyer le message"
-                  : "Complétez le formulaire"}
-              </span>
+          <div className="flex justify-between gap-4 pt-4 border-t">
+            {currentStep > 0 && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleBack}
+                className="flex items-center gap-2"
+              >
+                <FaArrowLeft className="h-4 w-4" />
+                Retour
+              </Button>
             )}
-          </Button>
-        </motion.div>
-      </motion.form>
+
+            {currentStep < 2 ? (
+              <Button
+                type="button"
+                onClick={handleNext}
+                className={`${neobrutalismClassPrimary} ml-auto`}
+              >
+                Suivant
+                <FaArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            ) : (
+              showOptionalFields && (
+                <Button
+                  type="submit"
+                  className={`${neobrutalismClassPrimary} ml-auto`}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2">
+                      <div className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full" />
+                      Envoi...
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      <FaPaperPlane className="h-4 w-4" />
+                      Envoyer
+                    </span>
+                  )}
+                </Button>
+              )
+            )}
+          </div>
+        </motion.form>
+      </motion.div>
     </Form>
   );
 }

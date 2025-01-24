@@ -22,16 +22,6 @@ const ubuntu = localFont({
       style: "italic",
     },
     {
-      path: "./fonts/ubuntu-400.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "./fonts/ubuntu-400italic.woff2",
-      weight: "400",
-      style: "italic",
-    },
-    {
       path: "./fonts/ubuntu-500.woff2",
       weight: "500",
       style: "normal",
@@ -52,8 +42,6 @@ const ubuntu = localFont({
       style: "italic",
     },
   ],
-  display: "swap",
-  preload: true,
   variable: "--font-ubuntu",
 });
 

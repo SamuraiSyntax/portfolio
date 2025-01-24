@@ -4,7 +4,7 @@ import { ExperienceSection } from "@/components/organisms/about/ExperienceSectio
 import { SkillsSection } from "@/components/organisms/about/SkillsSection";
 import { ContactSection } from "@/components/organisms/contact/ContactSection";
 import { HeroSection } from "@/components/organisms/HeroSection";
-import { ProjectsSection } from "@/components/organisms/projects/ProjectsSection";
+import { ProjectsPreviewSection } from "@/components/organisms/projects/ProjectsPreviewSection";
 import Footer from "@/components/v2/footer";
 import { generateMetadata } from "@/lib/seo";
 
@@ -48,12 +48,12 @@ const heroContent = {
   subtitle:
     "Création de solutions web innovantes et performantes adaptées à vos besoins",
   primaryButton: {
-    text: "Me contacter",
-    link: "#contact",
+    text: "À propos de moi",
+    link: "#about",
   },
   secondaryButton: {
-    text: "Voir mes services",
-    link: "/services",
+    text: "Me contacter",
+    link: "#contact",
   },
 };
 
@@ -98,7 +98,7 @@ export default function AboutPage() {
 
       <EducationSection color="background" waveType="type1" zIndex={40} />
 
-      <ProjectsSection color="muted" waveType="type3" zIndex={50} />
+      <ProjectsPreviewSection color="muted" waveType="type3" zIndex={50} />
 
       <ContactSection color="background" waveType="type1" zIndex={60} />
 

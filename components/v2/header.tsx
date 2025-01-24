@@ -18,7 +18,13 @@ import { signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaSignOutAlt } from "react-icons/fa";
+import {
+  FaCode,
+  FaEnvelope,
+  FaSignOutAlt,
+  FaTools,
+  FaUser,
+} from "react-icons/fa";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -48,12 +54,11 @@ export default function Header() {
   const isLightTheme = theme === "light";
 
   const publicNavItems = [
-    { href: "/", label: "Accueil" },
-    { href: "/services", label: "Services" },
-    { href: "/projects", label: "Projets" },
-    { href: "/about", label: "À propos" },
-    { href: "/blog", label: "Articles" },
-    { href: "/contact", label: "Me contacter" },
+    /* { href: "/", label: "Accueil" }, */
+    { href: "/services", label: "Mes services", icon: <FaTools /> },
+    { href: "/projects", label: "Mes projets", icon: <FaCode /> },
+    { href: "/about", label: "À propos de moi", icon: <FaUser /> },
+    { href: "/contact", label: "Me contacter", icon: <FaEnvelope /> },
   ];
 
   const adminNavItems = [
@@ -62,7 +67,15 @@ export default function Header() {
     { href: "/admin/stats", label: "Statistiques" },
   ];
 
+  const adminNavExternalItems = [
+    { href: "https://resend.com/emails", label: "Resend" },
+    { href: "https://console.upstash.com/", label: "Upstash Redis" },
+    { href: "https://console.neon.tech/", label: "Neon" },
+  ];
+
   const navDropdownItems = session ? adminNavItems : [];
+
+  const navDropdownExternalItems = session ? adminNavExternalItems : [];
 
   return (
     <header
@@ -90,18 +103,20 @@ export default function Header() {
         </Link>
 
         {/* Menu Desktop */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-8">
           {publicNavItems.map((item) =>
             item.href ? (
               <Link
                 key={item.href}
                 href={item.href}
-                className="hover:text-primary whitespace-nowrap transition-all duration-300"
+                className="hover:text-primary whitespace-nowrap transition-all duration-300 flex items-center gap-2"
               >
+                {item.icon}
                 {item.label}
               </Link>
             ) : (
               <span key={item.label} className="text-muted">
+                {item.icon}
                 {item.label}
               </span>
             )
@@ -126,7 +141,11 @@ export default function Header() {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end" forceMount>
+              <DropdownMenuContent
+                className="w-56 mt-4 mr-0"
+                align="end"
+                forceMount
+              >
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
@@ -141,6 +160,14 @@ export default function Header() {
                 {navDropdownItems.map((item) => (
                   <DropdownMenuItem key={item.href} asChild>
                     <Link href={item.href}>{item.label}</Link>
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator />
+                {navDropdownExternalItems.map((item) => (
+                  <DropdownMenuItem key={item.href} asChild>
+                    <Link href={item.href} target="_blank">
+                      {item.label}
+                    </Link>
                   </DropdownMenuItem>
                 ))}
                 <DropdownMenuSeparator />
@@ -160,11 +187,7 @@ export default function Header() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : (
-            <Button asChild>
-              <Link href="/contact">Obtenir un devis</Link>
-            </Button>
-          )}
+          ) : null}
         </div>
 
         {/* Bouton Menu Mobile */}
@@ -209,13 +232,15 @@ export default function Header() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block hover:text-primary transition-colors"
+                    className="hover:text-primary transition-colors flex items-center gap-2"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
+                    {item.icon}
                     {item.label}
                   </Link>
                 ) : (
                   <span key={item.label} className="text-muted">
+                    {item.icon}
                     {item.label}
                   </span>
                 )
@@ -239,10 +264,29 @@ export default function Header() {
                     </span>
                   )
                 )}
+
+                {navDropdownExternalItems.map((item) =>
+                  item.href ? (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="block hover:text-primary transition-colors"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      target="_blank"
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <span key={item.label} className="text-muted">
+                      {item.label}
+                    </span>
+                  )
+                )}
               </div>
             ) : null}
 
             <div className="col-span-2 flex flex-col justify-center items-center gap-6 h-auto">
+              <hr className="w-full" />
               <ThemeToggle />
               {session ? (
                 <Button

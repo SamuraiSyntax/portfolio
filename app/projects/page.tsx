@@ -1,6 +1,6 @@
 import { ContactSection } from "@/components/organisms/contact/ContactSection";
 import { HeroSection } from "@/components/organisms/HeroSection";
-import { ProjectsSection } from "@/components/organisms/projects/ProjectsSection";
+import { ProjectDetailSection } from "@/components/organisms/projects/ProjectDetailSection";
 import Footer from "@/components/v2/footer";
 import { generateMetadata } from "@/lib/seo";
 
@@ -42,8 +42,8 @@ const heroContent = {
   highlight: "Projets & Portfolio",
   subtitle:
     "En tant que jeune diplômé, découvrez une sélection de mes projets en développement web, de WordPress à Next.js en passant par React.",
-  primaryButtonText: "Me contacter",
-  primaryButtonLink: "#contact",
+  primaryButtonText: "Voir mes projets",
+  primaryButtonLink: "#projets",
   secondaryButtonText: "Voir mes services",
   secondaryButtonLink: "/services",
 };
@@ -52,7 +52,7 @@ export default function ProjectsPage() {
   return (
     <>
       <HeroSection {...heroContent} />
-      <ProjectsSection color="muted" waveType="type2" zIndex={10} />
+      <ProjectDetailSection color="muted" waveType="type2" zIndex={10} />
       <ContactSection color="background" waveType="type1" zIndex={20} />
       <Footer />
     </>

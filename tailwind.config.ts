@@ -11,6 +11,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        ubuntu: ["var(--font-ubuntu)", "sans-serif"],
+      },
       colors: {
         background: {
           DEFAULT: "hsl(var(--background))",

@@ -48,12 +48,14 @@ export default function ContactPage() {
         highlight="WordPress & Web"
         subtitle="À l'écoute de vos besoins, je vous accompagne dans la création de votre site web professionnel. Bénéficiez d'un devis gratuit et d'un accompagnement personnalisé."
         primaryButtonText="Remplir le formulaire"
-        primaryButtonLink="#contact-form"
+        primaryButtonLink="#contact"
         secondaryButtonText="Voir mes services"
         secondaryButtonLink="/services"
       />
       <TestimonialsSection color="muted" waveType="type1" zIndex={20} />
+
       <ContactSection color="background" waveType="type1" zIndex={30} />
+
       <Footer />
     </>
   );

@@ -49,7 +49,7 @@ model Contact {
   projectType            String?       @db.VarChar(50)
   budget                 Decimal?      @db.Decimal(10, 2)
   deadline               DateTime?
-  existingSite          String?       @db.VarChar(255)
+  existingSite           String?       @db.VarChar(255)
   status                 ContactStatus @default(NEW)
   annualRevenue         Decimal?      @db.Decimal(15, 2)
   assignedTo            User?         @relation(fields: [assignedUserId], references: [id])
@@ -80,6 +80,7 @@ model Contact {
   activities            ActivityLog[] 
 
   @@map("contacts")
+  @@index([email, createdAt])
 }
 
 model User {

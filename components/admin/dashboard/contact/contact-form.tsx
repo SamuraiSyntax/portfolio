@@ -73,11 +73,11 @@ export function ContactForm({ contact, isEditing = false }: ContactFormProps) {
   return (
     <form onSubmit={onSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
+        <div className="space-y-2 px-2">
           <Label htmlFor="name">Nom *</Label>
           <Input id="name" name="name" required defaultValue={contact?.name} />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 px-2">
           <Label htmlFor="email">Email *</Label>
           <Input
             id="email"
@@ -87,7 +87,7 @@ export function ContactForm({ contact, isEditing = false }: ContactFormProps) {
             defaultValue={contact?.email}
           />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 px-2">
           <Label htmlFor="phone">Téléphone</Label>
           <Input
             id="phone"
@@ -96,7 +96,7 @@ export function ContactForm({ contact, isEditing = false }: ContactFormProps) {
             defaultValue={contact?.phone || ""}
           />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 px-2">
           <Label htmlFor="company">Entreprise</Label>
           <Input
             id="company"
@@ -105,7 +105,7 @@ export function ContactForm({ contact, isEditing = false }: ContactFormProps) {
             defaultValue={contact?.company || ""}
           />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 px-2">
           <Label htmlFor="clientType">Type de client</Label>
           <Select name="clientType" defaultValue={contact?.clientType || ""}>
             <SelectTrigger>
@@ -118,7 +118,7 @@ export function ContactForm({ contact, isEditing = false }: ContactFormProps) {
             </SelectContent>
           </Select>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 px-2">
           <Label htmlFor="projectType">Type de projet</Label>
           <Select name="projectType" defaultValue={contact?.projectType || ""}>
             <SelectTrigger>
@@ -132,7 +132,7 @@ export function ContactForm({ contact, isEditing = false }: ContactFormProps) {
             </SelectContent>
           </Select>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 px-2">
           <Label htmlFor="budget">Budget</Label>
           <Input
             id="budget"
@@ -142,7 +142,7 @@ export function ContactForm({ contact, isEditing = false }: ContactFormProps) {
             defaultValue={contact?.budget || ""}
           />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 px-2">
           <Label htmlFor="deadline">Date limite</Label>
           <Input
             id="deadline"
@@ -155,7 +155,7 @@ export function ContactForm({ contact, isEditing = false }: ContactFormProps) {
             }
           />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 px-2">
           <Label htmlFor="existingSite">Site existant</Label>
           <Input
             id="existingSite"
@@ -164,7 +164,7 @@ export function ContactForm({ contact, isEditing = false }: ContactFormProps) {
             defaultValue={contact?.existingSite || ""}
           />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 px-2">
           <Label htmlFor="status">Statut</Label>
           <Select
             name="status"
@@ -183,7 +183,7 @@ export function ContactForm({ contact, isEditing = false }: ContactFormProps) {
           </Select>
         </div>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-2 px-2">
         <Label htmlFor="message">Message</Label>
         <Textarea
           id="message"

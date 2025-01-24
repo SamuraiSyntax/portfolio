@@ -14,7 +14,7 @@ export function middleware() {
       font-src 'self';
       connect-src 'self' https://www.api.dev-nanard.fr https://va.vercel-scripts.com;
       frame-src 'self';
-      media-src 'self';
+      media-src 'self' https://www.api.dev-nanard.fr https://*.api.dev-nanard.fr;
     `
       .replace(/\s{2,}/g, " ")
       .trim()

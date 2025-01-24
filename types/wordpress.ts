@@ -43,10 +43,17 @@ export interface Article {
 
 export interface WPProject extends WPPost {
   project_meta: {
+    description: string;
+    category: "web" | "app" | "design" | "other";
+    media_type: "image" | "video" | "gif";
+    media_url: string;
     url: string;
     technologies: string[];
     date: string;
     featured_image: string;
+    github_url: string;
+    status: "completed" | "in_progress" | "maintenance";
+    client: string;
   };
 }
 
@@ -55,6 +62,9 @@ export interface WPService extends WPPost {
     icon: string;
     price: string;
     features: string[];
+    featured_image: string;
+    duration: string;
+    included_services: string[];
   };
 }
 
@@ -62,5 +72,9 @@ export interface WPTestimonial extends WPPost {
   testimonial_meta: {
     client_name: string;
     client_role: string;
+    project_related: string;
+    rating?: string;
+    project_link?: string;
+    testimonial_date: string;
   };
 }

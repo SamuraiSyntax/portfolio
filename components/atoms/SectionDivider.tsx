@@ -7,6 +7,7 @@ interface SectionDividerProps {
   utilityReverse?: number;
   reverse?: boolean;
   waveType?: "type1" | "type2" | "type3";
+  zIndex?: number;
 }
 
 export function SectionDivider({
@@ -16,8 +17,9 @@ export function SectionDivider({
   utilityReverse,
   reverse,
   waveType = "type1",
+  zIndex,
 }: SectionDividerProps) {
-  const className = `absolute top-2 left-0 w-full text-${
+  const className = `absolute top-1 left-0 w-full text-${
     colorReverse ? colorReverse : color
   }${utility ? `-${utility}` : ""}${
     utilityReverse ? `-${utilityReverse}` : ""
@@ -34,7 +36,10 @@ export function SectionDivider({
     type3: "M0,80 C480,100, 960,50, 1440,80 L1440,100 L0,100 Z",
   };
   return (
-    <div className={`${className} ${reverseClass}`}>
+    <div
+      className={`${className} ${reverseClass} pointer-events-none`}
+      style={{ zIndex: zIndex ? zIndex - 1 : 0 }}
+    >
       <svg viewBox="0 0 1440 100" className="w-full">
         <path
           fill="currentColor"

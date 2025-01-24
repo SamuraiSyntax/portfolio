@@ -27,7 +27,7 @@ export function MessageField({ form }: MessageFieldProps) {
       control={form.control}
       name="message"
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="space-y-2 px-2">
           <FormLabel className="flex items-center justify-between text-xs">
             <span className="flex items-center gap-2">
               <FaComment className="h-4 w-4" />

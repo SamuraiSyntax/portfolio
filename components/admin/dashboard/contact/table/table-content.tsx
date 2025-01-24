@@ -92,13 +92,11 @@ export function TableContent({ contacts }: TableContentProps) {
   const handleView = (contactId: string) => {
     // TODO: Implémenter la navigation vers la vue détaillée
     router.push(`/admin/contacts/${contactId}`);
-    console.log("View contact", contactId);
   };
 
   const handleEdit = (contactId: string) => {
     // TODO: Implémenter la navigation vers le formulaire d'édition
     router.push(`/admin/contacts/${contactId}/edit`);
-    console.log("Edit contact", contactId);
   };
 
   return (

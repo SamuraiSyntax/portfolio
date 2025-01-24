@@ -64,7 +64,7 @@ export default async function DashboardPage() {
   };
 
   return (
-    <div className="container mx-auto flex flex-col gap-4 pt-20">
+    <div className="w-full h-full container mx-auto flex flex-col gap-4 pt-20">
       <section className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         <StatsCards {...statsData} />
       </section>
