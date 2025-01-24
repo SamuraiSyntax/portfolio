@@ -14,6 +14,7 @@ import {
 import { useTestimonials } from "@/hooks/useWordPress";
 import { fadeInUp, staggerChildren } from "@/lib/animations";
 import Autoplay from "embla-carousel-autoplay";
+import { MessageCircle } from "lucide-react";
 import { motion } from "motion/react";
 import * as React from "react";
 
@@ -131,10 +132,22 @@ export function TestimonialsSection({
             className="mt-12"
           >
             <Card className="p-8 text-center bg-background/80 hover:bg-background transition-all duration-300 flex flex-col items-center justify-center gap-4">
-              <p className="text-lg text-muted-foreground">
-                Aucun témoignage pour le moment. Bernard Rogier, notre junior,
-                serait ravi de lire vos retours et expériences. N&apos;hésitez
-                pas à être le premier à partager votre avis !
+              <MessageCircle className="w-12 h-12 text-primary mb-4" />
+              <div className="w-full max-w-md border-t border-muted my-4"></div>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                <span className="font-semibold text-primary">
+                  Aucun témoignage pour le moment.
+                </span>
+                <br />
+                <span>
+                  Vos retours sont précieux et m&apos;aident à améliorer mes
+                  services.
+                </span>
+                <br />
+                <span className="italic">
+                  Soyez le premier à partager votre expérience et à m&apos;aider
+                  à grandir !
+                </span>
               </p>
             </Card>
           </motion.div>
