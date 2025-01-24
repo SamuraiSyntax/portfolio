@@ -85,7 +85,7 @@ export default function Header() {
           : "bg-transparent"
       } data-[state=open]:bg-secondary`}
       data-state={isMobileMenuOpen ? "open" : "closed"}
-      style={{ zIndex: 1000 }}
+      style={{ zIndex: 2000 }}
     >
       <nav className="w-full max-w-full m-0 px-2 md:px-10 py-4 max-h-16 flex justify-between items-center">
         <Link
