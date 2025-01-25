@@ -172,12 +172,12 @@ export function SkillsSection({
               align: "start",
               loop: true,
             }}
-            className="w-full h-full px-10 container mx-auto flex flex-col justify-center min-h-[80vh]"
+            className="w-full h-full px-10 container mx-auto flex flex-col justify-center py-10"
             plugins={[plugin.current]}
             onMouseEnter={plugin.current.stop}
             onMouseLeave={plugin.current.reset}
           >
-            <CarouselContent className="-mt-1 h-[75vh] flex flex-col">
+            <CarouselContent className="-mt-1 h-[450px] flex flex-col">
               {skills.map((skill, index) => (
                 <CarouselItem
                   key={skill.name}

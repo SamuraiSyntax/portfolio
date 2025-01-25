@@ -3,16 +3,8 @@
 import { SectionDivider } from "@/components/atoms/SectionDivider";
 import { SectionTitle } from "@/components/atoms/SectionTitle";
 import { Card } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
-import { motion } from "motion/react";
-import * as React from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { useRef } from "react";
 
 export const experience = [
   {
@@ -59,7 +51,6 @@ export function ExperienceSection({
   utility,
   reverse,
   waveType,
-  utilityReverse,
   zIndex,
 }: {
   color?: string;
@@ -67,188 +58,190 @@ export function ExperienceSection({
   utility?: number;
   reverse?: boolean | false;
   waveType?: "type1" | "type2" | "type3";
-  utilityReverse?: number;
   zIndex?: number;
 }) {
-  const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true })
-  );
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const classNameDesktop = `hidden md:flex items-center relative border-none border-0 group sticky top-0 bg-${color}${
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"],
+  });
+
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  const classNameDesktop = `hidden md:flex items-center relative border-none border-0 group sticky top-0 bg-background${
     utility ? `-${utility}` : ""
   }`;
 
-  const classNameMobile = `flex md:hidden items-center relative border-none border-0 group sticky top-0 bg-${color}${
+  const classNameMobile = `flex md:hidden items-center relative border-none border-0 group sticky top-0 bg-background${
     utility ? `-${utility}` : ""
   }`;
+
+  const sortedExperience = [...experience].sort((a, b) => {
+    const yearA = parseInt(a.period.split(" - ")[0]);
+    const yearB = parseInt(b.period.split(" - ")[0]);
+    return yearA - yearB;
+  });
 
   return (
-    <>
-      {/* Desktop */}
-      <>
-        {/* Desktop titre */}
-        <section
-          className={`${classNameDesktop} py-12`}
-          style={{ zIndex: zIndex }}
-        >
-          <SectionDivider
-            color={color || "muted"}
-            colorReverse={colorReverse}
-            reverse={reverse}
-            waveType={waveType}
-            zIndex={zIndex}
-          />
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5 }}
-            className="container mx-auto px-4 py-12"
-          >
-            <SectionTitle
-              title="Expérience"
-              subtitle="Mon parcours professionnel"
-            />
-          </motion.div>
-        </section>
+    <div
+      ref={containerRef}
+      className="relative min-h-screen w-full"
+      style={{ zIndex }}
+    >
+      {/* Section Title */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="px-4 py-12 text-center sticky top-0 bg-muted group"
+      >
+        <SectionDivider
+          color={"muted"}
+          colorReverse={colorReverse}
+          reverse={reverse}
+          waveType={waveType}
+          zIndex={zIndex}
+        />
+        <SectionTitle
+          title="Expérience"
+          subtitle="Mon parcours professionnel"
+        />
+      </motion.div>
 
-        {/* Desktop experience carousel */}
-        <section
-          className={`hidden md:flex items-center border-none border-0 group sticky top-0 min-h-screen bg-background`}
-          style={{ zIndex: zIndex }}
-        >
-          <SectionDivider
-            color={"background"}
-            colorReverse={colorReverse}
-            utility={utilityReverse}
-            reverse={reverse}
-            waveType={waveType}
-            zIndex={zIndex}
-          />
-          <Carousel
-            orientation="vertical"
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full h-full px-10"
-            plugins={[plugin.current]}
-            onMouseEnter={plugin.current.stop}
-            onMouseLeave={plugin.current.reset}
-          >
-            <CarouselContent className="-mt-1 h-[400px] flex flex-col justify-between p-0">
-              {experience.map((exp, index) => (
-                <CarouselItem
-                  key={index}
-                  className="pt-1 basis-1/2 flex flex-col justify-center"
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 20 }}
-                    transition={{ delay: index * 0.01 }}
-                    className="p-1"
-                  >
-                    <Card className="p-6 h-full hover:shadow-lg transition-shadow bg-muted/50 hover:bg-muted backdrop-blur-sm">
-                      <div className="text-sm text-primary mb-2">
-                        {exp.period}
-                      </div>
-                      <h3 className="text-xl font-semibold mb-1">
-                        {exp.title}
-                      </h3>
-                      <p className="text-muted-foreground">
-                        {exp.description.join(", ")}
-                      </p>
-                    </Card>
-                  </motion.div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="bg-muted/50 hover:bg-primary hover:text-white" />
-            <CarouselNext className="bg-muted/50 hover:bg-primary hover:text-white" />
-          </Carousel>
-        </section>
-      </>
-      {/* Mobile */}
-      <>
-        {/* Mobile titre */}
-        <section className={`${classNameMobile}`} style={{ zIndex: zIndex }}>
-          <SectionDivider
-            color={color || "muted"}
-            colorReverse={colorReverse}
-            reverse={reverse}
-            waveType={waveType}
-            zIndex={zIndex}
-          />
+      {/* Desktop Version */}
+      <div
+        className={`hidden md:flex px-4 gap-12 relative ${classNameDesktop}`}
+      >
+        <SectionDivider
+          color={"background"}
+          colorReverse={colorReverse}
+          reverse={reverse}
+          waveType={waveType}
+          zIndex={zIndex}
+        />
+        <div className="absolute left-1/2 h-full w-0.5 bg-primary/20">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5 }}
-            className="container mx-auto px-4 py-12"
-          >
-            <SectionTitle
-              title="Expérience"
-              subtitle="Mon parcours professionnel"
-            />
-          </motion.div>
-        </section>
-
-        {/* Mobile experience carousel */}
-        <section
-          className={`flex md:hidden items-center border-none border-0 group sticky top-0 bg-background min-h-screen`}
-          style={{ zIndex: zIndex }}
-        >
-          <SectionDivider
-            color={"background"}
-            colorReverse={colorReverse}
-            reverse={reverse}
-            waveType={waveType}
-            zIndex={zIndex}
+            className="absolute top-0 w-full bg-primary origin-top"
+            style={{ scaleY }}
           />
-          <Carousel
-            orientation="vertical"
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full h-full px-10 container mx-auto flex flex-col justify-center min-h-[75vh]"
-            plugins={[plugin.current]}
-            onMouseEnter={plugin.current.stop}
-            onMouseLeave={plugin.current.reset}
-          >
-            <CarouselContent className="-mt-1 h-[75vh] flex flex-col">
-              {experience.map((exp, index) => (
-                <CarouselItem
-                  key={index}
-                  className="p-0 basis-full h-auto flex flex-col justify-center"
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 20 }}
-                    transition={{ delay: index * 0.01 }}
-                  >
-                    <Card className="p-6 h-full hover:shadow-lg transition-shadow bg-muted/50 hover:bg-muted backdrop-blur-sm">
-                      <div className="text-sm text-primary mb-2">
-                        {exp.period}
-                      </div>
-                      <h3 className="text-xl font-semibold mb-1">
-                        {exp.title}
-                      </h3>
-                      <p className="text-muted-foreground">
-                        {exp.description.join(", ")}
-                      </p>
-                    </Card>
-                  </motion.div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="absolute left-1/2 -translate-x-1/2 top-0 bg-muted/50 hover:bg-primary hover:text-white" />
-            <CarouselNext className="absolute left-1/2 -translate-x-1/2 bottom-0 bg-muted/50 hover:bg-primary hover:text-white" />
-          </Carousel>
-        </section>
-      </>
-    </>
+        </div>
+
+        <div className="w-full space-y-12 py-12">
+          {sortedExperience.map((exp, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative grid grid-cols-2 items-center"
+            >
+              <div className="absolute left-1/2 -translate-x-1/2 top-6">
+                <motion.div
+                  className="w-4 h-4 rounded-full bg-primary"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ type: "spring", duration: 0.5 }}
+                />
+              </div>
+
+              {index % 2 === 0 ? (
+                <>
+                  <Card className="p-6 bg-muted/50 backdrop-blur-sm border border-primary/10 mr-8">
+                    <span className="text-sm font-medium text-primary">
+                      {exp.period}
+                    </span>
+                    <h3 className="text-xl font-bold mt-2 mb-1">{exp.title}</h3>
+                    <ul className="space-y-2 text-muted-foreground my-4 text-sm">
+                      {exp.description.map((item, i) => (
+                        <li key={i} className="flex items-start">
+                          <span className="mr-2">•</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </Card>
+                  <div /> {/* Empty div for spacing */}
+                </>
+              ) : (
+                <>
+                  <div /> {/* Empty div for spacing */}
+                  <Card className="p-6 bg-muted/50 backdrop-blur-sm border border-primary/10 ml-8">
+                    <span className="text-sm font-medium text-primary">
+                      {exp.period}
+                    </span>
+                    <h3 className="text-xl font-bold mt-2 mb-1">{exp.title}</h3>
+                    <ul className="space-y-2 text-muted-foreground my-4 text-sm">
+                      {exp.description.map((item, i) => (
+                        <li key={i} className="flex items-start">
+                          <span className="mr-2">•</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </Card>
+                </>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Mobile Version */}
+      <div className={`md:hidden px-4 relative ${classNameMobile}`}>
+        <SectionDivider
+          color={"background"}
+          colorReverse={colorReverse}
+          reverse={reverse}
+          waveType={waveType}
+          zIndex={zIndex}
+        />
+        <div className="absolute left-8 h-full w-0.5 bg-primary/20">
+          <motion.div
+            className="absolute top-0 w-full bg-primary origin-top"
+            style={{ scaleY }}
+          />
+        </div>
+
+        <div className="ml-8 space-y-12 py-12">
+          {sortedExperience.map((exp, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative"
+            >
+              <div className="absolute -left-[22px] top-6">
+                <motion.div
+                  className="w-4 h-4 rounded-full bg-primary"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ type: "spring", duration: 0.5 }}
+                />
+              </div>
+              <Card className="p-6 bg-muted/50 backdrop-blur-sm border border-primary/10">
+                <span className="text-sm font-medium text-primary">
+                  {exp.period}
+                </span>
+                <h3 className="text-xl font-bold mt-2 mb-1">{exp.title}</h3>
+                <ul className="space-y-2 text-muted-foreground my-4 text-sm">
+                  {exp.description.map((item, i) => (
+                    <li key={i} className="flex items-start text-sm">
+                      <span className="mr-2">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }

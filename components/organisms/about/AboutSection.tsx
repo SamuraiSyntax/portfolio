@@ -71,7 +71,7 @@ export function AboutSection({
             <SectionTitle title={title} subtitle={subtitle} />
           </motion.div>
 
-          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
