@@ -94,9 +94,9 @@ export default function AboutPage() {
 
       <SkillsSection color="background" waveType="type1" zIndex={20} />
 
-      <ExperienceSection color="muted" waveType="type3" zIndex={30} />
+      <ExperienceSection waveType="type3" zIndex={30} />
 
-      <EducationSection color="background" waveType="type1" zIndex={40} />
+      <EducationSection waveType="type1" zIndex={40} />
 
       <ProjectsPreviewSection color="muted" waveType="type3" zIndex={50} />
 

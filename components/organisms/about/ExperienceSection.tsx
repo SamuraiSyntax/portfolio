@@ -46,14 +46,12 @@ export const experience = [
 ];
 
 export function ExperienceSection({
-  color,
   colorReverse,
   utility,
   reverse,
   waveType,
   zIndex,
 }: {
-  color?: string;
   colorReverse?: string;
   utility?: number;
   reverse?: boolean | false;

@@ -34,14 +34,12 @@ export const education = [
 ];
 
 export function EducationSection({
-  color,
   colorReverse,
   utility,
   reverse,
   waveType,
   zIndex,
 }: {
-  color?: string;
   colorReverse?: string;
   utility?: number;
   reverse?: boolean | false;
