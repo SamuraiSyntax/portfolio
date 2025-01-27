@@ -37,7 +37,6 @@ export function ServicePreviewCard({
         <Card
           className={`h-full ${colorClass} hover:shadow-2xl transition-all duration-300 border-2 border-primary/10 hover:border-primary relative overflow-hidden cursor-pointer`}
         >
-          c{/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <CardHeader className="space-y-4 mb-auto">
             <div className="relative flex items-center justify-between gap-4">
