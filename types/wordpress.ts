@@ -54,6 +54,7 @@ export interface WPProject extends WPPost {
     github_url: string;
     status: "completed" | "in_progress" | "maintenance";
     client: string;
+    icon: string;
   };
 }
 
@@ -65,6 +66,7 @@ export interface WPService extends WPPost {
     featured_image: string;
     duration: string;
     included_services: string[];
+    order: number;
   };
 }
 

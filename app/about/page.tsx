@@ -11,15 +11,18 @@ import { generateMetadata } from "@/lib/seo";
 export const metadata = generateMetadata({
   title: "À Propos | Bernard Rogier - Développeur Web Full Stack",
   description:
-    "Découvrez mon parcours de développeur web full stack, mon expertise en WordPress et Next.js, et ma passion pour le développement web. Plus de 5 ans d'expérience dans la création de solutions web sur mesure.",
+    "Découvrez mon parcours de développeur web full stack, mon expertise en WordPress et Next.js, et ma passion pour le développement web. Plus de 5 ans d'expérience dans la création de solutions web sur mesure, incluant le développement de sites vitrines, e-commerce et applications web.",
   path: "/about",
   type: "profile",
   keywords: [
     "Bernard Rogier",
-    "développeur full stack",
+    "développeur web",
     "expert WordPress",
-    "développeur Next.js",
-    "parcours professionnel",
+    "développement Next.js",
+    "création de sites web",
+    "SEO",
+    "services web",
+    "formation WordPress",
   ],
   image: "/images/og-about.jpg",
   category: "About",
@@ -44,9 +47,9 @@ export const metadata = generateMetadata({
 
 const heroContent = {
   title: "Développeur Web Passionné",
-  highlight: "WordPress & React",
+  highlight: "Expert en WordPress & React",
   subtitle:
-    "Création de solutions web innovantes et performantes adaptées à vos besoins",
+    "<span>Création de solutions web innovantes et performantes adaptées à vos besoins.</span><span>Mon expertise en développement WordPress et Next.js me permet de réaliser des projets sur mesure qui répondent à vos attentes.</span>",
   primaryButton: {
     text: "À propos de moi",
     link: "#about",
@@ -98,7 +101,14 @@ export default function AboutPage() {
 
       <EducationSection waveType="type1" zIndex={40} />
 
-      <ProjectsPreviewSection color="muted" waveType="type3" zIndex={50} />
+      <ProjectsPreviewSection
+        color="muted"
+        waveType="type3"
+        zIndex={50}
+        showPrimaryButton={true}
+        primaryButtonText="Voir tous mes projets"
+        primaryButtonLink="/projects"
+      />
 
       <ContactSection color="background" waveType="type1" zIndex={60} />
 

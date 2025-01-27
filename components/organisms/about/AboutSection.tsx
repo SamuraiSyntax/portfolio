@@ -82,7 +82,7 @@ export function AboutSection({
               <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
                 <Image
                   src={image}
-                  alt="Bernard Ngandu"
+                  alt="Bernard Rogier"
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -180,7 +180,7 @@ export function AboutSection({
             <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl h-full w-full">
               <Image
                 src={image}
-                alt="Bernard Ngandu"
+                alt="Bernard Rogier"
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-105 h-full w-full"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

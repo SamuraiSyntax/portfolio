@@ -1,9 +1,9 @@
 "use client";
 
 import { SectionDivider } from "@/components/atoms/SectionDivider";
-import { Button } from "@/components/ui/button";
+import { handleScroll } from "@/hooks/useScroll";
 import { getServiceIcon } from "@/lib/icons";
-import { decodeHTMLEntities, formatPrice } from "@/lib/utils";
+import { decodeHTMLEntities } from "@/lib/utils";
 import { WPService } from "@/types/wordpress";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -46,40 +46,28 @@ export function SingleServiceSection({
   useEffect(() => {
     setDecodedContent(decodeHTMLEntities(service.content.rendered));
   }, [service]);
-  /* 
-  const containerClassDesktop = `flex items-center relative border-none border-0 group sticky top-0 bg-${color}${
+
+  const containerClass = `relative min-h-screen flex items-center border-none border-0 group md:sticky md:top-0 bg-${color}${
     utility ? `-${utility}` : ""
   } ${className}`;
 
-  const containerClassMobile = `relative border-none border-0 group bg-${color}${
-    utility ? `-${utility}` : ""
-  } ${className}`; */
-
   // Classes spécifiques pour mobile
   const mobileClasses = {
-    section: "py-6 px-4",
-    grid: "grid-cols-1 gap-4",
-    title: "text-2xl",
-    icon: "w-8 h-8",
-    prose: "prose-sm",
-    card: "p-4 space-y-3",
-    features: "text-sm space-y-2",
+    section: "py-16 px-4",
+    title: "text-3xl",
+    highlight: "text-2xl mt-2",
+    subtitle: "text-base",
+    button: "px-4 py-2 text-base",
   };
 
   // Classes spécifiques pour desktop
   const desktopClasses = {
-    section: "lg:py-16 lg:px-8",
-    grid: "lg:grid-cols-2 lg:gap-8",
-    title: "lg:text-4xl",
-    icon: "lg:w-12 lg:h-12",
-    prose: "lg:prose-lg",
-    card: "lg:p-8 lg:space-y-6",
-    features: "lg:text-base lg:space-y-4",
+    section: "lg:py-24 lg:px-8",
+    title: "lg:text-6xl",
+    highlight: "lg:text-5xl lg:mt-3",
+    subtitle: "lg:text-xl",
+    button: "lg:px-8 lg:py-3 lg:text-lg",
   };
-
-  const containerClass = `relative border-none border-0 group md:sticky md:top-0 bg-${color}${
-    utility ? `-${utility}` : ""
-  } ${className}`;
 
   return (
     <section id="services" className={containerClass} style={{ zIndex }}>
@@ -92,11 +80,9 @@ export function SingleServiceSection({
         zIndex={zIndex}
       />
 
-      <div
-        className={`container mx-auto ${mobileClasses.section} ${desktopClasses.section}`}
-      >
-        <div className="max-w-4xl mx-auto flex flex-col gap-8 mb-8">
-          <div className={`grid ${mobileClasses.grid} ${desktopClasses.grid}`}>
+      <div className="container mx-auto py-16 px-8 lg:px-8">
+        <div className="mx-auto flex flex-col gap-8 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -106,79 +92,57 @@ export function SingleServiceSection({
               <div className="flex items-center gap-3">
                 {IconComponent && (
                   <div className="text-primary">
-                    <IconComponent
-                      className={`${mobileClasses.icon} ${desktopClasses.icon}`}
-                    />
+                    <IconComponent className="w-12 h-12" />
                   </div>
                 )}
-                <h2
-                  className={`font-bold ${mobileClasses.title} ${desktopClasses.title}`}
-                >
-                  {service.title.rendered}
-                </h2>
+                <h2 className="font-bold text-3xl">{service.title.rendered}</h2>
               </div>
 
               <div
-                className={`prose max-w-none ${mobileClasses.prose} ${desktopClasses.prose}`}
-                dangerouslySetInnerHTML={{
-                  __html: decodedContent,
-                }}
+                className="prose max-w-none"
+                dangerouslySetInnerHTML={{ __html: decodedContent }}
               />
 
-              <div
-                className={`bg-muted rounded-lg ${mobileClasses.card} ${desktopClasses.card}`}
-              >
-                <p
-                  className={`font-semibold ${mobileClasses.title} ${desktopClasses.title}`}
-                >
-                  À partir de {formatPrice(service.service_meta.price)}€
+              <div className="flex flex-col gap-2">
+                <p className="font-semibold text-xl mt-4">
+                  {service.service_meta.price}
                 </p>
-                <Link href="/contact" className="block">
-                  <Button className="w-full">
-                    Demander un devis personnalisé
-                  </Button>
-                </Link>
+                <p className="small">{service.service_meta.duration}</p>
               </div>
+              <Link
+                href="#contact"
+                className={`w-full sm:w-auto flex items-center justify-center ${mobileClasses.button} ${desktopClasses.button} bg-primary text-primary-foreground hover:bg-primary/90 shadow h-9 px-4 py-2 rounded-md whitespace-nowrap`}
+                onClick={(e) => handleScroll(e, "#contact")}
+              >
+                Contactez-nous pour plus d&apos;informations
+              </Link>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-background/70 backdrop-blur-lg hover:bg-background rounded-lg shadow-lg p-6 transition-all duration-300"
             >
-              <div
-                className={`bg-card rounded-lg shadow-lg ${mobileClasses.card} ${desktopClasses.card}`}
-              >
-                <h3
-                  className={`font-bold mb-4 ${mobileClasses.title} ${desktopClasses.title}`}
-                >
-                  Ce service inclut :
-                </h3>
-                <ul
-                  className={
-                    mobileClasses.features + " " + desktopClasses.features
-                  }
-                >
-                  {service.service_meta.features.map((feature, index) => (
-                    <motion.li
-                      key={index}
-                      className="flex items-start gap-2"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                    >
-                      <FaCheck className="text-primary flex-shrink-0 mt-1" />
-                      <span>{feature}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
+              <h3 className="font-bold mb-4 text-xl">Ce service inclut :</h3>
+              <ul className="space-y-2">
+                {service.service_meta.features.map((feature, index) => (
+                  <motion.li
+                    key={index}
+                    className="flex items-start gap-2"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 + index * 0.1 }}
+                  >
+                    <FaCheck className="text-primary flex-shrink-0 mt-1" />
+                    <span>{feature}</span>
+                  </motion.li>
+                ))}
+              </ul>
             </motion.div>
           </div>
 
-          <div className="flex justify-center">
-            <ServiceNavigation previous={previous} next={next} />
-          </div>
+          <ServiceNavigation previous={previous} next={next} />
         </div>
       </div>
     </section>

@@ -9,19 +9,17 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Bernard Rogier | Développeur WordPress & Intégrateur Web",
+  title: "Bernard Rogier | Développeur WordPress & Expert en Développement Web",
   description:
-    "Développeur web spécialisé WordPress, je crée des sites web sur mesure et performants. Passionné par l'innovation, je me forme continuellement sur React/Next.js pour enrichir mes solutions.",
+    "Développeur web spécialisé dans la création de sites WordPress sur mesure et performants. J'offre des solutions innovantes en intégration web, développement d'applications Next.js, et optimisation SEO. Découvrez mes projets et services personnalisés.",
   keywords: [
     "développeur WordPress",
     "intégrateur web",
     "création site WordPress",
-    "développeur web",
-    "intégration web",
-    "maintenance WordPress",
-    "Bernard Rogier",
-    "développement sur mesure",
-    "React Next.js",
+    "développement web sur mesure",
+    "applications Next.js",
+    "optimisation SEO",
+    "services web personnalisés",
     "sites web professionnels",
   ],
   authors: [{ name: "Bernard Rogier" }],
@@ -72,17 +70,24 @@ export default function Home() {
   return (
     <>
       <HeroSection
-        title="Développeur WordPress"
-        subtitle="Solutions web professionnelles et sur mesure"
+        title="Développeur Web & Expert WordPress"
+        subtitle="<span>Solutions web sur mesure et innovantes pour propulser votre entreprise vers de nouveaux sommets.</span><span>Profitez d'une expertise en développement WordPress et d'une approche personnalisée pour chaque projet.</span>"
         highlight="Innovation & Performance"
-        primaryButtonText="Voir mes projets"
+        primaryButtonText="Découvrez mes projets"
         primaryButtonLink="#projets"
-        secondaryButtonText="Découvrir mes services"
+        secondaryButtonText="Explorez mes services"
         secondaryButtonLink="#services"
       />
 
       <Suspense fallback={<LoadingSpinner size="lg" />}>
-        <ServicesPreviewSection color="muted" waveType="type1" zIndex={10} />
+        <ServicesPreviewSection
+          color="muted"
+          waveType="type1"
+          zIndex={10}
+          showPrice={false}
+          showFeatures={false}
+          showDuration={false}
+        />
       </Suspense>
 
       <Suspense fallback={<LoadingSpinner size="lg" />}>
@@ -90,6 +95,9 @@ export default function Home() {
           color="background"
           waveType="type2"
           zIndex={20}
+          showPrimaryButton={true}
+          primaryButtonText="Voir tous les projets"
+          primaryButtonLink="/projects"
         />
       </Suspense>
 

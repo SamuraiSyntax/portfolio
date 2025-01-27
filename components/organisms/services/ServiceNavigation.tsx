@@ -27,7 +27,7 @@ export function ServiceNavigation({ previous, next }: ServiceNavigationProps) {
     return (
       <Link
         href={`/services/${service.slug}`}
-        className="flex items-center gap-2 hover:text-primary transition-colors"
+        className="flex items-center gap-2 text-base transition-all duration-300 bg-background/70 backdrop-blur-lg hover:bg-background rounded-lg p-2 shadow-md"
       >
         {isPrevious && <FaArrowLeft />}
         <span>{stripHtml(service.title.rendered)}</span>
@@ -37,11 +37,9 @@ export function ServiceNavigation({ previous, next }: ServiceNavigationProps) {
   };
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="flex justify-between items-center max-w-4xl mx-auto">
-        {previous && renderNavigationLink(previous, true)}
-        {next && renderNavigationLink(next, false)}
-      </div>
+    <div className="flex flex-col md:flex-row flex-center md:justify-between items-center gap-4 w-full whitespace-nowrap">
+      {previous && renderNavigationLink(previous, true)}
+      {next && renderNavigationLink(next, false)}
     </div>
   );
 }

@@ -89,7 +89,11 @@ export default async function ServicePage({ params }: Props) {
           <HeroSection
             title={stripHtml(service.title.rendered)}
             subtitle={truncateText(service.content.rendered, 160)}
-            highlight={`À partir de ${service.service_meta.price}€`}
+            highlight={`À partir de ${service.service_meta.price}`}
+            primaryButtonText="Découvrir le services"
+            primaryButtonLink="#services"
+            secondaryButtonText="Discuter de votre projet"
+            secondaryButtonLink="#contact"
           />
         </Suspense>
 

@@ -1,73 +1,100 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { getServiceIcon } from "@/lib/icons";
-import { stripHtml, truncateText } from "@/lib/utils";
+import { stripHtml } from "@/lib/utils";
 import { WPService } from "@/types/wordpress";
+import { ArrowRight, Clock } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export function ServicePreviewCard({
   service,
   color = "muted",
+  showPrice = true,
+  showFeatures = true,
+  showDuration = true,
 }: {
   service: WPService;
   color: string;
+  showPrice?: boolean;
+  showFeatures?: boolean;
+  showDuration?: boolean;
 }) {
-  const router = useRouter();
-  const colorClass = color === "muted" ? "bg-background/50" : "bg-muted/50";
-  const hoverColorClass = color === "muted" ? "bg-background" : "bg-muted";
-
-  const btnColorClass = color === "muted" ? "bg-muted" : "bg-background";
-  const btnHoverColorClass = color === "muted" ? "bg-primary" : "bg-primary";
-
+  const colorClass = color === "muted" ? "bg-background" : "bg-muted";
   const IconComponent = getServiceIcon(service.service_meta.icon);
-
   const title = stripHtml(service.title.rendered);
-  const content = truncateText(service.content.rendered, 120);
+  const content = stripHtml(service.content.rendered);
 
   return (
-    <motion.div
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.2 }}
-      className="h-full w-full"
-      id={service.slug}
-    >
-      <Link href={`/services/${service.slug}`}>
+    <Link href={`/services/${service.slug}`} className="block h-full">
+      <motion.div
+        whileHover={{ scale: 1.02, translateY: -5 }}
+        transition={{ duration: 0.2 }}
+        className="h-full w-full group"
+      >
         <Card
-          className={`h-full hover:shadow-lg transition-shadow ${colorClass} hover:${hoverColorClass} group/card`}
+          className={`h-full ${colorClass} hover:shadow-2xl transition-all duration-300 border-2 border-primary/10 hover:border-primary relative overflow-hidden cursor-pointer`}
         >
-          <CardHeader className="flex flex-row items-center gap-4">
-            {IconComponent && (
-              <div className="text-primary">
-                <IconComponent className="w-8 h-8" />
+          c{/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <CardHeader className="space-y-4 mb-auto">
+            <div className="relative flex items-center justify-between gap-4">
+              <div className="text-primary p-4 bg-primary/10 rounded-2xl transform group-hover:scale-110 transition-transform duration-300">
+                <IconComponent className="w-12 h-12 stroke-[1.5]" />
               </div>
-            )}
-            <h3 className="text-lg font-semibold">{title}</h3>
+              <h3 className="text-2xl font-bold leading-tight group-hover:text-primary transition-colors duration-300 grow">
+                {title}
+              </h3>
+            </div>
+            {showPrice ? (
+              <Badge
+                variant="outline"
+                className="text-primary border-primary/20 whitespace-break-spaces w-fit"
+              >
+                {service.service_meta.price}
+              </Badge>
+            ) : null}
+            {showDuration ? (
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Clock className="w-4 h-4 stroke-[1.5]" />
+                <span className="text-sm">{service.service_meta.duration}</span>
+              </div>
+            ) : null}
           </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground text-sm">{content}</p>
+          <CardContent className="space-y-6">
+            <p className="text-muted-foreground text-base leading-relaxed">
+              {content}
+            </p>
+
+            <div className="space-y-4">
+              {showFeatures ? (
+                <div className="flex flex-wrap gap-2">
+                  {service.service_meta.features
+                    .slice(0, 3)
+                    .map((feature, index) => (
+                      <Badge
+                        key={index}
+                        variant="secondary"
+                        className="text-xs font-normal"
+                      >
+                        {feature}
+                      </Badge>
+                    ))}
+                </div>
+              ) : null}
+
+              <div className="flex items-center gap-2 text-primary group-hover:translate-x-1 transition-transform duration-300">
+                <span className="text-sm font-medium">
+                  Découvrir ce service
+                </span>
+                <ArrowRight className="w-4 h-4 stroke-[1.5]" />
+              </div>
+            </div>
           </CardContent>
-          <CardFooter className="p-4 mt-auto">
-            <Button
-              variant="ghost"
-              className={`w-full ${btnColorClass} hover:${btnHoverColorClass} text-primary hover:text-white`}
-              onClick={() => {
-                router.push(`/services/${service.slug}`);
-              }}
-            >
-              En savoir plus
-            </Button>
-          </CardFooter>
         </Card>
-      </Link>
-    </motion.div>
+      </motion.div>
+    </Link>
   );
 }

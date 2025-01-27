@@ -10,7 +10,6 @@ import {
   FaHome,
   FaLinkedin,
   FaTools,
-  FaTwitter,
   FaUser,
 } from "react-icons/fa";
 import { MdEmail, MdLocationOn } from "react-icons/md";
@@ -25,18 +24,13 @@ export default function Footer() {
       social: [
         {
           name: "GitHub",
-          url: "https://github.com/BernardRogier",
+          url: "https://github.com/SamuraiSyntax",
           icon: <FaGithub className="w-5 h-5" />,
         },
         {
           name: "LinkedIn",
           url: "https://linkedin.com/in/bernard-rogier",
           icon: <FaLinkedin className="w-5 h-5" />,
-        },
-        {
-          name: "Twitter",
-          url: "https://twitter.com/BernardRogier",
-          icon: <FaTwitter className="w-5 h-5" />,
         },
       ],
     },

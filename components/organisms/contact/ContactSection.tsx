@@ -80,6 +80,7 @@ export function ContactSection({
         whileInView={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.5, delay: 0.2 }}
+        style={{ zIndex: 2000 }}
       >
         <Dialog>
           <DialogTrigger asChild>
@@ -88,7 +89,7 @@ export function ContactSection({
               Me contacter
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="sm:max-w-[600px]" style={{ zIndex: 2500 }}>
             <ContactForm onClose={() => {}} />
           </DialogContent>
         </Dialog>

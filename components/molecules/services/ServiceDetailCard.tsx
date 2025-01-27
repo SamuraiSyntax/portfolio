@@ -32,7 +32,7 @@ export function ServiceDetailCard({ service }: { service: WPService }) {
               {decodeHTMLEntities(service.title.rendered)}
             </h3>
             <p className="text-base font-semibold text-primary">
-              À partir de {formatPrice(service.service_meta.price)}€
+              À partir de {formatPrice(service.service_meta.price)}
             </p>
           </div>
         </div>

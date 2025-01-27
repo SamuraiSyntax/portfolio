@@ -81,10 +81,10 @@ export function EducationSection({
     >
       {/* Section Title */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 1, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="px-4 py-12 text-center sticky top-0 bg-muted group"
+        className="py-16 px-4 lg:py-24 lg:px-8 text-center sticky top-0 bg-muted group"
       >
         <SectionDivider
           color={"muted"}

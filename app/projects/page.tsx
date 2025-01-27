@@ -1,20 +1,21 @@
 import { ContactSection } from "@/components/organisms/contact/ContactSection";
 import { HeroSection } from "@/components/organisms/HeroSection";
-import { ProjectDetailSection } from "@/components/organisms/projects/ProjectDetailSection";
+import { ProjectsPreviewSection } from "@/components/organisms/projects/ProjectsPreviewSection";
 import Footer from "@/components/v2/footer";
 import { generateMetadata } from "@/lib/seo";
 
 export const metadata = generateMetadata({
-  title: "Portfolio & Projets Web",
+  title: "Portfolio & Projets Web | Bernard Rogier",
   description:
-    "Découvrez mes réalisations en développement web : sites WordPress, applications Next.js, et solutions sur mesure. Plus de 10 projets livrés avec succès.",
+    "Découvrez mes réalisations en développement web : sites WordPress, applications Next.js, et solutions sur mesure. Plus de 10 projets livrés avec succès, incluant des sites vitrines et e-commerce.",
   path: "/projects",
   type: "website",
   keywords: [
     "portfolio développeur web",
     "projets web",
     "développeur WordPress",
-    "développeur Next.js",
+    "développement Next.js",
+    "sites web professionnels",
   ],
   image: "/images/og-projects.jpg",
   category: "Portfolio",
@@ -37,22 +38,24 @@ export const metadata = generateMetadata({
   },
 });
 
-const heroContent = {
-  title: "Mes Réalisations",
-  highlight: "Projets & Portfolio",
-  subtitle:
-    "En tant que jeune diplômé, découvrez une sélection de mes projets en développement web, de WordPress à Next.js en passant par React.",
-  primaryButtonText: "Voir mes projets",
-  primaryButtonLink: "#projets",
-  secondaryButtonText: "Voir mes services",
-  secondaryButtonLink: "/services",
-};
-
 export default function ProjectsPage() {
   return (
     <>
-      <HeroSection {...heroContent} />
-      <ProjectDetailSection color="muted" waveType="type2" zIndex={10} />
+      <HeroSection
+        title="Mes Réalisations"
+        highlight="Projets Innovants & Sur Mesure"
+        subtitle="<span>En tant que jeune diplômé, découvrez une sélection de mes projets en développement web, allant de WordPress à Next.js, en passant par React.</span><span>Chaque projet est conçu pour répondre aux besoins spécifiques de mes clients.</span>"
+        primaryButtonText="Voir mes projets"
+        primaryButtonLink="#projets"
+        secondaryButtonText="Explorer mes services"
+        secondaryButtonLink="/services"
+      />
+      <ProjectsPreviewSection
+        color="muted"
+        waveType="type2"
+        zIndex={10}
+        showPrimaryButton={false}
+      />
       <ContactSection color="background" waveType="type1" zIndex={20} />
       <Footer />
     </>

@@ -1,5 +1,6 @@
 "use client";
 
+import { handleScroll } from "@/hooks/useScroll";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -25,34 +26,12 @@ export function HeroSection({
   secondaryButtonLink = "/services",
   className = "",
 }: HeroSectionProps) {
-  const handleScroll = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    if (href.startsWith("#")) {
-      e.preventDefault();
-      const targetId = href.replace("#", "");
-      const isMobile = window.innerWidth < 768;
-
-      const excludedIds = ["contact"];
-      // Ajouter automatiquement le suffixe "-mobile" si on est sur mobile
-      const mobileTargetId =
-        isMobile && !excludedIds.includes(targetId)
-          ? `${targetId}-mobile`
-          : targetId;
-
-      const elem = document.getElementById(mobileTargetId);
-
-      elem?.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   // Classes spécifiques pour mobile
   const mobileClasses = {
     section: "py-16 px-4",
     title: "text-3xl",
     highlight: "text-2xl mt-2",
-    subtitle: "text-base",
+    subtitle: "text-sm gap-2",
     button: "px-4 py-2 text-base",
   };
 
@@ -61,7 +40,7 @@ export function HeroSection({
     section: "lg:py-24 lg:px-8",
     title: "lg:text-6xl",
     highlight: "lg:text-5xl lg:mt-3",
-    subtitle: "lg:text-xl",
+    subtitle: "lg:text-xl lg:gap-2",
     button: "lg:px-8 lg:py-3 lg:text-lg",
   };
 
@@ -71,56 +50,62 @@ export function HeroSection({
         ${mobileClasses.section} ${desktopClasses.section} ${className}`}
       style={{ zIndex: 10 }}
     >
-      <div className="container mx-auto">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+      <div className="container mx-auto text-center flex flex-col items-center justify-center gap-2">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col items-center justify-center"
+        >
+          <h1
+            className={`h1 font-bold text-foreground ${mobileClasses.title} ${desktopClasses.title}`}
           >
-            <h1
-              className={`font-bold mb-4 text-foreground ${mobileClasses.title} ${desktopClasses.title}`}
-            >
-              {title}
-              <span
-                className={`text-primary block animate-pulse animate-thrice animate-duration-1000 animate-delay-0 animate-ease-in-out animate-normal animate-fill-both ${mobileClasses.highlight} ${desktopClasses.highlight}`}
-              >
-                {highlight}
-              </span>
-            </h1>
-          </motion.div>
+            {title}
+          </h1>
+        </motion.div>
+        <motion.p
+          className={`body text-primary mb-4 mt-0 block animate-pulse animate-thrice animate-duration-1000 animate-delay-0 animate-ease-in-out animate-normal animate-fill-both ${mobileClasses.highlight} ${desktopClasses.highlight}`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          {highlight}
+        </motion.p>
 
-          <motion.p
-            className={`mb-6 text-muted-foreground flex flex-wrap gap-2 justify-center ${mobileClasses.subtitle} ${desktopClasses.subtitle}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+        {typeof subtitle === "string" ? (
+          <span
+            className={`small mb-6 text-muted-foreground flex flex-wrap justify-center ${mobileClasses.subtitle} ${desktopClasses.subtitle}`}
+            dangerouslySetInnerHTML={{ __html: subtitle }}
+          />
+        ) : (
+          <div
+            className={`small mb-6 text-muted-foreground flex flex-wrap justify-center ${mobileClasses.subtitle} ${desktopClasses.subtitle}`}
           >
-            {typeof subtitle === "string" ? subtitle : subtitle}
-          </motion.p>
+            subtitle
+          </div>
+        )}
 
-          <motion.div
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+        <motion.div
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <Link
+            href={primaryButtonLink}
+            onClick={(e) => handleScroll(e, primaryButtonLink)}
+            className={`w-full sm:w-auto flex items-center justify-center ${mobileClasses.button} ${desktopClasses.button} bg-primary text-primary-foreground hover:bg-primary/90 shadow h-9 px-4 py-2 rounded-md`}
           >
-            <Link
-              href={primaryButtonLink}
-              onClick={(e) => handleScroll(e, primaryButtonLink)}
-              className={`w-full sm:w-auto flex items-center justify-center ${mobileClasses.button} ${desktopClasses.button} bg-primary text-primary-foreground hover:bg-primary/90 shadow h-9 px-4 py-2 rounded-md`}
-            >
-              {primaryButtonText}
-            </Link>
-            <Link
-              href={secondaryButtonLink}
-              onClick={(e) => handleScroll(e, secondaryButtonLink)}
-              className={`w-full sm:w-auto flex items-center justify-center ${mobileClasses.button} ${desktopClasses.button} bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow h-9 px-4 py-2 rounded-md`}
-            >
-              {secondaryButtonText}
-            </Link>
-          </motion.div>
-        </div>
+            {primaryButtonText}
+          </Link>
+          <Link
+            href={secondaryButtonLink}
+            onClick={(e) => handleScroll(e, secondaryButtonLink)}
+            className={`w-full sm:w-auto flex items-center justify-center ${mobileClasses.button} ${desktopClasses.button} bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow h-9 px-4 py-2 rounded-md`}
+          >
+            {secondaryButtonText}
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

@@ -20,6 +20,18 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "www.travauxef.fr",
+        port: "",
+        pathname: "/wp-content/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.peinture.travauxef.fr",
+        port: "",
+        pathname: "/wp-content/uploads/**",
+      },
     ],
   },
   webpack(config) {

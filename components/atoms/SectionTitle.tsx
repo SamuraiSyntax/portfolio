@@ -1,30 +1,44 @@
+import { Button } from "@/components/ui/button";
 import { motion } from "motion/react";
+import Link from "next/link";
 
 interface SectionTitleProps {
   title: string;
   subtitle?: string;
   description?: string;
+  showPrimaryButton?: boolean;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+  showSecondaryButton?: boolean;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
 }
 
 export function SectionTitle({
   title,
   subtitle,
   description,
+  showPrimaryButton = true,
+  primaryButtonText,
+  primaryButtonLink,
+  showSecondaryButton = true,
+  secondaryButtonText,
+  secondaryButtonLink,
 }: SectionTitleProps) {
   const mobileClasses = {
     section: "py-5 px-4",
-    title: "text-2xl",
-    highlight: "text-xl",
-    subtitle: "text-sm",
+    title: "h2",
+    highlight: "h3",
+    subtitle: "h4",
     button: "px-4 py-2 text-base",
   };
 
   // Classes spécifiques pour desktop
   const desktopClasses = {
     section: "lg:py-24 lg:px-8",
-    title: "lg:text-4xl",
-    highlight: "lg:text-3xl",
-    subtitle: "lg:text-xl",
+    title: "h2",
+    highlight: "h3",
+    subtitle: "h4",
     button: "lg:px-8 lg:py-3 lg:text-lg",
   };
 
@@ -53,6 +67,16 @@ export function SectionTitle({
         >
           {description}
         </p>
+      )}
+      {showPrimaryButton && primaryButtonText && primaryButtonLink && (
+        <Button asChild>
+          <Link href={primaryButtonLink}>{primaryButtonText}</Link>
+        </Button>
+      )}
+      {showSecondaryButton && secondaryButtonText && secondaryButtonLink && (
+        <Button asChild>
+          <Link href={secondaryButtonLink}>{secondaryButtonText}</Link>
+        </Button>
       )}
     </motion.div>
   );

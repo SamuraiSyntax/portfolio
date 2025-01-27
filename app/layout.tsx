@@ -2,6 +2,7 @@ import LayoutContent from "@/components/layout/layout-content";
 import { AuthProviders } from "@/components/providers/auth-providers";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ScrollToTop } from "@/components/utils/scroll-to-top";
+import CookieBanner from "@/components/v2/CookieConsent";
 import Header from "@/components/v2/header";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -86,6 +87,7 @@ export default function RootLayout({
             <LayoutContent>{children}</LayoutContent>
             <SpeedInsights />
             <Analytics />
+            <CookieBanner />
           </ThemeProvider>
         </AuthProviders>
       </body>

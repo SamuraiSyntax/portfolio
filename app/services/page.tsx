@@ -1,13 +1,13 @@
 import { ContactSection } from "@/components/organisms/contact/ContactSection";
 import { HeroSection } from "@/components/organisms/HeroSection";
-import { ServiceDetailSection } from "@/components/organisms/services/ServiceDetailSection";
+import { ServicesPreviewSection } from "@/components/organisms/services/ServicesPreviewSection";
 import Footer from "@/components/v2/footer";
 import { generateMetadata } from "@/lib/seo";
 
 export const metadata = generateMetadata({
-  title: "Services WordPress & Développement Web",
+  title: "Services WordPress & Développement Web | Bernard Rogier",
   description:
-    "Expertise en création de sites WordPress, intégration web et maintenance. Formation continue en React/Next.js pour des solutions toujours plus innovantes.",
+    "Expertise en création de sites WordPress, intégration web et maintenance. Formation continue en React/Next.js pour des solutions toujours plus innovantes. Découvrez mes services de développement web sur mesure.",
   path: "/services",
   type: "website",
   keywords: [
@@ -15,6 +15,8 @@ export const metadata = generateMetadata({
     "création site WordPress",
     "développement Next.js",
     "solutions e-commerce",
+    "maintenance WordPress",
+    "SEO",
   ],
   image: "/images/og-services.jpg",
   category: "Services",
@@ -41,15 +43,24 @@ export default function ServicesPage() {
   return (
     <>
       <HeroSection
-        title="Solutions WordPress Sur Mesure"
-        highlight="Sites Web Professionnels"
-        subtitle="Développeur spécialisé WordPress, je conçois des sites web performants et évolutifs. Mon expertise technique et ma veille constante sur les nouvelles technologies garantissent des solutions adaptées à vos objectifs."
+        title="Solutions Web Sur Mesure"
+        highlight="Expertise & Innovation"
+        subtitle="<span>Développeur spécialisé WordPress, je conçois des sites web performants et évolutifs.</span><span>Mon expertise technique et ma veille constante sur les nouvelles technologies garantissent des solutions adaptées à vos objectifs.</span>"
         primaryButtonText="Voir mes services"
         primaryButtonLink="#services"
         secondaryButtonText="Voir mes projets"
         secondaryButtonLink="/projects"
       />
-      <ServiceDetailSection color="muted" waveType="type2" zIndex={10} />
+      <ServicesPreviewSection
+        color="muted"
+        waveType="type2"
+        zIndex={10}
+        showPrice={true}
+        showFeatures={true}
+        showPrimaryButton={false}
+        showSecondaryButton={false}
+        showDuration={true}
+      />
       <ContactSection color="background" waveType="type1" zIndex={20} />
       <Footer />
     </>

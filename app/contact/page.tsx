@@ -7,7 +7,7 @@ import { generateMetadata } from "@/lib/seo";
 export const metadata = generateMetadata({
   title: "Contact | Bernard Rogier - Développeur WordPress",
   description:
-    "Vous avez un projet web ? Discutons ensemble de vos besoins pour créer un site WordPress professionnel et sur mesure. Devis gratuit et accompagnement personnalisé.",
+    "Vous avez un projet web ? Discutons ensemble de vos besoins pour créer un site WordPress professionnel et sur mesure. Devis gratuit et accompagnement personnalisé pour vos projets de développement web.",
   path: "/contact",
   type: "website",
   keywords: [
@@ -15,9 +15,7 @@ export const metadata = generateMetadata({
     "devis site WordPress",
     "création site web",
     "développeur junior WordPress",
-    "contact Bernard Rogier",
-    "développeur web Bordeaux",
-    "intégrateur web freelance",
+    "accompagnement projet web",
   ],
   image: "/images/og-contact.jpg",
   category: "Contact",
@@ -45,8 +43,8 @@ export default function ContactPage() {
     <>
       <HeroSection
         title="Parlons de Votre Projet"
-        highlight="WordPress & Web"
-        subtitle="À l'écoute de vos besoins, je vous accompagne dans la création de votre site web professionnel. Bénéficiez d'un devis gratuit et d'un accompagnement personnalisé."
+        highlight="Accompagnement Personnalisé"
+        subtitle="<span>À l'écoute de vos besoins, je vous accompagne dans la création de votre site web professionnel.</span><span>Bénéficiez d'un devis gratuit et d'un accompagnement personnalisé pour chaque projet.</span>"
         primaryButtonText="Remplir le formulaire"
         primaryButtonLink="#contact"
         secondaryButtonText="Voir mes services"
