@@ -42,6 +42,9 @@ export default function CookiePreferences() {
     Cookies.set("cookieConsent", hasAcceptedAny ? "true" : "false", {
       expires: 365,
     });
+
+    // Recharger la page pour appliquer les changements d'analytics
+    window.location.reload();
   };
 
   return (
