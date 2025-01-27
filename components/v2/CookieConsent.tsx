@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
@@ -59,18 +60,18 @@ export default function CookieBanner() {
           </a>
         </div>
         <div className="flex gap-4">
-          <button
+          <Button
             onClick={declineCookies}
-            className="px-4 py-2 bg-destructive hover:bg-destructive/80 rounded-md text-sm transition-colors"
+            className="px-4 py-2 bg-destructive hover:bg-destructive/80 rounded-md text-sm transition-colors whitespace-nowrap"
           >
             Je refuse
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={acceptCookies}
-            className="px-4 py-2 bg-secondary hover:bg-secondary/80 text-primary rounded-md text-sm transition-colors"
+            className="px-4 py-2 bg-secondary hover:bg-secondary/80 text-primary rounded-md text-sm transition-colors whitespace-nowrap"
           >
             J&apos;accepte
-          </button>
+          </Button>
         </div>
       </div>
     </div>
