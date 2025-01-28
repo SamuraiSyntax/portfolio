@@ -28,7 +28,7 @@ export function ServicesPreviewSection({
   const { data: services } = useServices();
 
   return (
-    <div id="services" className="relative">
+    <div id="services" className="relative group">
       <SectionDivider
         color={color || "muted"}
         waveType={waveType}
@@ -36,7 +36,7 @@ export function ServicesPreviewSection({
       />
 
       {/* Section titre */}
-      <div className="bg-muted py-16 lg:py-24">
+      <div className="bg-muted py-16">
         <div className="container mx-auto">
           <SectionTitle
             title="Mes Services"

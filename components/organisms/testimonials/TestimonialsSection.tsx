@@ -46,7 +46,7 @@ export function TestimonialsSection({
   if (isLoading) return <div>Chargement...</div>;
   if (error) return null;
 
-  const className = `min-h-fit flex items-center relative border-none border-0 group sticky top-0 bg-${color}${
+  const className = `min-h-fit flex items-center relative border-none border-0 group md:sticky md:top-0 bg-${color}${
     utility ? `-${utility}` : ""
   }`;
 
@@ -72,8 +72,11 @@ export function TestimonialsSection({
           transition={{ duration: 0.5 }}
         >
           <SectionTitle
-            title="Ce qu'en disent mes clients"
-            subtitle="Des retours d'expérience qui parlent d'eux-mêmes"
+            title="Témoignages de mes clients"
+            subtitle="Retours d'expérience sur la qualité de mes services"
+            description="Chaque retour est une preuve de mon engagement à fournir des solutions adaptées et performantes."
+            showPrimaryButton={false}
+            showSecondaryButton={false}
           />
         </motion.div>
 

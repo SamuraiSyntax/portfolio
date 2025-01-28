@@ -26,44 +26,47 @@ export function SectionTitle({
   secondaryButtonLink,
 }: SectionTitleProps) {
   const mobileClasses = {
-    section: "py-5 px-4",
-    title: "h2",
-    highlight: "h3",
-    subtitle: "h4",
+    section: "py-8 px-4",
+    title: "text-3xl",
+    highlight: "text-2xl mt-2",
+    subtitle: "text-sm gap-2",
     button: "px-4 py-2 text-base",
   };
 
   // Classes spécifiques pour desktop
   const desktopClasses = {
-    section: "lg:py-24 lg:px-8",
-    title: "h2",
-    highlight: "h3",
-    subtitle: "h4",
-    button: "lg:px-8 lg:py-3 lg:text-lg",
+    section: "lg:px-8",
+    title: "md:text-3xl lg:text-5xl",
+    highlight: "md:text-2xl lg:text-4xl lg:mt-3",
+    subtitle: "md:text-lg lg:text-xl lg:gap-2",
+    button: "md:px-6 lg:px-8 lg:py-3 lg:text-lg",
   };
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="flex flex-col items-center text-center gap-2"
+    <div
+      className={`relative flex flex-col items-center overflow-hidden ${mobileClasses.section} ${desktopClasses.section}`}
     >
-      <h2
-        className={`font-bold text-foreground ${mobileClasses.title} ${desktopClasses.title}`}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col items-center justify-center"
       >
-        {title}
-      </h2>
+        <h2
+          className={`h2 text-center font-bold text-foreground ${mobileClasses.title} ${desktopClasses.title}`}
+        >
+          {title}
+        </h2>
+      </motion.div>
       {subtitle && (
         <p
-          className={`text-primary block ${mobileClasses.highlight} ${desktopClasses.highlight}`}
+          className={`text-base text-center text-primary mb-4 mt-0 block animate-pulse animate-thrice animate-duration-1000 animate-delay-0 animate-ease-in-out animate-normal animate-fill-both ${mobileClasses.highlight} ${desktopClasses.highlight}`}
         >
           {subtitle}
         </p>
       )}
       {description && (
         <p
-          className={`text-muted-foreground ${mobileClasses.subtitle} ${desktopClasses.subtitle}`}
+          className={`mb-6 text-muted-foreground flex flex-wrap justify-center text-center ${mobileClasses.subtitle} ${desktopClasses.subtitle}`}
         >
           {description}
         </p>
@@ -78,6 +81,6 @@ export function SectionTitle({
           <Link href={secondaryButtonLink}>{secondaryButtonText}</Link>
         </Button>
       )}
-    </motion.div>
+    </div>
   );
 }

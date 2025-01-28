@@ -38,16 +38,15 @@ export function HeroSection({
   // Classes spécifiques pour desktop
   const desktopClasses = {
     section: "lg:py-24 lg:px-8",
-    title: "lg:text-6xl",
-    highlight: "lg:text-5xl lg:mt-3",
-    subtitle: "lg:text-xl lg:gap-2",
-    button: "lg:px-8 lg:py-3 lg:text-lg",
+    title: "md:text-4xl lg:text-6xl",
+    highlight: "md:text-3xl lg:text-5xl lg:mt-3",
+    subtitle: "md:text-xl lg:text-2xl lg:gap-2",
+    button: "md:px-6 lg:px-8 lg:py-3 lg:text-lg",
   };
 
   return (
     <section
-      className={`min-h-screen relative flex items-center overflow-hidden
-        ${mobileClasses.section} ${desktopClasses.section} ${className}`}
+      className={`min-h-screen relative flex items-center overflow-hidden ${mobileClasses.section} ${desktopClasses.section} ${className}`}
       style={{ zIndex: 10 }}
     >
       <div className="container mx-auto text-center flex flex-col items-center justify-center gap-2">
@@ -64,7 +63,7 @@ export function HeroSection({
           </h1>
         </motion.div>
         <motion.p
-          className={`body text-primary mb-4 mt-0 block animate-pulse animate-thrice animate-duration-1000 animate-delay-0 animate-ease-in-out animate-normal animate-fill-both ${mobileClasses.highlight} ${desktopClasses.highlight}`}
+          className={`text-primary mb-4 mt-0 block animate-pulse animate-thrice animate-duration-1000 animate-delay-0 animate-ease-in-out animate-normal animate-fill-both ${mobileClasses.highlight} ${desktopClasses.highlight}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
@@ -74,12 +73,12 @@ export function HeroSection({
 
         {typeof subtitle === "string" ? (
           <span
-            className={`small mb-6 text-muted-foreground flex flex-wrap justify-center ${mobileClasses.subtitle} ${desktopClasses.subtitle}`}
+            className={`mb-6 text-muted-foreground flex flex-wrap justify-center ${mobileClasses.subtitle} ${desktopClasses.subtitle}`}
             dangerouslySetInnerHTML={{ __html: subtitle }}
           />
         ) : (
           <div
-            className={`small mb-6 text-muted-foreground flex flex-wrap justify-center ${mobileClasses.subtitle} ${desktopClasses.subtitle}`}
+            className={`mb-6 text-muted-foreground flex flex-wrap justify-center ${mobileClasses.subtitle} ${desktopClasses.subtitle}`}
           >
             subtitle
           </div>

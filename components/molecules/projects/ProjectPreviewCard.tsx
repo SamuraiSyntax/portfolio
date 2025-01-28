@@ -36,22 +36,24 @@ export function ProjectPreviewCard({
         <Card
           className={`h-full ${colorClass} hover:shadow-2xl transition-all duration-300 border-2 border-primary/10 hover:border-primary relative overflow-hidden cursor-pointer flex flex-col`}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-          <CardHeader className="space-y-4 mb-3 h-[75px]">
+          <CardHeader className="space-y-4 border-b border-primary/10 pb-6">
             <div className="relative flex items-center justify-between gap-4">
-              {" "}
-              <div className="text-primary p-4 bg-background rounded-2xl transform group-hover:scale-110 transition-transform duration-300">
+              <div className="text-primary p-4 bg-primary/10 rounded-2xl transform group-hover:scale-110 transition-transform duration-300 relative">
                 {project.project_meta.icon.startsWith("http") ? (
                   <Image
                     src={project.project_meta.icon}
                     alt={title}
-                    className="w-full h-full object-cover rounded-full"
+                    className="w-48 h-48 object-cover rounded-full"
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     loading="lazy"
                   />
                 ) : (
-                  <IconComponent className="w-24 h-24 stroke-[1.5]" />
+                  <IconComponent
+                    className="stroke-[1.5]"
+                    width={24}
+                    height={24}
+                  />
                 )}
               </div>
               <div className="space-y-2 grow flex flex-col justify-center my-auto">
@@ -62,20 +64,21 @@ export function ProjectPreviewCard({
             </div>
           </CardHeader>
 
-          <CardContent className="space-y-6 flex-grow justify-start">
+          <CardContent className="space-y-6 mb-auto flex-grow flex flex-col justify-between pt-6">
+            <p className="text-muted-foreground text-base leading-relaxed">
+              {description}
+            </p>
             {project.project_meta.featured_image && (
               <div className="relative aspect-video w-full overflow-hidden rounded-lg">
                 <Image
                   src={project.project_meta.featured_image}
                   alt={title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
             )}
-            <p className="text-muted-foreground text-base leading-relaxed">
-              {description}
-            </p>
           </CardContent>
 
           <CardFooter className="mt-auto flex-shrink-0">

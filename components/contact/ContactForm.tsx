@@ -10,6 +10,7 @@ import { Progress } from "@/components/ui/progress";
 import { neobrutalismClassPrimary } from "@/lib/styles";
 import { FormValues, formSchema } from "@/lib/types/contact";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { track } from "@vercel/analytics";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -81,13 +82,25 @@ export function ContactForm({ onClose }: ContactFormProps) {
 
   const handleNext = () => {
     if (currentStep === 0 && !canProceedToStep2) {
+      track("Contact Form Step Error", {
+        step: 1,
+        reason: "incomplete_fields",
+      });
       toast.error("Veuillez remplir correctement tous les champs");
       return;
     }
     if (currentStep === 1 && !canProceedToStep3) {
+      track("Contact Form Step Error", {
+        step: 1,
+        reason: "message_invalid",
+      });
       toast.error("Veuillez ajouter un message valide");
       return;
     }
+
+    track("Contact Form Step Complete", {
+      step: currentStep + 1,
+    });
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
   };
 
@@ -107,6 +120,10 @@ export function ContactForm({ onClose }: ContactFormProps) {
       const result = await response.json();
 
       if (!result.success) {
+        track("Contact Form Error", {
+          error: result.error,
+          step: currentStep,
+        });
         if (result.remainingTime) {
           const minutes = Math.ceil(result.remainingTime / (1000 * 60));
           toast.error(`${result.error} Réessayez dans ${minutes} minutes.`);
@@ -116,10 +133,17 @@ export function ContactForm({ onClose }: ContactFormProps) {
         return;
       }
 
+      track("Contact Form Success", {
+        hasOptionalFields: showOptionalFields,
+        projectType: data.projectType || "not_specified",
+      });
       toast.success("Message envoyé avec succès!");
       form.reset();
       onClose();
     } catch (error) {
+      track("Contact Form Exception", {
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
       toast.error(
         "Une erreur est survenue lors de l'envoi du message. " + error
       );
