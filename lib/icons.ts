@@ -3,6 +3,7 @@ import {
   Briefcase,
   CircleAlert,
   Cloud,
+  Code,
   Laptop,
   RefreshCw,
   Search,
@@ -12,6 +13,7 @@ import { IconType } from "react-icons";
 import { MdOutlineError } from "react-icons/md"; // Ajout d'une icône par défaut
 
 const iconMap: Record<string, IconType> = {
+  code: Code,
   search: Search,
   book: Book,
   briefcase: Briefcase,
