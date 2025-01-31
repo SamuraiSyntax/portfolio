@@ -44,9 +44,9 @@ model Contact {
   email                  String
   message                String        @db.Text
   phone                  String?       @db.VarChar(20)
-  company                String?       @db.VarChar(100)
-  clientType             String?       @db.VarChar(50)
-  projectType            String?       @db.VarChar(50)
+  company                String?       @db.VarChar(255)
+  clientType             String?       @db.VarChar(255)
+  projectType            String?       @db.VarChar(255)
   budget                 Decimal?      @db.Decimal(10, 2)
   deadline               DateTime?
   existingSite           String?       @db.VarChar(255)
