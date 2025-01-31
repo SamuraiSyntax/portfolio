@@ -74,6 +74,26 @@ export class ContactService {
         userAgent: data.userAgent || null,
       };
 
+      // Validation des longueurs
+      const maxLengths = {
+        name: 255,
+        email: 255,
+        message: 2000, // Ajustez selon vos besoins
+        phone: 20,
+        company: 255,
+        // Ajoutez d'autres champs si nécessaire
+      };
+
+      for (const [key, value] of Object.entries(cleanedData)) {
+        if (
+          value &&
+          typeof value === "string" &&
+          value.length > maxLengths[key as keyof typeof maxLengths]
+        ) {
+          throw new Error(`La valeur pour ${key} est trop longue.`);
+        }
+      }
+
       // 5. Création du contact dans la base de données
       const contact = await prisma.contact.create({
         data: cleanedData,
