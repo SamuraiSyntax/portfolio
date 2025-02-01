@@ -56,42 +56,35 @@ export class ContactService {
 
       // 4. Nettoyage et validation des données
       const cleanedData = {
-        name: data.name.trim(),
-        email: data.email.toLowerCase().trim(),
-        message: data.message.trim(),
-        phone: data.phone?.trim() || null,
-        company: data.company?.trim() || null,
-        clientType: data.clientType || null,
-        projectType: data.projectType || null,
+        name: data.name.trim().substring(0, 255),
+        email: data.email.toLowerCase().trim().substring(0, 255),
+        message: data.message.trim().substring(0, 2000),
+        phone: data.phone?.trim().substring(0, 20) || null,
+        company: data.company?.trim().substring(0, 255) || null,
+        clientType: data.clientType?.substring(0, 255) || null,
+        projectType: data.projectType?.substring(0, 255) || null,
         budget: data.budget ? parseFloat(data.budget) : null,
         deadline: data.deadline ? new Date(data.deadline) : null,
-        existingSite: data.existingSite?.trim() || null,
-        attachments: data.attachments || [],
-        competitors: data.competitors || [],
-        objectives: data.objectives || [],
-        tags: data.tags || [],
-        ipAddress: await hash(clientIp, 10), // Stockage sécurisé de l'IP
-        userAgent: data.userAgent || null,
+        existingSite: data.existingSite?.trim().substring(0, 255) || null,
+        attachments: Array.isArray(data.attachments)
+          ? data.attachments.slice(0, 10).map((url) => url.substring(0, 1000))
+          : [],
+        competitors: Array.isArray(data.competitors)
+          ? data.competitors.slice(0, 10).map((c) => c.substring(0, 255))
+          : [],
+        objectives: Array.isArray(data.objectives)
+          ? data.objectives.slice(0, 10).map((o) => o.substring(0, 255))
+          : [],
+        tags: Array.isArray(data.tags)
+          ? data.tags.slice(0, 20).map((t) => t.substring(0, 50))
+          : [],
+        ipAddress: await hash(clientIp.substring(0, 45), 10),
+        userAgent: data.userAgent?.substring(0, 500) || null,
       };
 
-      // Validation des longueurs
-      const maxLengths = {
-        name: 255,
-        email: 255,
-        message: 2000, // Ajustez selon vos besoins
-        phone: 20,
-        company: 255,
-        // Ajoutez d'autres champs si nécessaire
-      };
-
-      for (const [key, value] of Object.entries(cleanedData)) {
-        if (
-          value &&
-          typeof value === "string" &&
-          value.length > maxLengths[key as keyof typeof maxLengths]
-        ) {
-          throw new Error(`La valeur pour ${key} est trop longue.`);
-        }
+      // Validation des données avant création
+      if (!cleanedData.name || !cleanedData.email || !cleanedData.message) {
+        throw new Error("Les champs nom, email et message sont requis.");
       }
 
       // 5. Création du contact dans la base de données
@@ -133,7 +126,10 @@ export class ContactService {
       console.error("Erreur ContactService.create:", error);
       return {
         success: false,
-        error: "Une erreur est survenue lors de l'envoi du message.",
+        error:
+          error instanceof Error
+            ? error.message
+            : "Une erreur est survenue lors de l'envoi du message.",
       };
     }
   }
