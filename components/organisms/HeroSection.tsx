@@ -80,7 +80,7 @@ export function HeroSection({
           <div
             className={`mb-6 text-muted-foreground flex flex-wrap justify-center ${mobileClasses.subtitle} ${desktopClasses.subtitle}`}
           >
-            subtitle
+            {subtitle}
           </div>
         )}
 
