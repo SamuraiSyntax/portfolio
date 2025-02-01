@@ -76,9 +76,6 @@ export class ContactService {
           success: false,
           error: {
             message: "Un message a déjà été envoyé avec cet email récemment.",
-            remainingTime:
-              24 * 60 * 60 * 1000 -
-              (Date.now() - lastContact.createdAt.getTime()),
           },
         };
       }
