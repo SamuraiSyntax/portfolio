@@ -7,6 +7,10 @@ export class EmailService {
     contactId: string
   ) {
     try {
+      console.log(
+        "Envoi de l'email de notification pour le contact:",
+        contactData
+      );
       const baseUrl =
         process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
