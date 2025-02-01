@@ -1,55 +1,48 @@
 "use server";
 
 import { ContactService } from "@/lib/services/contact.service";
+import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  message: z.string().min(1),
+});
 
 export async function POST(request: Request) {
   try {
-    // Récupération de l'IP du client
-    const forwarded = request.headers.get("x-forwarded-for");
-    const clientIp = forwarded ? forwarded.split(",")[0] : "127.0.0.1";
+    const { name, email, message } = await request.json();
+    const clientIp =
+      request.headers.get("x-forwarded-for") ||
+      request.headers.get("cf-connecting-ip") ||
+      request.headers.get("x-real-ip");
 
-    const contentType = request.headers.get("content-type");
-    let data;
+    const data = contactSchema.parse({ name, email, message });
 
-    if (contentType?.includes("application/json")) {
-      data = await request.json();
-    } else if (
-      contentType?.includes("multipart/form-data") ||
-      contentType?.includes("application/x-www-form-urlencoded")
-    ) {
-      const formData = await request.formData();
-      data = Object.fromEntries(formData);
-    } else {
-      return new NextResponse(
-        "Content-Type invalide. Utilisez application/json, multipart/form-data ou application/x-www-form-urlencoded",
-        { status: 415 }
-      );
-    }
-
-    // Ajout des informations du client
-    data.userAgent = request.headers.get("user-agent");
-
-    // Validation des champs requis
-    const requiredFields = ["name", "email", "message"];
-    for (const field of requiredFields) {
-      if (!data[field]) {
-        return new NextResponse(`Le champ ${field} est requis`, {
-          status: 400,
-        });
-      }
-    }
-
+    console.log("Calling ContactService.create");
     // Utilisation du ContactService pour créer le contact et envoyer l'email
-    const result = await ContactService.create(data, clientIp);
+    const result = await ContactService.create(data, clientIp || "");
 
     if (!result.success) {
+      console.error("ContactService.create failed:", result.error);
       return NextResponse.json(result, { status: 400 });
     }
 
+    console.log("Contact created successfully");
     return NextResponse.json(result, { status: 201 });
   } catch (error) {
-    console.error("[CONTACT_POST]", error);
+    console.error("[CONTACT_POST] Unexpected error:", error);
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Database error: ${error.code}`,
+        },
+        { status: 500 }
+      );
+    }
     return NextResponse.json(
       {
         success: false,

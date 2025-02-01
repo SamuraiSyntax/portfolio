@@ -113,22 +113,20 @@ export function ContactForm({ onClose }: ContactFormProps) {
       setIsSubmitting(true);
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(data),
       });
 
       const result = await response.json();
 
       if (!result.success) {
-        track("Contact Form Error", {
-          error: result.error,
-          step: currentStep,
-        });
-        if (result.remainingTime) {
-          const minutes = Math.ceil(result.remainingTime / (1000 * 60));
-          toast.error(`${result.error} Réessayez dans ${minutes} minutes.`);
+        if (result.error?.remainingTime) {
+          const minutes = Math.ceil(result.error.remainingTime / (1000 * 60));
+          toast.error(`Veuillez réessayer dans ${minutes} minutes.`);
         } else {
-          toast.error(result.error);
+          toast.error(result.error?.message || "Une erreur est survenue");
         }
         return;
       }
@@ -141,12 +139,11 @@ export function ContactForm({ onClose }: ContactFormProps) {
       form.reset();
       onClose();
     } catch (error) {
-      track("Contact Form Exception", {
-        error: error instanceof Error ? error.message : "Unknown error",
+      track("Contact Form Error", {
+        errorType: error instanceof Error ? error.message : "Unknown error",
+        step: currentStep,
       });
-      toast.error(
-        "Une erreur est survenue lors de l'envoi du message. " + error
-      );
+      toast.error("Une erreur est survenue lors de l'envoi du message.");
     } finally {
       setIsSubmitting(false);
     }

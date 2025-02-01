@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { EmailService } from "@/lib/services/email.service";
-import { FormValues } from "@/lib/types/contact";
+import type { FormValues } from "@/lib/types/contact";
+import { Prisma } from "@prisma/client";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { hash } from "bcryptjs";
@@ -18,13 +19,45 @@ export class ContactService {
 
   static async create(data: FormValues, clientIp: string) {
     try {
-      // 1. Vérification du rate limiting par IP
-      const rateLimitResult = await this.ratelimit.limit(clientIp);
-      if (!rateLimitResult.success) {
+      console.log("Received data:", JSON.stringify(data, null, 2));
+      console.log("Client IP:", clientIp);
+
+      // Vérification que les données requises sont présentes
+      if (!data || typeof data !== "object") {
+        console.error("Invalid data received:", data);
         return {
           success: false,
-          error: "Trop de tentatives. Veuillez réessayer plus tard.",
-          remainingTime: rateLimitResult.reset,
+          error: {
+            message: "Les données reçues sont invalides.",
+          },
+        };
+      }
+
+      if (!data.name || !data.email || !data.message) {
+        console.error("Missing required fields:", {
+          name: data.name,
+          email: data.email,
+          message: data.message,
+        });
+        return {
+          success: false,
+          error: {
+            message: "Les champs nom, email et message sont requis.",
+          },
+        };
+      }
+
+      // Vérification du rate limiting par IP
+      const rateLimitResult = await this.ratelimit.limit(clientIp);
+
+      if (!rateLimitResult.success) {
+        const remainingTime = rateLimitResult.reset - Date.now();
+        return {
+          success: false,
+          error: {
+            message: "Trop de tentatives. Veuillez réessayer plus tard.",
+            remainingTime: remainingTime,
+          },
         };
       }
 
@@ -41,29 +74,30 @@ export class ContactService {
       if (lastContact) {
         return {
           success: false,
-          error: "Un message a déjà été envoyé avec cet email récemment.",
-          remainingTime:
-            24 * 60 * 60 * 1000 -
-            (Date.now() - lastContact.createdAt.getTime()),
+          error: {
+            message: "Un message a déjà été envoyé avec cet email récemment.",
+            remainingTime:
+              24 * 60 * 60 * 1000 -
+              (Date.now() - lastContact.createdAt.getTime()),
+          },
         };
       }
 
-      // 3. Vérification honeypot (à implémenter côté frontend)
+      // 3. Vérification honeypot
       if (data.honeypot) {
-        // Simuler un succès mais ne rien faire
-        return { success: true };
+        return { success: true }; // Simuler un succès mais ne rien faire
       }
 
       // 4. Nettoyage et validation des données
       const cleanedData = {
-        name: data.name.trim().substring(0, 255),
-        email: data.email.toLowerCase().trim().substring(0, 255),
-        message: data.message.trim().substring(0, 2000),
+        name: data.name?.trim().substring(0, 255) || "",
+        email: data.email?.toLowerCase().trim().substring(0, 255) || "",
+        message: data.message?.trim().substring(0, 2000) || "",
         phone: data.phone?.trim().substring(0, 20) || null,
         company: data.company?.trim().substring(0, 255) || null,
         clientType: data.clientType?.substring(0, 255) || null,
         projectType: data.projectType?.substring(0, 255) || null,
-        budget: data.budget ? parseFloat(data.budget) : null,
+        budget: data.budget ? Number.parseFloat(data.budget.toString()) : null,
         deadline: data.deadline ? new Date(data.deadline) : null,
         existingSite: data.existingSite?.trim().substring(0, 255) || null,
         attachments: Array.isArray(data.attachments)
@@ -84,8 +118,18 @@ export class ContactService {
 
       // Validation des données avant création
       if (!cleanedData.name || !cleanedData.email || !cleanedData.message) {
-        throw new Error("Les champs nom, email et message sont requis.");
+        return {
+          success: false,
+          error: {
+            message: "Les champs nom, email et message sont requis.",
+          },
+        };
       }
+
+      console.log(
+        "Attempting to create contact with data:",
+        JSON.stringify(cleanedData, null, 2)
+      );
 
       // 5. Création du contact dans la base de données
       const contact = await prisma.contact.create({
@@ -105,6 +149,11 @@ export class ContactService {
         },
       });
 
+      console.log(
+        "Contact created successfully:",
+        JSON.stringify(contact, null, 2)
+      );
+
       if (!contact.id) {
         throw new Error("Contact créé sans ID");
       }
@@ -123,13 +172,27 @@ export class ContactService {
 
       return { success: true, data: contact };
     } catch (error) {
-      console.error("Erreur ContactService.create:", error);
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        console.error("Prisma error:", error.code, error.message, error.meta);
+        return {
+          success: false,
+          error: {
+            message:
+              "Une erreur est survenue lors de la création du contact dans la base de données.",
+            details: `${error.code}: ${error.message}`,
+          },
+        };
+      }
+      console.error("Detailed error in ContactService.create:", error);
       return {
         success: false,
-        error:
-          error instanceof Error
-            ? error.message
-            : "Une erreur est survenue lors de l'envoi du message.",
+        error: {
+          message:
+            error instanceof Error
+              ? error.message
+              : "Une erreur inattendue est survenue",
+          details: error instanceof Error ? error.stack : undefined,
+        },
       };
     }
   }
