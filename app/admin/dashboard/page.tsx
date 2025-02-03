@@ -1,5 +1,7 @@
-import { ContactTable } from "@/components/admin/dashboard/contact/contact-table";
+import { ChartBarDashboard } from "@/components/admin/dashboard/charts/ChartBar";
+import { RecentClients } from "@/components/admin/dashboard/RecentClients";
 import { StatsCards } from "@/components/admin/dashboard/stats/stats-cards";
+
 import prisma from "@/lib/prisma";
 import { Contact, ContactStatus } from "@/types/contact";
 
@@ -11,7 +13,7 @@ interface StatusCount {
 }
 
 export default async function DashboardPage() {
-  const [contacts, stats] = await Promise.all([
+  const [contacts, stats, monthlyStats] = await Promise.all([
     prisma.contact.findMany({
       where: {
         status: {
@@ -29,23 +31,21 @@ export default async function DashboardPage() {
         _all: true,
       },
     }),
+    prisma.contact.groupBy({
+      by: ["createdAt"],
+      _count: {
+        _all: true,
+      },
+      where: {
+        createdAt: {
+          gte: new Date(new Date().getFullYear(), 0, 1),
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
   ]);
-
-  const convertedContacts = contacts.map((contact) => ({
-    ...contact,
-    budget: contact.budget ? Number(contact.budget) : null,
-    annualRevenue: contact.annualRevenue ? Number(contact.annualRevenue) : null,
-    contractValue: contact.contractValue ? Number(contact.contractValue) : null,
-    quotationAmount: contact.quotationAmount
-      ? Number(contact.quotationAmount)
-      : null,
-    tags: contact.tags ? (contact.tags as string[]) : [],
-    competitors: contact.competitors ? (contact.competitors as string[]) : [],
-    objectives: contact.objectives ? (contact.objectives as string[]) : [],
-    attachments: contact.attachments ? (contact.attachments as string[]) : [],
-    assignedTo: contact.assignedUserId,
-    userId: contact.assignedUserId ?? "",
-  })) as Contact[];
 
   const getStatusCount = (status: ContactStatus) => {
     const stat = (stats as StatusCount[]).find((s) => s.status === status);
@@ -63,27 +63,38 @@ export default async function DashboardPage() {
     archived: getStatusCount(ContactStatus.ARCHIVED),
   };
 
+  const allMonths = Array.from({ length: 12 }, (_, i) => {
+    return new Date(new Date().getFullYear(), i, 1);
+  });
+
+  const chartData = allMonths.map((month) => {
+    const monthString = new Intl.DateTimeFormat("fr-FR", {
+      month: "short",
+    }).format(month);
+    const stat = monthlyStats.find(
+      (stat) => new Date(stat.createdAt).getMonth() === month.getMonth()
+    );
+
+    return {
+      month: monthString,
+      clients: stat ? stat._count._all : 0,
+    };
+  });
+
   return (
     <div className="w-full h-full container mx-auto flex flex-col gap-4 pt-20">
       <section className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         <StatsCards {...statsData} />
       </section>
+      <section className="grid gap-4 grid-cols-1 md:grid-cols-2">
+        <div className="col-span-2 md:col-span-1">
+          <ChartBarDashboard chartData={chartData} />
+        </div>
 
-      <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <div className="col-span-4">
-          <h2 className="text-2xl font-bold tracking-tight">
-            Messages récents
-          </h2>
-          <p className="text-muted-foreground">
-            Voici les 5 derniers messages reçus
-          </p>
+        <div className="col-span-2 md:col-span-1">
+          <RecentClients contacts={contacts as Contact[]} />
         </div>
       </section>
-
-      <ContactTable
-        contacts={convertedContacts as Contact[]}
-        defaultView="recent"
-      />
     </div>
   );
 }

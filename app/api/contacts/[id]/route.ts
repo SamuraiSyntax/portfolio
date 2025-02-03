@@ -19,6 +19,26 @@ export async function PUT(
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
 
+    function isValidJson(str: string) {
+      try {
+        // Tente de parser comme JSON
+        JSON.parse(str);
+        return true;
+      } catch (e) {
+        // Si cela échoue, vérifiez si c'est une chaîne simple
+        if (typeof str === "string") {
+          return true; // Accepter les chaînes simples
+        }
+        console.error(
+          "[CONTACT_PUT]_isValidJson",
+          e,
+          "Invalid JSON string:",
+          str
+        );
+        return false;
+      }
+    }
+
     const contact = await prisma.contact.update({
       where: { id },
       data: {
@@ -34,6 +54,53 @@ export async function PUT(
           : null,
         status: (data.status as ContactStatus) || "NEW",
         priority: (data.priority as Priority) || "NORMAL",
+        deadline: data.deadline ? new Date(data.deadline as string) : null,
+        existingSite: (data.existingSite as string) || null,
+        companySize: (data.companySize as string) || null,
+        industry: (data.industry as string) || null,
+        locale: (data.locale as string) || null,
+        notes: data.notes as string,
+        objectives: data.objectives as string,
+        position: (data.position as string) || null,
+        preferredContactMethod: (data.preferredContactMethod as string) || null,
+        marketingSource: (data.marketingSource as string) || null,
+        newsletter: (data.newsletter as unknown as boolean) || false,
+        nextFollowUp: data.nextFollowUp
+          ? new Date(data.nextFollowUp as string)
+          : null,
+
+        ipAddress: (data.ipAddress as string) || null,
+        userAgent: (data.userAgent as string) || null,
+        annualRevenue: data.annualRevenue
+          ? new Decimal(data.annualRevenue as string).toNumber()
+          : null,
+        contractValue: data.contractValue
+          ? new Decimal(data.contractValue as string).toNumber()
+          : null,
+        lastContact: data.lastContact
+          ? new Date(data.lastContact as string)
+          : null,
+        projectScope: (data.projectScope as string) || null,
+        quotationAmount: data.quotationAmount
+          ? new Decimal(data.quotationAmount as string).toNumber()
+          : null,
+        targetAudience: (data.targetAudience as string) || null,
+        timezone: (data.timezone as string) || null,
+        comments: data.comments
+          ? isValidJson(data.comments as string)
+            ? JSON.parse(data.comments as string)
+            : undefined
+          : undefined,
+        activities: data.activities
+          ? isValidJson(data.activities as string)
+            ? JSON.parse(data.activities as string)
+            : undefined
+          : undefined,
+        attachments: data.attachments
+          ? isValidJson(data.attachments as string)
+            ? JSON.parse(data.attachments as string)
+            : undefined
+          : undefined,
       },
     });
 

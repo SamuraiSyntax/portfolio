@@ -70,3 +70,20 @@ export function stripHtml(html: string): string {
     .replace(/\s+/g, " ") // Remplace les espaces multiples par un seul espace
     .trim();
 }
+
+export function formatCurrency(amount: number | null) {
+  if (!amount) return "-";
+  return new Intl.NumberFormat("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+  }).format(amount);
+}
+
+export function formatDate(date: Date | null) {
+  if (!date) return "-";
+  return new Date(date).toLocaleDateString("fr-FR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+}

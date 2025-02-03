@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,28 +12,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  getPriorityColor,
+  getPriorityLabel,
+} from "@/hooks/priority/usePriority";
+import { getStatusColor, getStatusLabel } from "@/hooks/status/useStatus";
+import { Contact } from "@/types/contact";
 import { ContactStatus, Priority } from "@prisma/client";
+import { Clock } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
 interface ContactFormProps {
-  contact?: {
-    id: string;
-    name: string;
-    email: string;
-    phone?: string | null;
-    company?: string | null;
-    message: string;
-    clientType?: string | null;
-    projectType?: string | null;
-    budget?: number | null;
-    status: ContactStatus;
-    priority: Priority;
-    updatedAt: Date;
-    deadline?: Date | null;
-    existingSite?: string | null;
-  };
+  contact?: Contact;
   isEditing?: boolean;
 }
 
@@ -165,6 +158,51 @@ export function ContactForm({ contact, isEditing = false }: ContactFormProps) {
           />
         </div>
         <div className="space-y-2 px-2">
+          <Label htmlFor="companySize">Taille de l&apos;entreprise</Label>
+          <Input
+            id="companySize"
+            name="companySize"
+            placeholder="Taille de l'entreprise"
+            defaultValue={contact?.companySize || ""}
+          />
+        </div>
+        <div className="space-y-2 px-2">
+          <Label htmlFor="industry">Industrie</Label>
+          <Input
+            id="industry"
+            name="industry"
+            placeholder="Industrie"
+            defaultValue={contact?.industry || ""}
+          />
+        </div>
+        <div className="space-y-2 px-2">
+          <Label htmlFor="locale">Langue</Label>
+          <Input
+            id="locale"
+            name="locale"
+            placeholder="Langue"
+            defaultValue={contact?.locale || ""}
+          />
+        </div>
+        <div className="space-y-2 px-2">
+          <Label htmlFor="notes">Notes</Label>
+          <Textarea
+            id="notes"
+            name="notes"
+            placeholder="Notes"
+            defaultValue={contact?.notes || ""}
+          />
+        </div>
+        <div className="space-y-2 px-2">
+          <Label htmlFor="objectives">Objectifs</Label>
+          <Textarea
+            id="objectives"
+            name="objectives"
+            placeholder="Objectifs"
+            defaultValue={contact?.objectives || ""}
+          />
+        </div>
+        <div className="space-y-2 px-2">
           <Label htmlFor="status">Statut</Label>
           <Select
             name="status"
@@ -176,7 +214,30 @@ export function ContactForm({ contact, isEditing = false }: ContactFormProps) {
             <SelectContent>
               {Object.values(ContactStatus).map((status) => (
                 <SelectItem key={status} value={status}>
-                  {status}
+                  <Badge className={getStatusColor(contact?.status)}>
+                    <Clock className="h-4 w-4 mr-1" />
+                    {getStatusLabel(contact?.status)}
+                  </Badge>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2 px-2">
+          <Label htmlFor="priority">Priorité</Label>
+          <Select
+            name="priority"
+            defaultValue={contact?.priority || Priority.NORMAL}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Sélectionner une priorité" />
+            </SelectTrigger>
+            <SelectContent>
+              {Object.values(Priority).map((priority) => (
+                <SelectItem key={priority} value={priority}>
+                  <Badge className={getPriorityColor(contact?.priority)}>
+                    {getPriorityLabel(contact?.priority)}
+                  </Badge>
                 </SelectItem>
               ))}
             </SelectContent>

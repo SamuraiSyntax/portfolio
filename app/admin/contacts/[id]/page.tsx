@@ -34,5 +34,9 @@ export default async function ContactPage({ params }: { params: tParams }) {
     ? Number(convertedContact.budget)
     : null;
 
-  return <ContactPageComponent contact={convertedContact as Contact} id={id} />; // Utilisez le bon nom de composant
+  return (
+    <div className="p-4 md:p-8">
+      <ContactPageComponent contact={convertedContact as Contact} id={id} />
+    </div>
+  ); // Utilisez le bon nom de composant
 }

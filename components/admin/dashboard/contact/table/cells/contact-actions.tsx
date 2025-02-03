@@ -9,21 +9,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "@/hooks/use-toast";
-import { Contact, ContactStatus, Priority } from "@/types/contact";
+import { Contact, ContactStatus } from "@/types/contact";
 import {
   Archive,
-  Calendar,
-  CheckCircle,
-  Clock,
   Edit,
   Eye,
-  FileText,
   History,
   Mail,
   MoreHorizontal,
   Phone,
-  Star,
-  StarOff,
   Trash,
   Undo,
 } from "lucide-react";
@@ -51,7 +45,7 @@ export function ContactActions({
   onEdit,
   onAction,
 }: ContactActionsProps) {
-  const handleEmailClick = async () => {
+  const handleEmailClick = async (email: string) => {
     try {
       // Création du template d'email
       const subject = `RE: ${
@@ -65,7 +59,7 @@ export function ContactActions({
 
       // Construction de l'URL Gmail
       const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
-        contact.email
+        email
       )}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
       // Ouvrir Gmail dans un nouvel onglet
@@ -79,17 +73,17 @@ export function ContactActions({
     }
   };
 
-  const handlePhoneClick = () => {
-    if (contact.phone) {
-      window.location.href = `tel:${contact.phone}`;
+  const handlePhoneClick = (phone: string | null) => {
+    if (phone) {
+      window.location.href = `tel:${phone}`;
     }
   };
 
   return (
-    <div className="flex items-center justify-end gap-2">
+    <div className="flex items-center justify-end gap-2 sticky right-0 bg-background border-l top-[100px]">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" aria-label="Actions">
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
@@ -98,19 +92,19 @@ export function ContactActions({
             <Eye className="h-4 w-4 mr-2" />
             Voir les détails
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={onEdit}>
+          <DropdownMenuItem onClick={onEdit} disabled={isLoading}>
             <Edit className="h-4 w-4 mr-2" />
             Modifier
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem onClick={handleEmailClick}>
+          <DropdownMenuItem onClick={() => handleEmailClick(contact.email)}>
             <Mail className="h-4 w-4 mr-2" />
             Envoyer un email
           </DropdownMenuItem>
           {contact.phone && (
-            <DropdownMenuItem onClick={handlePhoneClick}>
+            <DropdownMenuItem onClick={() => handlePhoneClick(contact.phone)}>
               <Phone className="h-4 w-4 mr-2" />
               Appeler
             </DropdownMenuItem>
@@ -118,53 +112,11 @@ export function ContactActions({
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem
-            onClick={() => onAction("mark_in_progress")}
-            disabled={isLoading || contact.status === ContactStatus.IN_PROGRESS}
-          >
-            <Clock className="h-4 w-4 mr-2" />
-            Marquer en cours
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => onAction("mark_completed")}
-            disabled={isLoading || contact.status === ContactStatus.COMPLETED}
-          >
-            <CheckCircle className="h-4 w-4 mr-2" />
-            Marquer comme traité
-          </DropdownMenuItem>
-
-          <DropdownMenuItem
-            onClick={() => onAction("mark_important")}
-            disabled={isLoading}
-          >
-            {contact.priority === Priority.HIGH ? (
-              <>
-                <StarOff className="h-4 w-4 mr-2" />
-                Retirer l&apos;importance
-              </>
-            ) : (
-              <>
-                <Star className="h-4 w-4 mr-2" />
-                Marquer comme important
-              </>
-            )}
-          </DropdownMenuItem>
-
-          <DropdownMenuSeparator />
-
-          <DropdownMenuItem onClick={onView}>
-            <Calendar className="h-4 w-4 mr-2" />
-            Planifier un suivi
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={onView}>
-            <FileText className="h-4 w-4 mr-2" />
-            Ajouter une note
-          </DropdownMenuItem>
-
-          <DropdownMenuSeparator />
-
           {contact.status !== ContactStatus.ARCHIVED ? (
-            <DropdownMenuItem onClick={() => onAction("archive")}>
+            <DropdownMenuItem
+              onClick={() => onAction("archive")}
+              disabled={isLoading}
+            >
               <Archive className="h-4 w-4 mr-2" />
               Archiver
             </DropdownMenuItem>

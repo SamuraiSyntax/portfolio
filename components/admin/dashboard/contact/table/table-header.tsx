@@ -31,7 +31,7 @@ export function TableHeader({
       {showTitle && <CardTitle>{getViewTitle(view)}</CardTitle>}
       <div className="flex items-center gap-4">
         <Input
-          placeholder="Rechercher..."
+          placeholder="Rechercher un contact..."
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           className="max-w-xs"
@@ -40,13 +40,13 @@ export function TableHeader({
           value={view.toString()}
           onValueChange={(value) => onViewChange(value as ContactView)}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="gap-2">
             <SelectValue placeholder="Sélectionner une vue" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Tous les messages</SelectItem>
-            <SelectItem value="recent">Messages récents</SelectItem>
-            <SelectItem value="archived">Messages archivés</SelectItem>
+            <SelectItem value="all">Tous les contacts</SelectItem>
+            <SelectItem value="recent">Contacts récents</SelectItem>
+            <SelectItem value="archived">Contacts archivés</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -56,9 +56,9 @@ export function TableHeader({
 
 function getViewTitle(view: ContactView): string {
   const titles = {
-    all: "Tous les messages",
-    recent: "Messages récents",
-    archived: "Messages archivés",
+    all: "Tous les contacts",
+    recent: "Contacts récents",
+    archived: "Contacts archivés",
   };
   return titles[view] || titles.all;
 }

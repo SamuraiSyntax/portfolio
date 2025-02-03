@@ -20,7 +20,14 @@ export function useContactFilters(
 
       const matchesSearch = debouncedSearch
         ? contact.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-          contact.email.toLowerCase().includes(debouncedSearch.toLowerCase())
+          contact.email.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+          contact.phone
+            ?.toLowerCase()
+            .includes(debouncedSearch.toLowerCase()) ||
+          contact.message
+            .toLowerCase()
+            .includes(debouncedSearch.toLowerCase()) ||
+          contact.company?.toLowerCase().includes(debouncedSearch.toLowerCase())
         : true;
 
       return matchesView && matchesSearch;

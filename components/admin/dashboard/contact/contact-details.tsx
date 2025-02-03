@@ -2,7 +2,13 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Contact, ContactStatus, Priority } from "@/types/contact";
+import {
+  getPriorityColor,
+  getPriorityLabel,
+} from "@/hooks/priority/usePriority";
+import { getStatusColor, getStatusLabel } from "@/hooks/status/useStatus";
+import { formatCurrency, formatDate } from "@/lib/utils";
+import { Contact } from "@/types/contact";
 import {
   Building2,
   Calendar,
@@ -19,48 +25,11 @@ interface ContactDetailsProps {
 }
 
 export function ContactDetails({ contact }: ContactDetailsProps) {
-  const formatCurrency = (amount: number | null) => {
-    if (!amount) return "-";
-    return new Intl.NumberFormat("fr-FR", {
-      style: "currency",
-      currency: "EUR",
-    }).format(amount);
-  };
-
-  const formatDate = (date: Date | null) => {
-    if (!date) return "-";
-    return new Date(date).toLocaleDateString("fr-FR", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    });
-  };
-
-  const getStatusColor = (status: ContactStatus) => {
-    const colors = {
-      NEW: "bg-blue-100 text-blue-800",
-      IN_PROGRESS: "bg-yellow-100 text-yellow-800",
-      COMPLETED: "bg-green-100 text-green-800",
-      ARCHIVED: "bg-gray-100 text-gray-800",
-    };
-    return colors[status] || colors.NEW;
-  };
-
-  const getPriorityColor = (priority: Priority) => {
-    const colors = {
-      LOW: "bg-gray-100 text-gray-800",
-      NORMAL: "bg-blue-100 text-blue-800",
-      HIGH: "bg-yellow-100 text-yellow-800",
-      URGENT: "bg-red-100 text-red-800",
-    };
-    return colors[priority];
-  };
-
   return (
     <div className="space-y-6">
       {/* Informations principales */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="p-4 space-y-4">
+        <Card className="p-4 space-y-4 shadow-md rounded-lg">
           <h2 className="text-lg font-semibold">Informations personnelles</h2>
           <div className="space-y-2">
             <div className="flex items-center gap-2">
@@ -69,14 +38,20 @@ export function ContactDetails({ contact }: ContactDetailsProps) {
             </div>
             <div className="flex items-center gap-2">
               <Mail className="h-4 w-4 text-muted-foreground" />
-              <a href={`mailto:${contact.email}`} className="text-blue-600">
+              <a
+                href={`mailto:${contact.email}`}
+                className="text-primary hover:underline"
+              >
                 {contact.email}
               </a>
             </div>
             {contact.phone && (
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-muted-foreground" />
-                <a href={`tel:${contact.phone}`} className="text-blue-600">
+                <a
+                  href={`tel:${contact.phone}`}
+                  className="text-primary hover:underline"
+                >
                   {contact.phone}
                 </a>
               </div>
@@ -87,10 +62,36 @@ export function ContactDetails({ contact }: ContactDetailsProps) {
                 <span>{contact.company}</span>
               </div>
             )}
+            {contact.clientType && (
+              <div className="flex items-center gap-2">
+                <span className="font-medium">Type de client:</span>
+                <span>{contact.clientType}</span>
+              </div>
+            )}
+            {contact.companySize && (
+              <div className="flex items-center gap-2">
+                <span className="font-medium">
+                  Taille de l&apos;entreprise:
+                </span>
+                <span>{contact.companySize}</span>
+              </div>
+            )}
+            {contact.industry && (
+              <div className="flex items-center gap-2">
+                <span className="font-medium">Industrie:</span>
+                <span>{contact.industry}</span>
+              </div>
+            )}
+            {contact.locale && (
+              <div className="flex items-center gap-2">
+                <span className="font-medium">Langue:</span>
+                <span>{contact.locale}</span>
+              </div>
+            )}
           </div>
         </Card>
 
-        <Card className="p-4 space-y-4">
+        <Card className="p-4 space-y-4 shadow-md rounded-lg">
           <h2 className="text-lg font-semibold">Détails du projet</h2>
           <div className="space-y-2">
             {contact.projectType && (
@@ -118,10 +119,22 @@ export function ContactDetails({ contact }: ContactDetailsProps) {
                   href={contact.existingSite}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600"
+                  className="text-primary hover:underline"
                 >
                   Site existant
                 </a>
+              </div>
+            )}
+            {contact.notes && (
+              <div className="flex flex-col items-start gap-2">
+                <span className="font-medium">Notes:</span>
+                <span>{contact.notes}</span>
+              </div>
+            )}
+            {contact.objectives && (
+              <div className="flex flex-col items-start gap-2">
+                <span className="font-medium">Objectifs:</span>
+                <span>{contact.objectives}</span>
               </div>
             )}
           </div>
@@ -132,21 +145,21 @@ export function ContactDetails({ contact }: ContactDetailsProps) {
       <div className="flex gap-4">
         <Badge className={getStatusColor(contact.status)}>
           <Clock className="h-4 w-4 mr-1" />
-          {contact.status}
+          {getStatusLabel(contact.status)}
         </Badge>
         <Badge className={getPriorityColor(contact.priority)}>
-          {contact.priority}
+          {getPriorityLabel(contact.priority)}
         </Badge>
       </div>
 
       {/* Message */}
-      <Card className="p-4 space-y-4">
+      <Card className="p-4 space-y-4 shadow-md rounded-lg">
         <h2 className="text-lg font-semibold">Message</h2>
         <p className="whitespace-pre-wrap">{contact.message}</p>
       </Card>
 
       {/* Métadonnées */}
-      <div className="text-sm text-muted-foreground">
+      <div className="flex flex-row justify-between gap-2 text-sm text-muted-foreground">
         <p>Créé le {formatDate(contact.createdAt)}</p>
         <p>Dernière modification le {formatDate(contact.updatedAt)}</p>
       </div>
