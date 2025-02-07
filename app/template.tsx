@@ -43,7 +43,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
             transition: { duration: 0.3 },
           }}
           transition={{ duration: 0.3 }}
-          className="w-full"
+          className="w-full overflow-x-auto"
         >
           {children}
         </motion.div>

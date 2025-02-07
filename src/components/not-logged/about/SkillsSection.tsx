@@ -334,7 +334,11 @@ export function SkillsSection({
   return (
     <>
       {/* Desktop */}
-      <section className={`${classNameDesktop}`} style={{ zIndex: zIndex }}>
+      <section
+        id="skills"
+        className={`${classNameDesktop}`}
+        style={{ zIndex: zIndex }}
+      >
         <SectionDivider
           color={color || "muted"}
           colorReverse={colorReverse}
