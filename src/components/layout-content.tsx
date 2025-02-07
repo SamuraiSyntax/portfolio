@@ -1,7 +1,7 @@
 "use client";
 
-import Template from "@/components/template";
 import { BlendCursor } from "@/components/ui/blend-cursor";
+import Template from "app/template";
 import { Toaster } from "sonner";
 
 export default function LayoutContent({

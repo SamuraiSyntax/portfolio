@@ -1,6 +1,5 @@
 import { AuthProviders } from "@/components/auth-providers";
 import CookieBanner from "@/components/cookies-rgpd/CookieConsent";
-import { ErrorWrapper } from "@/components/error-wrapper";
 import Header from "@/components/header";
 import LayoutContent from "@/components/layout-content";
 import { ScrollToTop } from "@/components/scroll-to-top";
@@ -85,9 +84,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             <ScrollToTop />
             <Header />
-            <LayoutContent>
-              <ErrorWrapper>{children}</ErrorWrapper>
-            </LayoutContent>
+            <LayoutContent>{children}</LayoutContent>
             <SpeedInsights />
             <Analytics />
             <CookieBanner />
