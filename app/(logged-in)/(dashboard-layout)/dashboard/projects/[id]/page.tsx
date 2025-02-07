@@ -7,7 +7,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 interface ProjectPageProps {
-  params: Promise<{ id: string }> | { id: string };
+  params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 const prisma = new PrismaClient();
@@ -15,9 +16,8 @@ const prisma = new PrismaClient();
 export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
-  const resolvedParams = await Promise.resolve(params);
   const project = await prisma.project.findUnique({
-    where: { id: resolvedParams.id },
+    where: { id: params.id },
     select: { name: true },
   });
 
@@ -35,8 +35,7 @@ export async function generateMetadata({
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const resolvedParams = await Promise.resolve(params);
-  const project = await projectService.findById(resolvedParams.id);
+  const project = await projectService.findById(params.id);
 
   if (!project) {
     notFound();
