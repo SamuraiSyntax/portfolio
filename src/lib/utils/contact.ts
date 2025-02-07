@@ -13,16 +13,11 @@ export function convertPrismaContactToContact(
     position: prismaContact.position,
     message: prismaContact.message,
     projectType: prismaContact.projectType,
-    projectScope: prismaContact.projectScope,
     budget: prismaContact.budget ? Number(prismaContact.budget) : null,
     deadline: prismaContact.deadline,
     existingSite: prismaContact.existingSite,
     status: prismaContact.status as ContactStatus,
     priority: prismaContact.priority as Priority,
-    tags: (prismaContact.tags as string[]) || [],
-    targetAudience: prismaContact.targetAudience as string | null,
-    competitors: (prismaContact.competitors as string[]) || [],
-    objectives: (prismaContact.objectives as string[]) || [],
     clientType: prismaContact.clientType,
     industry: prismaContact.industry,
     companySize: prismaContact.companySize,
@@ -30,23 +25,8 @@ export function convertPrismaContactToContact(
       ? Number(prismaContact.annualRevenue)
       : null,
     preferredContactMethod: prismaContact.preferredContactMethod,
-    marketingSource: prismaContact.marketingSource,
-    newsletter: prismaContact.newsletter as boolean,
     lastContact: prismaContact.lastContact,
     nextFollowUp: prismaContact.nextFollowUp,
-    notes: prismaContact.notes,
-    assignedUserId: prismaContact.assignedUserId,
-    attachments: (prismaContact.attachments as string[]) || [],
-    quotationAmount: prismaContact.quotationAmount
-      ? Number(prismaContact.quotationAmount)
-      : null,
-    contractValue: prismaContact.contractValue
-      ? Number(prismaContact.contractValue)
-      : null,
-    ipAddress: prismaContact.ipAddress,
-    userAgent: prismaContact.userAgent,
-    locale: prismaContact.locale,
-    timezone: prismaContact.timezone,
     createdAt: prismaContact.createdAt,
     updatedAt: prismaContact.updatedAt,
   };

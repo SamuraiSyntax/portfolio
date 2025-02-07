@@ -2,46 +2,14 @@ import { ProjetSinglePage } from "@/components/logged-in/projects/ProjetSinglePa
 import { activityLogService } from "@/services/activityLogService";
 import { projectService } from "@/services/projectService";
 import { ProjectWithRelations } from "@/types/project";
-import { PrismaClient } from "@prisma/client";
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-interface ProjectPageProps {
-  params: Promise<{ id: string }>;
-  searchParams?: { [key: string]: string | string[] | undefined };
-}
+type tParams = Promise<{ id: string }>;
 
-const prisma = new PrismaClient();
-
-export async function generateMetadata({
-  params,
-}: ProjectPageProps): Promise<Metadata> {
-  const { id } = await params;
-  const project = await prisma.project.findUnique({
-    where: { id },
-    select: { name: true },
-  });
-
-  if (!project) {
-    return {
-      title: "Projet non trouvé",
-      description: "Le projet demandé n'existe pas",
-    };
-  }
-
-  return {
-    title: `${project.name} - Gestion de Projet`,
-    description: `Détails et suivi du projet ${project.name}`,
-  };
-}
-
-export default async function ProjectPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const project = await projectService.findById(id);
+export default async function ProjectPage({ params }: { params: tParams }) {
+  "use server";
+  const resolvedParams = await Promise.resolve(params);
+  const project = await projectService.findById(resolvedParams.id);
 
   if (!project) {
     notFound();

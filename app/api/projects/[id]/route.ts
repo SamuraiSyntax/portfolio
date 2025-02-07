@@ -11,15 +11,16 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   _request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await auth();
     if (!session) {
       return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
     }
 
-    const project = await projectService.findById(params.id);
+    const project = await projectService.findById(id);
     if (!project) {
       return NextResponse.json({ error: "Projet non trouvé" }, { status: 404 });
     }
@@ -77,7 +78,7 @@ export async function PUT(
       },
       startDate: data.startDate,
       estimatedDeliveryDate: data.estimatedDeliveryDate,
-      projectManager: data.projectManager,
+      projectManagerUser: data.projectManagerUser,
       // Champs JSON avec nettoyage uniforme
       objectives: cleanJsonArray(data.objectives),
       scopeIncluded: cleanJsonArray(data.scopeIncluded),
@@ -144,15 +145,17 @@ export async function PUT(
 
 export async function DELETE(
   _request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await auth();
+
     if (!session) {
       return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
     }
 
-    await projectService.delete(params.id);
+    await projectService.delete(id);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("[PROJECT_DELETE]", error);

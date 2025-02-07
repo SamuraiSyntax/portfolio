@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  createBadgeColumn,
-  createDateColumn,
-  createSelectColumn,
-  createSortableColumn,
-} from "@/components/logged-in/data-table/columns/base-columns";
+import { createBaseColumns } from "@/components/logged-in/data-table/columns/base-columns";
 import { Button } from "@/components/ui/button";
 import { Project } from "@/types/project";
 import { ColumnDef } from "@tanstack/react-table";
@@ -19,16 +14,16 @@ export function createProjectColumns(
   options?: ProjectColumnsOptions
 ): ColumnDef<Project>[] {
   return [
-    createSelectColumn<Project>(),
-    createSortableColumn<Project>("name", "Nom du projet"),
-    createBadgeColumn<Project>("status", "Statut", {
+    createBaseColumns.select<Project>(),
+    createBaseColumns.sortable<Project>("name", "Nom du projet"),
+    createBaseColumns.badge<Project>("status", "Statut", {
       NEW: { label: "Nouveau", variant: "default" },
       IN_PROGRESS: { label: "En cours", variant: "warning" },
       COMPLETED: { label: "Terminé", variant: "success" },
       ARCHIVED: { label: "Archivé", variant: "secondary" },
     }),
-    createDateColumn<Project>("startDate", "Date de début"),
-    createDateColumn<Project>(
+    createBaseColumns.date<Project>("startDate", "Date de début"),
+    createBaseColumns.date<Project>(
       "estimatedDeliveryDate",
       "Date de livraison estimée"
     ),
@@ -36,7 +31,7 @@ export function createProjectColumns(
       accessorKey: "projectManagerUser.name",
       header: "Chef de projet",
     },
-    createBadgeColumn<Project>("priority", "Priorité", {
+    createBaseColumns.badge<Project>("priority", "Priorité", {
       LOW: { label: "Basse", variant: "default" },
       NORMAL: { label: "Normale", variant: "info" },
       HIGH: { label: "Haute", variant: "warning" },

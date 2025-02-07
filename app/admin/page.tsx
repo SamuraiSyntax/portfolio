@@ -2,6 +2,9 @@ import { LoginForm } from "@/components/admin/login-form";
 import { auth } from "@/lib/auth/helper";
 import { redirect } from "next/navigation";
 
+// Marquer la page comme dynamique
+export const dynamic = "force-dynamic";
+
 export default async function AdminPage() {
   const user = await auth();
 

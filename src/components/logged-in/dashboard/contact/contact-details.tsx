@@ -95,9 +95,9 @@ export function ContactDetails({ contact }: ContactDetailsProps) {
             <div className="flex gap-4">
               <Select value={status} onValueChange={handleStatusChange}>
                 <SelectTrigger className="w-auto p-0 border-0 bg-transparent">
-                  <Badge className={getStatusColor(status)}>
+                  <Badge className={getStatusColor(status as ContactStatus)}>
                     <Clock className="h-4 w-4 mr-1" />
-                    {getStatusLabel(status)}
+                    {getStatusLabel(status as ContactStatus)}
                   </Badge>
                 </SelectTrigger>
                 <SelectContent>
@@ -118,10 +118,11 @@ export function ContactDetails({ contact }: ContactDetailsProps) {
 
               <Select value={priority} onValueChange={handlePriorityChange}>
                 <SelectTrigger className="w-auto p-0 border-0 bg-transparent">
-                  <Badge className={getPriorityColor(priority)}>
-                    {getPriorityLabel(priority)}
+                  <Badge className={getPriorityColor(priority as Priority)}>
+                    {getPriorityLabel(priority as Priority)}
                   </Badge>
                 </SelectTrigger>
+
                 <SelectContent>
                   {PRIORITY_OPTIONS.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
@@ -187,12 +188,6 @@ export function ContactDetails({ contact }: ContactDetailsProps) {
                 <span>{contact.industry}</span>
               </div>
             )}
-            {contact.locale && (
-              <div className="flex items-center gap-2">
-                <span className="font-medium">Langue:</span>
-                <span>{contact.locale}</span>
-              </div>
-            )}
           </div>
         </Card>
 
@@ -228,18 +223,6 @@ export function ContactDetails({ contact }: ContactDetailsProps) {
                 >
                   Site existant
                 </a>
-              </div>
-            )}
-            {contact.notes && (
-              <div className="flex flex-col items-start gap-2">
-                <span className="font-medium">Notes:</span>
-                <span>{contact.notes}</span>
-              </div>
-            )}
-            {contact.objectives && (
-              <div className="flex flex-col items-start gap-2">
-                <span className="font-medium">Objectifs:</span>
-                <span>{contact.objectives}</span>
               </div>
             )}
           </div>
