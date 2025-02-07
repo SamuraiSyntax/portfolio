@@ -1,0 +1,82 @@
+enum RiskImpact {
+  FAIBLE
+  MOYEN
+  ELEVE
+}
+
+enum RiskProbability {
+  FAIBLE
+  MOYENNE
+  ELEVEE
+}
+
+enum PhaseStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  BLOCKED
+  ON_HOLD
+}
+
+model Project {
+  id                    String   @id @default(cuid())
+  name                  String   @db.VarChar(255)
+  clientId              String
+  client                Contact  @relation(fields: [clientId], references: [id])
+  startDate             DateTime
+  estimatedDeliveryDate DateTime
+  projectManagerId      String?
+  projectManagerUser    User?    @relation("ProjectManager", fields: [projectManagerId], references: [id])
+  context               String   @db.Text
+  objectives            Json
+  scopeIncluded         Json
+  scopeExcluded         Json
+  technicalConstraints  String   @db.Text
+  budgetConstraints     String   @db.Text
+  assumptions           String   @db.Text
+  validationCriteria    Json?
+  communicationMethods  Json?
+  nextSteps             Json?
+  phases                Phase[]
+  risks                 Risk[]
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  productionUrl         String?
+  technologies          Json?
+  targetAudience        Json?
+  kpis                  Json?
+  legalConstraints      String?  @db.Text
+  integrationDetails    String?  @db.Text
+  deliverables          Json?
+  validationSteps       Json?
+  securityMeasures      String?  @db.Text
+  contingencyPlan       String?  @db.Text
+
+  @@map("projects")
+}
+
+model Phase {
+  id              String      @id @default(cuid())
+  projectId       String
+  name            String      @db.VarChar(255)
+  startDate       DateTime
+  endDate         DateTime
+  status          PhaseStatus @default(NOT_STARTED)
+  responsible     String
+  responsibleUser User        @relation(fields: [responsible], references: [id])
+  project         Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("phases")
+}
+
+model Risk {
+  id          String          @id @default(cuid())
+  description String          @db.Text
+  impact      RiskImpact      @default(FAIBLE)
+  probability RiskProbability @default(FAIBLE)
+  solution    String          @db.Text
+  projectId   String
+  project     Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("risks")
+}

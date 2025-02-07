@@ -49,12 +49,13 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "connect-src 'self' https://api.dev-nanard.fr https://www.api.dev-nanard.fr https://lh3.googleusercontent.com; " +
-              "default-src 'self'; " +
+              "default-src 'self' blob:; " +
+              "connect-src 'self' https://api.dev-nanard.fr https://www.api.dev-nanard.fr https://lh3.googleusercontent.com data: blob:; " +
               "script-src 'self' 'unsafe-eval' 'unsafe-inline'; " +
               "style-src 'self' 'unsafe-inline'; " +
               "img-src 'self' https: data:; " +
-              "font-src 'self' data:;",
+              "font-src 'self' data:; " +
+              "frame-src 'self' blob:;",
           },
         ],
       },
@@ -77,6 +78,7 @@ const nextConfig = {
       },
     ];
   },
+  serverExternalPackages: ["@react-pdf/renderer"],
 };
 
 export default nextConfig;

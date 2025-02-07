@@ -1,4 +1,4 @@
-import Footer from "@/components/v2/footer";
+import Footer from "@/components/footer";
 import { Metadata } from "next";
 import Link from "next/link";
 

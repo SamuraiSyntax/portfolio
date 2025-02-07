@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth/helper";
 import prisma from "@/lib/prisma";
 import { ContactStatus, Priority } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
@@ -148,6 +148,91 @@ export async function DELETE(
   } catch (error) {
     return NextResponse.json(
       { error: "Error deleting contact" + error },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
+    }
+
+    const contact = await prisma.contact.findUnique({
+      where: { id: params.id },
+      include: {
+        projects: {
+          include: {
+            phases: {
+              include: {
+                responsibleUser: {
+                  select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                  },
+                },
+              },
+            },
+            risks: true,
+            projectManagerUser: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
+        assignedTo: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+        comments: {
+          include: {
+            author: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
+        activities: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!contact) {
+      return NextResponse.json(
+        { error: "Contact non trouvé" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(contact);
+  } catch (error) {
+    console.error("[CONTACT_GET]", error);
+    return NextResponse.json(
+      { error: "Erreur serveur interne" },
       { status: 500 }
     );
   }

@@ -1,5 +1,5 @@
-import CookiePreferences from "@/components/v2/CookiePreferences";
-import Footer from "@/components/v2/footer";
+import CookiePreferences from "@/components/cookies-rgpd/CookiePreferences";
+import Footer from "@/components/footer";
 import { Metadata } from "next";
 import Link from "next/link";
 

@@ -1,0 +1,36 @@
+enum MediaType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+  OTHER
+}
+
+model Media {
+  id         String    @id @default(cuid())
+  filename   String
+  type       MediaType
+  url        String
+  size       Int?
+  mimeType   String?   @db.VarChar(100)
+  createdAt  DateTime  @default(now())
+  uploadedBy User      @relation(fields: [userId], references: [id])
+  userId     String
+  metadata   Json?
+
+  @@index([userId])
+  @@map("media")
+}
+
+model Document {
+  id          String   @id @default(cuid())
+  title       String   @db.VarChar(255)
+  description String?  @db.Text
+  type        String   @db.VarChar(100)
+  size        Int
+  uploadedAt  DateTime
+  url         String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("documents")
+}

@@ -7,13 +7,13 @@ export function middleware() {
   response.headers.set(
     "Content-Security-Policy",
     `
-      default-src 'self';
+      default-src 'self' blob:;
       script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com;
       style-src 'self' 'unsafe-inline';
       img-src 'self' blob: data: https://www.api.dev-nanard.fr https://*.googleusercontent.com;
-      font-src 'self';
-      connect-src 'self' https://www.api.dev-nanard.fr https://va.vercel-scripts.com;
-      frame-src 'self';
+      font-src 'self' data:;  
+      connect-src 'self' https://www.api.dev-nanard.fr https://va.vercel-scripts.com data:;
+      frame-src 'self' blob:;
       media-src 'self' https://www.api.dev-nanard.fr https://*.api.dev-nanard.fr;
     `
       .replace(/\s{2,}/g, " ")
@@ -24,14 +24,5 @@ export function middleware() {
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

@@ -1,0 +1,56 @@
+enum NotificationType {
+  EMAIL
+  SYSTEM
+  PUSH
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  contact   Contact  @relation(fields: [contactId], references: [id])
+  contactId String
+  metadata  Json?
+
+  @@index([authorId])
+  @@index([contactId])
+  @@map("comments")
+}
+
+model ActivityLog {
+  id         String   @id @default(cuid())
+  action     String
+  entityType String
+  entityId   String
+  details    Json?
+  createdAt  DateTime @default(now())
+  user       User?    @relation(fields: [userId], references: [id])
+  userId     String?
+  ipAddress  String?  @db.VarChar(45)
+  userAgent  String?  @db.Text
+  contact    Contact? @relation(fields: [contactId], references: [id])
+  contactId  String?
+
+  @@index([userId])
+  @@index([entityType, entityId])
+  @@index([contactId])
+  @@map("activity_logs")
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  title     String
+  message   String           @db.Text
+  type      NotificationType
+  createdAt DateTime         @default(now())
+  readAt    DateTime?
+  user      User             @relation(fields: [userId], references: [id])
+  userId    String
+  data      Json?
+
+  @@index([userId])
+  @@map("notifications")
+}

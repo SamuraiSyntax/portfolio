@@ -1,10 +1,10 @@
-import { ErrorMessage } from "@/components/atoms/ErrorMessage";
-import { LoadingSpinner } from "@/components/atoms/LoadingSpinner";
-import { SectionDivider } from "@/components/atoms/SectionDivider";
-import { NavigationCard } from "@/components/molecules/NavigationCard";
-import { ContactSection } from "@/components/organisms/contact/ContactSection";
-import { HeroSection } from "@/components/organisms/HeroSection";
-import Footer from "@/components/v2/footer";
+import Footer from "@/components/footer";
+import { ContactSection } from "@/components/not-logged/contact/ContactSection";
+import { ErrorMessage } from "@/components/not-logged/ErrorMessage";
+import { HeroSection } from "@/components/not-logged/HeroSection";
+import { LoadingSpinner } from "@/components/not-logged/LoadingSpinner";
+import { NavigationCard } from "@/components/not-logged/projects/NavigationCard";
+import { SectionDivider } from "@/components/not-logged/SectionDivider";
 import { decodeHTMLEntities, truncateText } from "@/lib/utils";
 import { wpFetch } from "@/lib/wordpress";
 import { WPProject } from "@/types/wordpress";

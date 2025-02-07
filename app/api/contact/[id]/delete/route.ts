@@ -4,7 +4,10 @@ import { ContactService } from "@/lib/services/contact.service";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request, props: { params: Promise<{ id: string }> }) {
+export async function GET(
+  request: Request,
+  props: { params: Promise<{ id: string }> }
+) {
   const params = await props.params;
   const { searchParams } = new URL(request.url);
   const token = searchParams.get("token");
@@ -27,7 +30,7 @@ export async function GET(request: Request, props: { params: Promise<{ id: strin
 
     // Redirection vers la page d'administration avec un message de succès
     return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_APP_URL}/admin/contacts?deleted=true`
+      `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/contacts?deleted=true`
     );
   } catch (error) {
     console.error("Erreur lors de la suppression du contact:", error);

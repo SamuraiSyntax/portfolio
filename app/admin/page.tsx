@@ -1,12 +1,12 @@
-import { LoginForm } from "@/components/admin/auth/login-form";
-import { auth } from "@/lib/auth";
+import { LoginForm } from "@/components/admin/login-form";
+import { auth } from "@/lib/auth/helper";
 import { redirect } from "next/navigation";
 
 export default async function AdminPage() {
-  const session = await auth();
+  const user = await auth();
 
-  if (session) {
-    redirect("/admin/dashboard");
+  if (user) {
+    redirect("/dashboard");
   }
 
   return (

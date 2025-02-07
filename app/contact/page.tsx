@@ -1,7 +1,7 @@
-import { ContactSection } from "@/components/organisms/contact/ContactSection";
-import { HeroSection } from "@/components/organisms/HeroSection";
-import { TestimonialsSection } from "@/components/organisms/testimonials/TestimonialsSection";
-import Footer from "@/components/v2/footer";
+import Footer from "@/components/footer";
+import { ContactSection } from "@/components/not-logged/contact/ContactSection";
+import { HeroSection } from "@/components/not-logged/HeroSection";
+import { TestimonialsSection } from "@/components/not-logged/testimonials/TestimonialsSection";
 import { generateMetadata } from "@/lib/seo";
 
 export const metadata = generateMetadata({

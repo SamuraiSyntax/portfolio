@@ -1,9 +1,10 @@
-import LayoutContent from "@/components/layout/layout-content";
-import { AuthProviders } from "@/components/providers/auth-providers";
-import { ThemeProvider } from "@/components/providers/theme-provider";
-import { ScrollToTop } from "@/components/utils/scroll-to-top";
-import CookieBanner from "@/components/v2/CookieConsent";
-import Header from "@/components/v2/header";
+import { AuthProviders } from "@/components/auth-providers";
+import CookieBanner from "@/components/cookies-rgpd/CookieConsent";
+import { ErrorWrapper } from "@/components/error-wrapper";
+import Header from "@/components/header";
+import LayoutContent from "@/components/layout-content";
+import { ScrollToTop } from "@/components/scroll-to-top";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Metadata } from "next";
@@ -84,7 +85,9 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             <ScrollToTop />
             <Header />
-            <LayoutContent>{children}</LayoutContent>
+            <LayoutContent>
+              <ErrorWrapper>{children}</ErrorWrapper>
+            </LayoutContent>
             <SpeedInsights />
             <Analytics />
             <CookieBanner />

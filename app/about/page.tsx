@@ -1,11 +1,11 @@
-import { AboutSection } from "@/components/organisms/about/AboutSection";
-import { EducationSection } from "@/components/organisms/about/EducationSection";
-import { ExperienceSection } from "@/components/organisms/about/ExperienceSection";
-import { SkillsSection } from "@/components/organisms/about/SkillsSection";
-import { ContactSection } from "@/components/organisms/contact/ContactSection";
-import { HeroSection } from "@/components/organisms/HeroSection";
-import { ProjectsPreviewSection } from "@/components/organisms/projects/ProjectsPreviewSection";
-import Footer from "@/components/v2/footer";
+import Footer from "@/components/footer";
+import { AboutSection } from "@/components/not-logged/about/AboutSection";
+import { EducationSection } from "@/components/not-logged/about/EducationSection";
+import { ExperienceSection } from "@/components/not-logged/about/ExperienceSection";
+import { SkillsSection } from "@/components/not-logged/about/SkillsSection";
+import { ContactSection } from "@/components/not-logged/contact/ContactSection";
+import { HeroSection } from "@/components/not-logged/HeroSection";
+import { ProjectsPreviewSection } from "@/components/not-logged/projects/ProjectsPreviewSection";
 import { generateMetadata } from "@/lib/seo";
 
 export const metadata = generateMetadata({
@@ -46,10 +46,10 @@ export const metadata = generateMetadata({
 });
 
 const heroContent = {
-  title: "Développeur Web Passionné",
-  highlight: "Expert en WordPress & React",
+  title: "Développeur Web Bordelais",
+  highlight: "Expert WordPress & React",
   subtitle:
-    "<span>Création de solutions web innovantes et performantes adaptées à vos besoins.</span><span>Mon expertise en développement WordPress et Next.js me permet de réaliser des projets sur mesure qui répondent à vos attentes.</span>",
+    "<span>Solutions web innovantes au cœur de Bordeaux.</span><span>Accompagnement personnalisé pour votre présence digitale en Nouvelle-Aquitaine.</span>",
   primaryButton: {
     text: "À propos de moi",
     link: "#about",
@@ -61,13 +61,13 @@ const heroContent = {
 };
 
 const aboutContent = {
-  title: "À propos de moi",
-  subtitle: "Développeur WordPress & Intégrateur Web",
-  description: `Passionné par le développement web, je me spécialise dans la création de sites WordPress performants et professionnels. Mon approche combine expertise technique et créativité pour concevoir des solutions web adaptées à chaque projet. Curieux et en constante évolution, j'explore les technologies modernes comme React et Next.js pour enrichir mes compétences.`,
+  title: "Développeur Web à Bordeaux",
+  subtitle: "Expert WordPress & Solutions Digitales",
+  description: `Basé à Bordeaux, je suis un développeur web passionné spécialisé dans la création de sites WordPress et d'applications web modernes. J'accompagne les entreprises bordelaises et de la Nouvelle-Aquitaine dans leur transformation digitale, en proposant des solutions web sur mesure, performantes et évolutives. Mon expertise technique, combinée à ma connaissance du tissu économique local, me permet de créer des projets web parfaitement adaptés aux besoins des entreprises de la région.`,
   image: "/me.jpg",
   stats: [
-    { number: "2+", label: "Année d'expérience" },
-    { number: "5+", label: "Projets WordPress" },
+    { number: "2+", label: "Années d'expérience" },
+    { number: "10+", label: "Projets en Nouvelle-Aquitaine" },
   ],
 };
 

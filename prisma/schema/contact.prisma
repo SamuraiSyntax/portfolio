@@ -1,0 +1,61 @@
+enum ContactStatus {
+  NEW
+  IN_PROGRESS
+  COMPLETED
+  ARCHIVED
+}
+
+enum Priority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+model Contact {
+  id                     String        @id @default(cuid())
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+  name                   String        @db.VarChar(255)
+  email                  String        @db.VarChar(255)
+  message                String        @db.Text
+  phone                  String?       @db.VarChar(20)
+  company                String?       @db.VarChar(255)
+  clientType             String?       @db.VarChar(255)
+  projectType            String?       @db.VarChar(255)
+  budget                 Decimal?      @db.Decimal(10, 2)
+  deadline               DateTime?
+  existingSite           String?       @db.VarChar(255)
+  status                 ContactStatus @default(NEW)
+  ipAddress              String?       @db.VarChar(255)
+  userAgent              String?       @db.Text
+  annualRevenue          Decimal?      @db.Decimal(15, 2)
+  assignedTo             User?         @relation(fields: [assignedUserId], references: [id])
+  assignedUserId         String?
+  attachments            Json?
+  companySize            String?       @db.VarChar(50)
+  competitors            Json?
+  contractValue          Decimal?      @db.Decimal(10, 2)
+  industry               String?       @db.VarChar(100)
+  lastContact            DateTime?
+  locale                 String?       @db.VarChar(10)
+  marketingSource        String?       @db.VarChar(100)
+  newsletter             Boolean       @default(false)
+  nextFollowUp           DateTime?
+  notes                  String?       @db.Text
+  objectives             Json?
+  position               String?       @db.VarChar(100)
+  preferredContactMethod String?       @db.VarChar(50)
+  priority               Priority      @default(NORMAL)
+  projectScope           String?       @db.Text
+  quotationAmount        Decimal?      @db.Decimal(10, 2)
+  tags                   Json?
+  targetAudience         String?       @db.Text
+  timezone               String?       @db.VarChar(50)
+  comments               Comment[]
+  activities             ActivityLog[]
+  projects               Project[]
+
+  @@index([email, createdAt])
+  @@map("contacts")
+}
