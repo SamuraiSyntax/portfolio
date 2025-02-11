@@ -1,9 +1,9 @@
-import { ContactForm } from "@/components/logged-in/dashboard/contact/contact-form";
+import { EditContactForm } from "@/components/logged-in/contacts/form/EditContactForm";
 
 export default async function NewContactPage() {
   return (
     <div className="w-full h-full container mx-auto flex flex-col gap-4 pt-20">
-      <ContactForm />
+      <EditContactForm mode="create" />
     </div>
   );
 }

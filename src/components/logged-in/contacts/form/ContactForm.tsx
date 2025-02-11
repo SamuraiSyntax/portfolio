@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { ContactFormData, contactFormSchema } from "@/types/contact";
@@ -27,9 +29,27 @@ export function ContactForm({
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: initialData || {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      mobilePhone: "",
+      company: "",
+      position: "",
+      message: "",
+      projectType: "",
+      budget: null,
+      deadline: null,
+      existingSite: "",
       status: "NEW",
       priority: "NORMAL",
       source: "WEBSITE",
+      industry: "",
+      companySize: "",
+      annualRevenue: null,
+      preferredContactMethod: null,
+      nextFollowUp: null,
+      newsletter: false,
     },
   });
 

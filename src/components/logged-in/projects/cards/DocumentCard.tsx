@@ -23,7 +23,7 @@ export function DocumentCard({ document }: { document: Document }) {
               <h4 className="font-medium">{document.title}</h4>
               <p className="text-sm text-muted-foreground">
                 {formatFileSize(document.size)} •{" "}
-                {formatDate(document.uploadedAt)}
+                {formatDate(document.createdAt)}
               </p>
             </div>
           </div>

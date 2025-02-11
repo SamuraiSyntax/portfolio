@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth/helper";
 import prisma from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 enum ContactStatus {
@@ -39,33 +40,34 @@ export async function POST(request: Request) {
     }
 
     const updateData: {
-      status?: ContactStatus;
-      priority?: Priority;
+      status?: { set: ContactStatus };
+      priority?: { set: Priority };
     } = {};
 
     if (action) {
       switch (action) {
         case "mark_in_progress":
-          updateData.status = ContactStatus.IN_PROGRESS;
+          updateData.status = { set: ContactStatus.IN_PROGRESS };
           break;
         case "mark_completed":
-          updateData.status = ContactStatus.COMPLETED;
+          updateData.status = { set: ContactStatus.COMPLETED };
           break;
         case "mark_important":
           const contact = await prisma.contact.findFirst({
             where: { id: ids[0] },
             select: { priority: true },
           });
-
-          updateData.priority =
-            contact?.priority === Priority.HIGH
-              ? Priority.NORMAL
-              : Priority.HIGH;
+          updateData.priority = {
+            set:
+              contact?.priority === Priority.HIGH
+                ? Priority.NORMAL
+                : Priority.HIGH,
+          };
           break;
       }
     } else {
-      if (status) updateData.status = status;
-      if (priority) updateData.priority = priority;
+      if (status) updateData.status = { set: status };
+      if (priority) updateData.priority = { set: priority };
     }
 
     const updatedContacts = await prisma.contact.updateMany({
@@ -74,7 +76,7 @@ export async function POST(request: Request) {
           in: ids,
         },
       },
-      data: updateData,
+      data: updateData as Prisma.ContactUpdateManyMutationInput,
     });
 
     return NextResponse.json(updatedContacts);

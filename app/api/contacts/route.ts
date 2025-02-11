@@ -24,15 +24,28 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const formData = await request.formData();
+    const data = await request.json();
     const contact = await prisma.contact.create({
       data: {
-        name: formData.get("name") as string,
-        email: formData.get("email") as string,
-        phone: (formData.get("phone") as string) || null,
-        company: (formData.get("company") as string) || null,
-        message: formData.get("message") as string,
-        // ... autres champs
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phone: data.phone || null,
+        company: data.company || null,
+        message: data.message,
+        projectType: data.projectType || null,
+        budget: data.budget || null,
+        deadline: data.deadline ? new Date(data.deadline) : null,
+        existingSite: data.existingSite || null,
+        status: data.status,
+        priority: data.priority,
+        source: data.source,
+        industry: data.industry || null,
+        companySize: data.companySize || null,
+        annualRevenue: data.annualRevenue || null,
+        preferredContactMethod: data.preferredContactMethod || null,
+        nextFollowUp: data.nextFollowUp ? new Date(data.nextFollowUp) : null,
+        newsletter: data.newsletter || false,
       },
     });
 

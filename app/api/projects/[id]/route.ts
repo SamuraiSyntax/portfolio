@@ -78,7 +78,11 @@ export async function PUT(
       },
       startDate: data.startDate,
       estimatedDeliveryDate: data.estimatedDeliveryDate,
-      projectManagerUser: data.projectManagerUser,
+      projectManager: {
+        connect: {
+          id: data.projectManagerId,
+        },
+      },
       // Champs JSON avec nettoyage uniforme
       objectives: cleanJsonArray(data.objectives),
       scopeIncluded: cleanJsonArray(data.scopeIncluded),

@@ -35,7 +35,7 @@ export class EmailService {
       await resend.emails.send({
         from: "Portfolio <onboarding@resend.dev>", // Utilisation du domaine par défaut de Resend
         to: process.env.ADMIN_EMAIL!,
-        subject: `🔔 Nouveau contact: ${contactData.name}`,
+        subject: `🔔 Nouveau contact: ${contactData.firstName} ${contactData.lastName}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff;">
             <div style="text-align: center; margin-bottom: 30px;">
@@ -55,7 +55,7 @@ export class EmailService {
                 <tr>
                   <td style="padding: 8px 0; color: #64748b;">Nom:</td>
                   <td style="padding: 8px 0; color: #1e293b; font-weight: 500;">
-                    ${contactData.name}
+                    ${contactData.firstName} ${contactData.lastName}
                   </td>
                 </tr>
                 <tr>
@@ -103,7 +103,7 @@ export class EmailService {
                 <tr>
                   <td style="padding: 8px 0; color: #64748b;">Budget:</td>
                   <td style="padding: 8px 0; color: #1e293b;">
-                    ${formatBudget(contactData.budget)}
+                    ${formatBudget(contactData.budget?.toString())}
                   </td>
                 </tr>
                 <tr>

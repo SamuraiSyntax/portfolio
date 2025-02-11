@@ -9,10 +9,10 @@ import {
 
 export function getEnumLabel(
   value: string | null | undefined,
-  labels: Record<string, string>
+  labels: Record<string, { label: string; variant: string }>
 ): string {
   if (!value) return "";
-  return labels[value] || value;
+  return labels[value]?.label || value;
 }
 
 export function convertPrismaContactToContact(

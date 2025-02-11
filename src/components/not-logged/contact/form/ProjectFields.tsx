@@ -32,6 +32,7 @@ export function ProjectFields({ form }: ProjectFieldsProps) {
                 type="number"
                 className={neobrutalismClassPrimary}
                 {...field}
+                value={field.value || ""}
               />
             </FormControl>
             <FormMessage />

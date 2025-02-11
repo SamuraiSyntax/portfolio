@@ -37,7 +37,9 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
           <CardContent className="space-y-2">
             <div>
               <span className="font-medium">Budget:</span>{" "}
-              {project.budget ? formatCurrency(project.budget) : "Non défini"}
+              {project.budget
+                ? formatCurrency(Number(project.budget))
+                : "Non défini"}
             </div>
             <div>
               <span className="font-medium">Chef de projet:</span>{" "}

@@ -21,8 +21,9 @@ import { ContactFormFields } from "./ContactFormFields";
 import { StepIndicator } from "./StepIndicator";
 
 interface EditContactFormProps {
-  contact: Contact;
+  contact?: Contact;
   onSuccess?: () => void;
+  mode?: "create" | "edit";
 }
 
 const steps = [
@@ -32,8 +33,12 @@ const steps = [
   { id: 4, title: "Statut et suivi" },
 ];
 
-export function EditContactForm({ contact, onSuccess }: EditContactFormProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export function EditContactForm({
+  contact,
+  onSuccess,
+  mode = "edit",
+}: EditContactFormProps) {
+  const [isOpen, setIsOpen] = useState(mode === "create");
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -41,25 +46,25 @@ export function EditContactForm({ contact, onSuccess }: EditContactFormProps) {
   const form = useForm({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      firstName: contact.firstName,
-      lastName: contact.lastName,
-      email: contact.email,
-      phone: contact.phone || "",
-      mobilePhone: contact.mobilePhone || "",
-      company: contact.company || "",
-      position: contact.position || "",
-      message: contact.message,
-      projectType: contact.projectType || "",
-      budget: contact.budget || undefined,
-      deadline: contact.deadline || undefined,
-      existingSite: contact.existingSite || "",
-      status: contact.status,
-      priority: contact.priority,
-      source: contact.source,
-      industry: contact.industry || "",
-      companySize: contact.companySize || "",
-      nextFollowUp: contact.nextFollowUp || undefined,
-      newsletter: contact.newsletter || false,
+      firstName: contact?.firstName || "",
+      lastName: contact?.lastName || "",
+      email: contact?.email || "",
+      phone: contact?.phone || "",
+      mobilePhone: contact?.mobilePhone || "",
+      company: contact?.company || "",
+      position: contact?.position || "",
+      message: contact?.message || "",
+      projectType: contact?.projectType || "",
+      budget: contact?.budget || undefined,
+      deadline: contact?.deadline || undefined,
+      existingSite: contact?.existingSite || "",
+      status: contact?.status || "NEW",
+      priority: contact?.priority || "NORMAL",
+      source: contact?.source || "WEBSITE",
+      industry: contact?.industry || "",
+      companySize: contact?.companySize || "",
+      nextFollowUp: contact?.nextFollowUp || undefined,
+      newsletter: contact?.newsletter || false,
     },
   });
 
@@ -71,23 +76,38 @@ export function EditContactForm({ contact, onSuccess }: EditContactFormProps) {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch(`/api/contacts/${contact.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `/api/contacts${contact?.id ? `/${contact.id}` : ""}`,
+        {
+          method: contact?.id ? "PUT" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
-      if (!response.ok) throw new Error("Erreur lors de la modification");
+      if (!response.ok)
+        throw new Error(
+          mode === "edit"
+            ? "Erreur lors de la modification"
+            : "Erreur lors de la création"
+        );
 
-      toast.success("Contact modifié avec succès");
+      toast.success(
+        mode === "edit"
+          ? "Contact modifié avec succès"
+          : "Contact créé avec succès"
+      );
       setIsOpen(false);
       onSuccess?.();
-      // Rafraîchir la page
       router.refresh();
     } catch (error) {
-      toast.error("Erreur lors de la modification du contact");
+      toast.error(
+        mode === "edit"
+          ? "Erreur lors de la modification du contact"
+          : "Erreur lors de la création du contact"
+      );
       console.error(error);
     } finally {
       setIsSubmitting(false);
@@ -103,15 +123,17 @@ export function EditContactForm({ contact, onSuccess }: EditContactFormProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
-          <Edit className="h-4 w-4" />
-          Modifier
-        </Button>
+        {mode === "edit" ? (
+          <Button variant="outline" size="sm" className="gap-2">
+            <Edit className="h-4 w-4" />
+            Modifier
+          </Button>
+        ) : null}
       </DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">
-            Modifier le contact
+            {mode === "edit" ? "Modifier le contact" : "Nouveau contact"}
           </DialogTitle>
         </DialogHeader>
 

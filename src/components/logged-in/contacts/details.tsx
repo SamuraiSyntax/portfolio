@@ -80,7 +80,9 @@ export function ContactDetails({ contact }: ContactDetailsProps) {
           <CardContent className="space-y-2">
             <div>
               <span className="font-medium">Dernier contact:</span>{" "}
-              {contact.lastContact ? formatDate(contact.lastContact) : "-"}
+              {contact.lastContactDate
+                ? formatDate(contact.lastContactDate)
+                : "-"}
             </div>
             <div>
               <span className="font-medium">Prochaine relance:</span>{" "}
