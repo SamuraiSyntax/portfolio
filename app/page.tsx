@@ -9,8 +9,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title:
-    "Bernard Rogier | Développeur Web Freelance à Bordeaux - Expert WordPress & Next.js",
+  title: "Bernard Rogier | Développeur Web Freelance à Bordeaux",
   description:
     "Développeur web freelance à Bordeaux spécialisé en WordPress et Next.js. Solutions web sur mesure pour les entreprises de Nouvelle-Aquitaine. Devis gratuit et accompagnement personnalisé.",
   keywords: [
