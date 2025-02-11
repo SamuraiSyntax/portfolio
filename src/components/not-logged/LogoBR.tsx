@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import { useEffect, useRef } from "react";
 
 interface LogoBRProps {
@@ -94,12 +95,20 @@ export default function LogoBR({
   }, []);
 
   return (
-    <svg
+    <motion.svg
       ref={svgRef}
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-label={ariaLabel}
-      style={{ transition: "width 0.5s ease" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.2 }}
+      style={{
+        transition: "width 0.3s ease",
+        willChange: "width, transform",
+        contain: "content",
+        contentVisibility: "auto",
+      }}
     >
       <defs>
         <style type="text/css">
@@ -120,7 +129,6 @@ export default function LogoBR({
               font-style: normal;
               font-size: 35px;
               opacity: 1;
-              transition: opacity 0.5s ease-in-out;
               text-anchor: start;
               dominant-baseline: middle;
             }
@@ -159,6 +167,6 @@ export default function LogoBR({
       <text className="full-name" x="170" y="20" textAnchor="start">
         ogier
       </text>
-    </svg>
+    </motion.svg>
   );
 }

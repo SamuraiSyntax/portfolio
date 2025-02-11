@@ -71,6 +71,7 @@ export default function Home() {
   return (
     <>
       <HeroSection
+        priority
         title="Expert WordPress & Solutions Web"
         subtitle="<span>Votre vision mérite une réalisation exceptionnelle.</span><span>Des solutions web sur mesure qui transforment vos objectifs en résultats concrets.</span>"
         highlight="Excellence & Innovation"

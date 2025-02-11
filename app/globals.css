@@ -3,6 +3,22 @@
 @tailwind utilities;
 
 @layer utilities {
+  .hero-text {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    will-change: opacity;
+    contain: content;
+    content-visibility: auto;
+  }
+
+  .letter-r {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .full-name {
+    transition: opacity 0.3s ease-in-out;
+  }
+
   .text-balance {
     text-wrap: balance;
   }
@@ -242,5 +258,12 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-text {
+    animation: none !important;
+    transition: none !important;
   }
 }

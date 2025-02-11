@@ -1,13 +1,15 @@
 import { AuthProviders } from "@/components/auth-providers";
 import CookieBanner from "@/components/cookies-rgpd/CookieConsent";
+import Favicon from "@/components/Favicon";
 import Header from "@/components/header";
-import LayoutContent from "@/components/layout-content";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { ThemeProvider } from "@/components/theme-provider";
+import { BlendCursor } from "@/components/ui/blend-cursor";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Metadata } from "next";
 import localFont from "next/font/local";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const ubuntu = localFont({
@@ -44,6 +46,7 @@ const ubuntu = localFont({
     },
   ],
   variable: "--font-ubuntu",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -77,14 +80,51 @@ export default function RootLayout({
   return (
     <html lang="fr" className={ubuntu.className} suppressHydrationWarning>
       <head>
+        <Favicon />
         <meta name="mobile-web-app-capable" content="yes" />
+        <link
+          rel="preload"
+          href="/fonts/ubuntu-700.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/ubuntu-500.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/ubuntu-300.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+          rel="preload"
+          as="font"
+          href="/fonts/ubuntu-700.woff2"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
       </head>
       <body>
         <AuthProviders>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             <ScrollToTop />
             <Header />
-            <LayoutContent>{children}</LayoutContent>
+            <main className="min-h-screen relative">{children}</main>
+            <BlendCursor />
+            <Toaster richColors position="top-right" />
             <SpeedInsights />
             <Analytics />
             <CookieBanner />
