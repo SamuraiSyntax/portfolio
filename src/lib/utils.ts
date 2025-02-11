@@ -144,3 +144,26 @@ export function convertDecimalToNumber(decimal: any): number | null {
     ? Number(decimal.toString())
     : Number(decimal);
 }
+
+export function formatFileSize(bytes: number): string {
+  if (bytes === 0) return "0 B";
+  const k = 1024;
+  const sizes = ["B", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes[i]}`;
+}
+
+export function getProjectStatusColor(
+  status: string,
+  type: "bg" | "text" = "bg"
+) {
+  const colors = {
+    NEW: type === "bg" ? "bg-blue-500" : "text-blue-500",
+    IN_PROGRESS: type === "bg" ? "bg-yellow-500" : "text-yellow-500",
+    COMPLETED: type === "bg" ? "bg-green-500" : "text-green-500",
+    ARCHIVED: type === "bg" ? "bg-gray-500" : "text-gray-500",
+    BLOCKED: type === "bg" ? "bg-red-500" : "text-red-500",
+  };
+
+  return colors[status as keyof typeof colors] || colors.NEW;
+}

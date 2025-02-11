@@ -5,34 +5,38 @@ import { ServicesPreviewSection } from "@/components/not-logged/services/Service
 import { generateMetadata } from "@/lib/seo";
 
 export const metadata = generateMetadata({
-  title: "Services WordPress & Développement Web | Bernard Rogier",
+  title:
+    "Services Web à Bordeaux | Bernard Rogier - Expert WordPress & Next.js",
   description:
-    "Expertise en création de sites WordPress, intégration web et maintenance. Formation continue en React/Next.js pour des solutions toujours plus innovantes. Découvrez mes services de développement web sur mesure.",
+    "Services de développement web sur mesure à Bordeaux : création de sites WordPress, applications Next.js, e-commerce et maintenance. Solutions digitales adaptées aux entreprises de Nouvelle-Aquitaine.",
   path: "/services",
   type: "website",
   keywords: [
-    "services développement web",
-    "création site WordPress",
-    "développement Next.js",
-    "solutions e-commerce",
-    "maintenance WordPress",
-    "SEO",
+    "services web Bordeaux",
+    "création site WordPress Bordeaux",
+    "développement Next.js Nouvelle-Aquitaine",
+    "agence web Bordeaux",
+    "création site internet Gironde",
+    "maintenance WordPress Bordeaux",
+    "développement e-commerce Bordeaux",
+    "solutions digitales Nouvelle-Aquitaine",
   ],
   image: "/images/og-services.jpg",
-  category: "Services",
+  category: "Services Web Bordeaux",
   openGraph: {
     type: "website",
     locale: "fr_FR",
     url: "https://www.dev-nanard.fr/services",
-    siteName: "Bernard Rogier - Services Web",
-    title: "Services de Développement Web",
-    description: "Services web sur mesure pour votre entreprise",
+    siteName: "Bernard Rogier - Services Web Bordeaux",
+    title: "Services de Développement Web à Bordeaux",
+    description:
+      "Expert en création de sites web et solutions digitales sur mesure pour les entreprises de Bordeaux et de Nouvelle-Aquitaine. WordPress, Next.js, e-commerce et maintenance.",
     images: [
       {
         url: "/images/og-services.jpg",
         width: 1200,
         height: 630,
-        alt: "Services Web - Bernard Rogier",
+        alt: "Services Web Bordeaux - Bernard Rogier",
         type: "image/jpeg",
       },
     ],

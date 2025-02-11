@@ -6,6 +6,10 @@ import { usePathname } from "next/navigation";
 
 export function BreadcrumbNavigation() {
   const pathname = usePathname();
+
+  // Vérifier si nous sommes sur la page dashboard
+  if (pathname === "/dashboard") return null;
+
   const segments = pathname.split("/").filter(Boolean);
 
   const breadcrumbs = segments
@@ -25,7 +29,7 @@ export function BreadcrumbNavigation() {
     });
 
   return (
-    <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
+    <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-4">
       <Link
         href="/dashboard"
         className="flex items-center hover:text-foreground transition-colors"

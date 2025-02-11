@@ -17,7 +17,14 @@ model User {
   notifications   Notification[]
   media           Media[]
   phases          Phase[]
+  projects        UserOnProject[]
   managedProjects Project[]      @relation("ProjectManager")
+  userActivities  Activity[]
+  createdNotes    Note[]
+  assignedTasks   Task[]         @relation("AssignedTasks")
+  createdTasks    Task[]         @relation("CreatedTasks")
+  communications  Communication[]
+  uploadedDocuments Document[]
 
   @@map("users")
 }

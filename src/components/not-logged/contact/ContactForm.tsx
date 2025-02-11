@@ -61,23 +61,32 @@ export function ContactForm({ onClose }: ContactFormProps) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      firstName: "",
+      lastName: "",
       email: "",
       message: "",
       phone: "",
       company: "",
       clientType: "",
       projectType: "",
-      budget: "",
+      budget: undefined,
       deadline: "",
       existingSite: "",
+      newsletter: false,
+      metadata: {},
     },
   });
 
-  const { name, email, message } = form.watch();
+  const { firstName, lastName, email, message } = form.watch();
   const errors = form.formState.errors;
 
-  const canProceedToStep2 = name && email && !errors.name && !errors.email;
+  const canProceedToStep2 =
+    firstName &&
+    lastName &&
+    email &&
+    !errors.firstName &&
+    !errors.lastName &&
+    !errors.email;
   const canProceedToStep3 = message && !errors.message;
 
   const handleNext = () => {

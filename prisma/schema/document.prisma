@@ -1,0 +1,47 @@
+enum DocumentType {
+  PDF
+  IMAGE
+  SPREADSHEET
+  DOCUMENT
+  CONTRACT
+  PRESENTATION
+  OTHER
+}
+
+model Document {
+  id              String          @id @default(cuid())
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  
+  title           String          @db.VarChar(255)
+  description     String?         @db.Text
+  type            DocumentType
+  
+  url             String          @db.Text
+  size            Int            // Taille en bytes
+  filename        String          @db.VarChar(255)
+  
+  contact         Contact?        @relation(fields: [contactId], references: [id])
+  contactId       String?
+  
+  project         Project?        @relation(fields: [projectId], references: [id])
+  projectId       String?
+  
+  quote           Quote?          @relation(fields: [quoteId], references: [id])
+  quoteId         String?
+  
+  invoice         Invoice?        @relation(fields: [invoiceId], references: [id])
+  invoiceId       String?
+  
+  communication   Communication?  @relation(fields: [communicationId], references: [id])
+  communicationId String?
+  
+  uploadedBy      User            @relation(fields: [uploadedById], references: [id])
+  uploadedById    String
+  
+  tags            String[]
+  
+  @@index([contactId])
+  @@index([projectId])
+  @@index([uploadedById])
+} 

@@ -4,6 +4,21 @@ enum NotificationType {
   PUSH
 }
 
+enum ActivityType {
+  CONTACT_CREATED
+  CONTACT_UPDATED
+  PROJECT_CREATED
+  PROJECT_UPDATED
+  QUOTE_SENT
+  QUOTE_ACCEPTED
+  INVOICE_SENT
+  INVOICE_PAID
+  DOCUMENT_UPLOADED
+  NOTE_ADDED
+  TASK_COMPLETED
+  COMMUNICATION_ADDED
+}
+
 model Comment {
   id        String   @id @default(cuid())
   content   String   @db.Text
@@ -53,4 +68,28 @@ model Notification {
 
   @@index([userId])
   @@map("notifications")
+}
+
+model Activity {
+  id              String        @id @default(cuid())
+  createdAt       DateTime      @default(now())
+  
+  type            ActivityType
+  description     String        @db.Text
+  
+  contact         Contact?      @relation(fields: [contactId], references: [id])
+  contactId       String?
+  
+  project         Project?      @relation(fields: [projectId], references: [id])
+  projectId       String?
+  
+  user            User          @relation(fields: [userId], references: [id])
+  userId          String
+  
+  metadata        Json?         // Données supplémentaires spécifiques à l'activité
+  
+  @@index([contactId])
+  @@index([projectId])
+  @@index([userId])
+  @@index([createdAt])
 }

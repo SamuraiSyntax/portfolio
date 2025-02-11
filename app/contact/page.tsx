@@ -5,33 +5,37 @@ import { TestimonialsSection } from "@/components/not-logged/testimonials/Testim
 import { generateMetadata } from "@/lib/seo";
 
 export const metadata = generateMetadata({
-  title: "Contact | Bernard Rogier - Développeur WordPress",
+  title: "Contact | Bernard Rogier - Développeur Web à Bordeaux",
   description:
-    "Vous avez un projet web ? Discutons ensemble de vos besoins pour créer un site WordPress professionnel et sur mesure. Devis gratuit et accompagnement personnalisé pour vos projets de développement web.",
+    "Besoin d'un site web professionnel à Bordeaux ? Contactez-moi pour discuter de votre projet. Expert WordPress et Next.js au service des entreprises de Nouvelle-Aquitaine. Devis gratuit et accompagnement personnalisé.",
   path: "/contact",
   type: "website",
   keywords: [
-    "contact développeur WordPress",
-    "devis site WordPress",
-    "création site web",
-    "développeur junior WordPress",
-    "accompagnement projet web",
+    "contact développeur web Bordeaux",
+    "devis site web Bordeaux",
+    "création site internet Nouvelle-Aquitaine",
+    "contact freelance WordPress Bordeaux",
+    "développeur web Gironde",
+    "agence web Bordeaux contact",
+    "devis développement web Bordeaux",
+    "contact expert WordPress Nouvelle-Aquitaine",
   ],
   image: "/images/og-contact.jpg",
-  category: "Contact",
+  category: "Contact Développeur Web Bordeaux",
   openGraph: {
     type: "website",
     locale: "fr_FR",
     url: "https://www.dev-nanard.fr/contact",
-    siteName: "Bernard Rogier - Contact",
-    title: "Contactez Bernard Rogier - Développeur WordPress",
-    description: "Discutons de votre projet de site WordPress",
+    siteName: "Bernard Rogier - Contact Développeur Web Bordeaux",
+    title: "Contactez Bernard Rogier - Développeur Web à Bordeaux",
+    description:
+      "Discutons de votre projet web à Bordeaux. Expert WordPress et Next.js pour les entreprises de Nouvelle-Aquitaine. Devis gratuit et accompagnement personnalisé.",
     images: [
       {
         url: "/images/og-contact.jpg",
         width: 1200,
         height: 630,
-        alt: "Contactez Bernard Rogier - Développeur WordPress",
+        alt: "Contact Bernard Rogier - Développeur Web Bordeaux",
         type: "image/jpeg",
       },
     ],

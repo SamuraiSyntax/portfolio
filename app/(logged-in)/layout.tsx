@@ -1,7 +1,8 @@
-import { ErrorDisplay } from "@/components/error-display";
 import { ErrorWrapper } from "@/components/error-wrapper";
 import { requiredAuth } from "@/lib/auth/helper";
 import { AuthError } from "@/lib/errors/types";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function LoggedInLayout({
   children,
@@ -13,13 +14,15 @@ export default async function LoggedInLayout({
     return <ErrorWrapper>{children}</ErrorWrapper>;
   } catch (error) {
     if (error instanceof AuthError) {
-      return (
-        <div className="flex items-center justify-center h-screen">
-          <ErrorDisplay error={error} showLoginButton={true} />
-        </div>
-      );
+      const headersList = await headers();
+      const host = headersList.get("host") ?? "localhost";
+      const protocol = headersList.get("x-forwarded-proto") ?? "http";
+      const currentPath = new URL(
+        headersList.get("x-url") ?? "",
+        `${protocol}://${host}`
+      ).pathname;
+      redirect(`/admin?redirect=${encodeURIComponent(currentPath)}`);
     }
-
     throw error;
   }
 }

@@ -21,6 +21,7 @@ import {
   Eye,
   MoreHorizontal,
   Trash,
+  User,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -102,42 +103,53 @@ export const createColumns = ({
   {
     id: "select",
     header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Sélectionner tout"
-      />
+      <div className="flex items-center justify-center mx-2">
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected()}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Sélectionner tout"
+        />
+      </div>
     ),
+
     cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Sélectionner la ligne"
-      />
+      <div className="flex items-center justify-center mx-2">
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Sélectionner la ligne"
+        />
+      </div>
     ),
+
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Nom du projet
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
+      <div className="flex items-center justify-center gap-2 whitespace-nowrap">
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Nom du projet
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
     ),
     cell: ({ row }) => (
-      <Link
-        href={`/dashboard/projects/${row.original.id}`}
-        className="font-medium text-primary hover:underline"
-      >
-        {row.getValue("name")}
-      </Link>
+      <div className="flex items-center justify-center gap-2 whitespace-nowrap">
+        <Link
+          href={`/dashboard/projects/${row.original.id}`}
+          className="font-medium text-primary hover:underline"
+        >
+          {row.getValue("name")}
+        </Link>
+      </div>
     ),
   },
+
   {
     accessorKey: "projectManagerUser",
     header: "Chef de projet",
@@ -146,36 +158,66 @@ export const createColumns = ({
         name: string;
         email: string;
       } | null;
-      return projectManager?.name || projectManager?.email || "Non assigné";
+      return (
+        <div className="flex items-center justify-center gap-2 whitespace-nowrap">
+          <User className="h-4 w-4" />
+          {projectManager?.name || projectManager?.email || "Non assigné"}
+        </div>
+      );
     },
   },
+
   {
     accessorKey: "startDate",
     header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Date de début
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
+      <div className="flex items-center justify-center gap-2 whitespace-nowrap">
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Date de début
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
     ),
-    cell: ({ row }) => formatDate(row.getValue("startDate")),
+    cell: ({ row }) => (
+      <div className="flex items-center justify-center gap-2 whitespace-nowrap">
+        {formatDate(row.getValue("startDate"))}
+      </div>
+    ),
   },
+
   {
     accessorKey: "estimatedDeliveryDate",
-    header: "Date de livraison",
-    cell: ({ row }) => formatDate(row.getValue("estimatedDeliveryDate")),
+    header: ({ column }) => (
+      <div className="flex items-center justify-center gap-2 whitespace-nowrap">
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Date de livraison
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
+    ),
+    cell: ({ row }) => (
+      <div className="flex items-center justify-center gap-2 whitespace-nowrap">
+        {formatDate(row.getValue("estimatedDeliveryDate"))}
+      </div>
+    ),
   },
+
   {
     id: "actions",
     header: "Actions",
     cell: ({ row }) => (
-      <ActionCell
-        row={row}
-        setSelectedProject={setSelectedProject}
-        setIsModalProjetOpen={setIsModalProjetOpen}
-      />
+      <div className="flex items-center justify-center gap-2 whitespace-nowrap">
+        <ActionCell
+          row={row}
+          setSelectedProject={setSelectedProject}
+          setIsModalProjetOpen={setIsModalProjetOpen}
+        />
+      </div>
     ),
   },
 ];

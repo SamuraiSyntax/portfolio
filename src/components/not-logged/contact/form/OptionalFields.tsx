@@ -55,6 +55,10 @@ export function OptionalFields({ form }: OptionalFieldsProps) {
                 type="number"
                 className="text-xs"
                 {...field}
+                value={field.value || ""}
+                onChange={(e) =>
+                  field.onChange(e.target.value ? Number(e.target.value) : null)
+                }
               />
             </FormControl>
             <FormMessage />

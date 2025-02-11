@@ -63,7 +63,9 @@ export function ContactModalsPDF({
       if (typePDF === "infos") {
         component = <ContactInfosPDF contact={contact as Contact} />;
       } else if (typePDF === "project") {
-        component = <ProjectPDF project={project as ExtendedProject} />;
+        component = (
+          <ProjectPDF project={project as unknown as ExtendedProject} />
+        );
       } else {
         component = <ContactMessagePDF contact={contact as Contact} />;
       }
@@ -225,7 +227,7 @@ export function ContactModalsPDF({
             <ContactPDFViewer
               typePDF={typePDF}
               contact={contact}
-              project={project as ExtendedProject}
+              project={project as unknown as ExtendedProject}
             />
           </div>
 

@@ -1,6 +1,7 @@
 import { ProjectsTable } from "@/components/logged-in/projects/ProjectsTable";
 import { contactService } from "@/services/contactService";
 import { projectService } from "@/services/projectService";
+import { Contact } from "@/types/contact";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export default async function ProjectsPage() {
     const [projects, contacts] = await Promise.all([
       projectService.findAll({
         client: true,
-        projectManagerUser: {
+        projectManager: {
           select: {
             id: true,
             name: true,
@@ -96,7 +97,7 @@ export default async function ProjectsPage() {
         <section className="grid gap-4 grid-cols-1">
           <ProjectsTable
             projects={sanitizedProjects}
-            contacts={sanitizedContacts}
+            contacts={sanitizedContacts as Contact[]}
           />
         </section>
       </div>

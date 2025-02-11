@@ -18,29 +18,66 @@ enum PhaseStatus {
   ON_HOLD
 }
 
+enum ProjectStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+enum ProjectPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
 model Project {
-  id                    String   @id @default(cuid())
-  name                  String   @db.VarChar(255)
-  clientId              String
-  client                Contact  @relation(fields: [clientId], references: [id])
-  startDate             DateTime
-  estimatedDeliveryDate DateTime
-  projectManagerId      String?
-  projectManagerUser    User?    @relation("ProjectManager", fields: [projectManagerId], references: [id])
+  id                    String          @id @default(cuid())
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+  
+  name                  String          @db.VarChar(255)
+  description           String?         @db.Text
+  status               ProjectStatus    @default(NOT_STARTED)
+  priority             ProjectPriority  @default(MEDIUM)
+  
+  startDate            DateTime?
+  estimatedDeliveryDate DateTime?
+  completedAt          DateTime?
+  
+  budget               Decimal?         @db.Decimal(15, 2)
+  actualCost           Decimal?         @db.Decimal(15, 2)
+  
+  client               Contact          @relation(fields: [clientId], references: [id])
+  clientId             String
+  
+  projectManager       User             @relation("ProjectManager", fields: [projectManagerId], references: [id])
+  projectManagerId     String
+  
+  teamMembers          UserOnProject[]
+  phases              Phase[]
+  tasks               Task[]
+  risks               Risk[]
+  documents           Document[]
+  notes               Note[]
+  quotes              Quote[]
+  
+  objectives          String[]
+  technicalConstraints String?          @db.Text
+  assumptions         String[]
+  
   context               String   @db.Text
-  objectives            Json
   scopeIncluded         Json
   scopeExcluded         Json
-  technicalConstraints  String   @db.Text
   budgetConstraints     String   @db.Text
-  assumptions           String   @db.Text
   validationCriteria    Json?
   communicationMethods  Json?
   nextSteps             Json?
-  phases                Phase[]
-  risks                 Risk[]
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  validationSteps       Json?
+  securityMeasures      String?  @db.Text
+  contingencyPlan       String?  @db.Text
   productionUrl         String?
   technologies          Json?
   targetAudience        Json?
@@ -48,11 +85,12 @@ model Project {
   legalConstraints      String?  @db.Text
   integrationDetails    String?  @db.Text
   deliverables          Json?
-  validationSteps       Json?
-  securityMeasures      String?  @db.Text
-  contingencyPlan       String?  @db.Text
+  activities            Activity[]
 
   @@map("projects")
+  @@index([clientId])
+  @@index([projectManagerId])
+  @@index([status])
 }
 
 model Phase {
@@ -65,6 +103,7 @@ model Phase {
   responsible     String
   responsibleUser User        @relation(fields: [responsible], references: [id])
   project         Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks           Task[]
 
   @@map("phases")
 }

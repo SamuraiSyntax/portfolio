@@ -29,25 +29,17 @@ export async function POST(request: Request) {
 
     const data = await request.json();
 
-    // Formatage des données pour Prisma
-    const projectData = {
-      ...data,
-      // Conversion explicite en Prisma.JsonArray pour les champs JSON
-      assumptions: data.assumptions,
-      objectives: data.objectives,
-      scopeIncluded: data.scopeIncluded,
-      scopeExcluded: data.scopeExcluded,
-      technologies: data.technologies,
-      targetAudience: data.targetAudience,
-      kpis: data.kpis,
-      deliverables: data.deliverables,
-      validationSteps: data.validationSteps,
-      communicationMethods: data.communicationMethods,
-      nextSteps: data.nextSteps,
-      validationCriteria: data.validationCriteria,
-    };
+    // Validation des données requises
+    if (!data.name || !data.clientId || !data.projectManagerId) {
+      return NextResponse.json(
+        { error: "Données manquantes" },
+        { status: 400 }
+      );
+    }
 
-    const project = await projectService.create(projectData);
+    // Création du projet avec le service
+    const project = await projectService.create(data);
+
     return NextResponse.json(project);
   } catch (error) {
     console.error("[PROJECT_POST]", error);

@@ -1,14 +1,17 @@
 import {
   ActivityLog,
   Comment,
-  Contact,
   Document,
   Phase,
   PhaseStatus,
   Project as PrismaProject,
+  ProjectPriority,
+  ProjectStatus,
   Risk,
 } from "@prisma/client";
+import { Decimal } from "@prisma/client/runtime/library";
 import { JsonValue } from "type-fest";
+import { Contact } from "./contact";
 
 // Types de base pour les utilisateurs du projet
 export interface ProjectUser {
@@ -73,13 +76,14 @@ export interface ProjectWithRelations extends Project {
   risks?: ProjectRisk[];
   recentActivities?: ProjectActivity[];
   objectives: string[];
-  assumptions: string;
+  assumptions: string[];
   scopeIncluded: string[];
   scopeExcluded: string[];
   technicalConstraints: string;
   budgetConstraints: string;
   legalConstraints: string;
   integrationDetails: string;
+
   nextSteps: string[];
   deliverables: string[];
   validationSteps: string[];
@@ -91,21 +95,23 @@ export interface ProjectWithRelations extends Project {
 export interface Project extends PrismaProject {
   id: string;
   name: string;
-  status: "NEW" | "IN_PROGRESS" | "COMPLETED" | "ARCHIVED";
-  priority: "LOW" | "NORMAL" | "HIGH" | "URGENT";
+  status: ProjectStatus;
+  priority: ProjectPriority;
   startDate: Date;
   estimatedDeliveryDate: Date;
   client: Contact;
   projectManagerUser?: ProjectUser | null;
   phases?: ProjectPhase[];
+
   risks?: ProjectRisk[];
   technologies: string[];
-  budget: number;
+  budget: Decimal;
   context: string;
   objectives: string[];
   scopeIncluded: string[];
   scopeExcluded: string[];
   technicalConstraints: string;
+
   budgetConstraints: string;
   legalConstraints: string;
   integrationDetails: string;
@@ -114,7 +120,7 @@ export interface Project extends PrismaProject {
   validationSteps: string[];
   securityMeasures: string;
   contingencyPlan: string;
-  assumptions: string;
+  assumptions: string[];
   repositoryUrl?: string;
   stagingUrl?: string;
 }

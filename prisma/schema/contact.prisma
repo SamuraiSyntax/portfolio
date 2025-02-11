@@ -1,8 +1,28 @@
 enum ContactStatus {
   NEW
+  LEAD
+  QUALIFIED
+  QUALIFIED_LEAD
   IN_PROGRESS
-  COMPLETED
+  OPPORTUNITY
+  NEGOTIATION
+  CONVERTED
+  WON
+  LOST
+  INACTIVE
   ARCHIVED
+}
+
+enum ContactSource {
+  WEBSITE
+  SOCIAL_MEDIA
+  REFERRAL
+  EVENT
+  COLD_CALL
+  COLD_OUTREACH
+  PARTNERSHIP
+  ADVERTISING
+  OTHER
 }
 
 enum Priority {
@@ -12,50 +32,98 @@ enum Priority {
   URGENT
 }
 
-model Contact {
-  id                     String        @id @default(cuid())
-  createdAt              DateTime      @default(now())
-  updatedAt              DateTime      @updatedAt
-  name                   String        @db.VarChar(255)
-  email                  String        @db.VarChar(255)
-  message                String        @db.Text
-  phone                  String?       @db.VarChar(20)
-  company                String?       @db.VarChar(255)
-  clientType             String?       @db.VarChar(255)
-  projectType            String?       @db.VarChar(255)
-  budget                 Decimal?      @db.Decimal(10, 2)
-  deadline               DateTime?
-  existingSite           String?       @db.VarChar(255)
-  status                 ContactStatus @default(NEW)
-  ipAddress              String?       @db.VarChar(255)
-  userAgent              String?       @db.Text
-  annualRevenue          Decimal?      @db.Decimal(15, 2)
-  assignedTo             User?         @relation(fields: [assignedUserId], references: [id])
-  assignedUserId         String?
-  attachments            Json?
-  companySize            String?       @db.VarChar(50)
-  competitors            Json?
-  contractValue          Decimal?      @db.Decimal(10, 2)
-  industry               String?       @db.VarChar(100)
-  lastContact            DateTime?
-  locale                 String?       @db.VarChar(10)
-  marketingSource        String?       @db.VarChar(100)
-  newsletter             Boolean       @default(false)
-  nextFollowUp           DateTime?
-  notes                  String?       @db.Text
-  objectives             Json?
-  position               String?       @db.VarChar(100)
-  preferredContactMethod String?       @db.VarChar(50)
-  priority               Priority      @default(NORMAL)
-  projectScope           String?       @db.Text
-  quotationAmount        Decimal?      @db.Decimal(10, 2)
-  tags                   Json?
-  targetAudience         String?       @db.Text
-  timezone               String?       @db.VarChar(50)
-  comments               Comment[]
-  activities             ActivityLog[]
-  projects               Project[]
+enum PreferredContactMethod {
+  EMAIL
+  PHONE
+  VIDEO_CALL
+  IN_PERSON
+}
 
-  @@index([email, createdAt])
+model Contact {
+  id                     String           @id @default(cuid())
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @updatedAt
+
+  // Informations personnelles
+  firstName              String           @db.VarChar(100)
+  lastName               String           @db.VarChar(100)
+  email                  String           @db.VarChar(255)
+  phone                  String?          @db.VarChar(20)
+  mobilePhone            String?          @db.VarChar(20)
+  position               String?          @db.VarChar(100)
+  locale                 String?          @db.VarChar(10)
+  timezone               String?          @db.VarChar(50)
+  preferredContactMethod PreferredContactMethod? 
+
+  // Informations entreprise
+  company                String?          @db.VarChar(255)
+  website               String?          @db.VarChar(255)
+  industry              String?          @db.VarChar(100)
+  companySize           String?          @db.VarChar(50)
+  annualRevenue         Decimal?         @db.Decimal(15, 2)
+
+  // Informations projet
+  message               String           @db.Text
+  clientType            String?          @db.VarChar(50)
+  projectType           String?          @db.VarChar(50)
+  projectScope          String?          @db.Text
+  budget                Decimal?         @db.Decimal(10, 2)
+  deadline              DateTime?
+  existingSite         String?          @db.VarChar(255)
+  objectives           Json?            // Array of objectives
+  targetAudience       String?          @db.Text
+  competitors          Json?            // Array of competitors
+
+  // Suivi commercial
+  status               ContactStatus    @default(NEW)
+  source               ContactSource    @default(WEBSITE)
+  priority             Priority        @default(NORMAL)
+  leadScore            Int?            @db.SmallInt // Score 0-100
+  potentialValue       Decimal?        @db.Decimal(15, 2)
+  lastContactDate      DateTime?
+  nextFollowUp         DateTime?
+  assignedTo           User?           @relation(fields: [assignedUserId], references: [id])
+  assignedUserId       String?
+
+  // Marketing & Communication
+  marketingSource      String?          @db.VarChar(100)
+  newsletter           Boolean          @default(false)
+  tags                 Json?            // Array of tags
+
+  // Données techniques
+  ipAddress            String?          @db.VarChar(45)
+  userAgent            String?          @db.Text
+
+  // Relations
+  projects             Project[]
+  quotes               Quote[]
+  invoices             Invoice[]
+  documents            Document[]
+  communications       Communication[]
+  comments             Comment[]
+  tasks                Task[]
+  activityLogs         ActivityLog[]
+  activities           Activity[]
+  notes                Note[]
+
+  // Données financières
+  totalRevenue         Decimal?         @db.Decimal(15, 2)
+  contractValue        Decimal?         @db.Decimal(10, 2)
+  quotationAmount      Decimal?         @db.Decimal(10, 2)
+
+  // Métadonnées
+  metadata             Json?            // Données supplémentaires flexibles
+
+  // Index pour optimisation des performances
+  @@index([email])
+  @@index([company])
+  @@index([status])
+  @@index([assignedUserId])
+  @@index([leadScore])
+  @@index([createdAt])
+  @@index([lastContactDate])
+  @@index([nextFollowUp])
+
+  // Configuration de la table
   @@map("contacts")
 }

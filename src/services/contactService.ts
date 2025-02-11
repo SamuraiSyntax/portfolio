@@ -4,7 +4,7 @@ export const contactService = {
   findAll: async () => {
     return prisma.contact.findMany({
       orderBy: {
-        name: "asc",
+        createdAt: "desc",
       },
     });
   },

@@ -6,7 +6,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
+import { TagInput } from "@/components/ui/tag-input";
 import { UseFormReturn } from "react-hook-form";
 
 export function AssumptionsField({ form }: { form: UseFormReturn<FormData> }) {
@@ -18,15 +18,10 @@ export function AssumptionsField({ form }: { form: UseFormReturn<FormData> }) {
         <FormItem className="w-full">
           <FormLabel>Hypothèses</FormLabel>
           <FormControl>
-            <Textarea
-              placeholder="Décrivez les hypothèses du projet..."
-              className="min-h-[100px] resize-y"
-              {...field}
-              value={
-                Array.isArray(field.value)
-                  ? field.value.join("\n")
-                  : field.value || ""
-              }
+            <TagInput
+              placeholder="Ajouter une hypothèse..."
+              tags={field.value || []}
+              setTags={(newTags) => field.onChange(newTags)}
             />
           </FormControl>
           <FormMessage />

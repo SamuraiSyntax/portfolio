@@ -4,7 +4,6 @@ import type { FormValues } from "@/lib/types/contact";
 import { Prisma } from "@prisma/client";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import { hash } from "bcryptjs";
 
 export class ContactService {
   private static redis = new Redis({
@@ -14,7 +13,10 @@ export class ContactService {
 
   private static ratelimit = new Ratelimit({
     redis: ContactService.redis,
-    limiter: Ratelimit.slidingWindow(3, "24 h"), // 3 requêtes par 24h par IP
+    limiter: Ratelimit.slidingWindow(
+      process.env.NODE_ENV === "development" ? 100 : 3,
+      "24 h"
+    ),
   });
 
   static async create(data: FormValues, clientIp: string) {
@@ -33,9 +35,10 @@ export class ContactService {
         };
       }
 
-      if (!data.name || !data.email || !data.message) {
+      if (!data.firstName || !data.lastName || !data.email || !data.message) {
         console.error("Missing required fields:", {
-          name: data.name,
+          firstName: data.firstName,
+          lastName: data.lastName,
           email: data.email,
           message: data.message,
         });
@@ -80,41 +83,34 @@ export class ContactService {
         };
       }
 
-      // 3. Vérification honeypot
-      if (data.honeypot) {
-        return { success: true }; // Simuler un succès mais ne rien faire
-      }
-
       // 4. Nettoyage et validation des données
       const cleanedData = {
-        name: data.name?.trim().substring(0, 255) || "",
-        email: data.email?.toLowerCase().trim().substring(0, 255) || "",
-        message: data.message?.trim().substring(0, 2000) || "",
-        phone: data.phone?.trim().substring(0, 20) || null,
+        firstName: data.firstName.trim().substring(0, 100),
+        lastName: data.lastName.trim().substring(0, 100),
+        email: data.email?.toLowerCase().trim().substring(0, 255),
+        message: data.message?.trim().substring(0, 2000),
+        phone: data.phone?.trim().substring(0, 20),
         company: data.company?.trim().substring(0, 255) || null,
-        clientType: data.clientType?.substring(0, 255) || null,
-        projectType: data.projectType?.substring(0, 255) || null,
+        clientType: data.clientType?.substring(0, 50) || null,
+        projectType: data.projectType?.substring(0, 50) || null,
         budget: data.budget ? Number.parseFloat(data.budget.toString()) : null,
         deadline: data.deadline ? new Date(data.deadline) : null,
         existingSite: data.existingSite?.trim().substring(0, 255) || null,
-        attachments: Array.isArray(data.attachments)
-          ? data.attachments.slice(0, 10).map((url) => url.substring(0, 1000))
-          : [],
-        competitors: Array.isArray(data.competitors)
-          ? data.competitors.slice(0, 10).map((c) => c.substring(0, 255))
-          : [],
-        objectives: Array.isArray(data.objectives)
-          ? data.objectives.slice(0, 10).map((o) => o.substring(0, 255))
-          : [],
-        tags: Array.isArray(data.tags)
-          ? data.tags.slice(0, 20).map((t) => t.substring(0, 50))
-          : [],
-        ipAddress: await hash(clientIp.substring(0, 45), 10),
-        userAgent: data.userAgent?.substring(0, 500) || null,
+        ipAddress: clientIp ? clientIp.substring(0, 45) : null,
+        status: "NEW",
+        source: "WEBSITE",
+        priority: "NORMAL",
+        newsletter: data.newsletter || false,
+        metadata: data.metadata || {},
       };
 
       // Validation des données avant création
-      if (!cleanedData.name || !cleanedData.email || !cleanedData.message) {
+      if (
+        !cleanedData.firstName ||
+        !cleanedData.lastName ||
+        !cleanedData.email ||
+        !cleanedData.message
+      ) {
         return {
           success: false,
           error: {
@@ -130,10 +126,11 @@ export class ContactService {
 
       // 5. Création du contact dans la base de données
       const contact = await prisma.contact.create({
-        data: cleanedData,
+        data: cleanedData as Prisma.ContactCreateInput,
         select: {
           id: true,
-          name: true,
+          firstName: true,
+          lastName: true,
           email: true,
           message: true,
           phone: true,
@@ -171,12 +168,20 @@ export class ContactService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         console.error("Prisma error:", error.code, error.message, error.meta);
+        let errorMessage =
+          "Une erreur est survenue lors de la création du contact.";
+
+        if (error.code === "P2000") {
+          errorMessage =
+            "Une ou plusieurs valeurs sont trop longues. Veuillez réduire la longueur des champs.";
+        }
+
         return {
           success: false,
           error: {
-            message:
-              "Une erreur est survenue lors de la création du contact dans la base de données.",
-            details: `${error.code}: ${error.message}`,
+            message: errorMessage,
+            code: error.code,
+            details: error.message,
           },
         };
       }

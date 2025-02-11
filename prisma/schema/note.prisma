@@ -1,0 +1,23 @@
+model Note {
+  id              String      @id @default(cuid())
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  
+  content         String      @db.Text
+  
+  contact         Contact?    @relation(fields: [contactId], references: [id])
+  contactId       String?
+  
+  project         Project?    @relation(fields: [projectId], references: [id])
+  projectId       String?
+  
+  createdBy       User        @relation(fields: [createdById], references: [id])
+  createdById     String
+  
+  isPinned        Boolean     @default(false)
+  isPrivate       Boolean     @default(false)
+  
+  @@index([contactId])
+  @@index([projectId])
+  @@index([createdById])
+} 

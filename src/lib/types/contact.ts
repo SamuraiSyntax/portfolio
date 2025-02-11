@@ -38,25 +38,31 @@ export type ClientType = (typeof clientTypes)[number]["value"];
 
 // Schéma de base avec les champs requis
 export const formSchema = z.object({
-  name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
-  email: z.string().email("Email invalide"),
+  firstName: z
+    .string()
+    .min(2, "Le prénom doit contenir au moins 2 caractères")
+    .max(100),
+  lastName: z
+    .string()
+    .min(2, "Le nom doit contenir au moins 2 caractères")
+    .max(100),
+  email: z.string().email("Email invalide").max(255),
   message: z
     .string()
-    .min(10, "Le message doit contenir au moins 10 caractères"),
-  phone: z.string().optional(),
-  company: z.string().optional(),
-  clientType: z.string().optional(),
-  projectType: z.string().optional(),
-  budget: z.string().optional(),
+    .min(10, "Le message doit contenir au moins 10 caractères")
+    .max(2000),
+  phone: z.string().max(20).optional(),
+  company: z.string().max(255).optional(),
+  clientType: z.string().max(50).optional(),
+  projectType: z.string().max(50).optional(),
+  budget: z.number().optional().nullable(),
   deadline: z.string().optional(),
-  existingSite: z.string().optional(),
-  attachments: z.array(z.string()).optional(),
-  competitors: z.array(z.string()).optional(),
-  objectives: z.array(z.string()).optional(),
-  tags: z.array(z.string()).optional(),
+  existingSite: z.string().max(255).optional(),
+  status: z.enum(["NEW", "LEAD", "QUALIFIED"]).optional(),
+  source: z.enum(["WEBSITE", "SOCIAL_MEDIA", "REFERRAL"]).optional(),
+  priority: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]).optional(),
+  newsletter: z.boolean().optional(),
+  metadata: z.record(z.any()).optional(),
 });
 
-export type FormValues = z.infer<typeof formSchema> & {
-  honeypot?: string;
-  userAgent?: string;
-};
+export type FormValues = z.infer<typeof formSchema>;

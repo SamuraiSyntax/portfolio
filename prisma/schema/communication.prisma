@@ -1,0 +1,35 @@
+enum CommunicationType {
+  EMAIL
+  PHONE
+  MEETING
+  NOTE
+}
+
+model Communication {
+  id              String            @id @default(cuid())
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  
+  type            CommunicationType
+  subject         String            @db.VarChar(255)
+  content         String            @db.Text
+  
+  date            DateTime          @default(now())
+  duration        Int?              // En minutes pour les appels/réunions
+  
+  contact         Contact           @relation(fields: [contactId], references: [id])
+  contactId       String
+  
+  user            User              @relation(fields: [userId], references: [id])
+  userId          String
+  
+  outcome         String?           @db.Text
+  nextSteps       String?           @db.Text
+  followUpDate    DateTime?
+  
+  attachments     Document[]
+  
+  @@index([contactId])
+  @@index([userId])
+  @@index([date])
+} 

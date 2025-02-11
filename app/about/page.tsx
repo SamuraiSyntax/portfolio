@@ -9,36 +9,37 @@ import { ProjectsPreviewSection } from "@/components/not-logged/projects/Project
 import { generateMetadata } from "@/lib/seo";
 
 export const metadata = generateMetadata({
-  title: "À Propos | Bernard Rogier - Développeur Web Full Stack",
+  title: "À Propos | Bernard Rogier - Développeur Web Full Stack à Bordeaux",
   description:
-    "Découvrez mon parcours de développeur web full stack, mon expertise en WordPress et Next.js, et ma passion pour le développement web. Plus de 5 ans d'expérience dans la création de solutions web sur mesure, incluant le développement de sites vitrines, e-commerce et applications web.",
+    "Développeur web freelance basé à Bordeaux, spécialisé en WordPress et Next.js. Plus de 3 ans d'expérience dans la création de solutions web sur mesure pour les entreprises de Nouvelle-Aquitaine. Découvrez mon expertise et mon approche personnalisée du développement web.",
   path: "/about",
   type: "profile",
   keywords: [
-    "Bernard Rogier",
-    "développeur web",
-    "expert WordPress",
-    "développement Next.js",
-    "création de sites web",
-    "SEO",
-    "services web",
-    "formation WordPress",
+    "développeur web Bordeaux",
+    "freelance WordPress Bordeaux",
+    "expert web Nouvelle-Aquitaine",
+    "développeur Next.js Gironde",
+    "création sites web Bordeaux",
+    "agence digitale Bordeaux",
+    "développeur full stack Bordeaux",
+    "services web Nouvelle-Aquitaine",
   ],
   image: "/images/og-about.jpg",
-  category: "About",
+  category: "Développeur Web Bordeaux",
   openGraph: {
     type: "profile",
     locale: "fr_FR",
-    url: "https://www.dev-nanard.fr/v2/about",
-    siteName: "Bernard Rogier - Développeur Web",
-    title: "À Propos de Bernard Rogier",
-    description: "Découvrez mon parcours de développeur web full stack",
+    url: "https://www.dev-nanard.fr/about",
+    siteName: "Bernard Rogier - Développeur Web Bordeaux",
+    title: "À Propos de Bernard Rogier | Développeur Web Bordeaux",
+    description:
+      "Expert WordPress et Next.js basé à Bordeaux, je crée des solutions web sur mesure pour les entreprises de Nouvelle-Aquitaine. Découvrez mon expertise et mon approche du développement web.",
     images: [
       {
         url: "/images/og-about.jpg",
         width: 1200,
         height: 630,
-        alt: "Bernard Rogier - Développeur Web",
+        alt: "Bernard Rogier - Développeur Web Bordeaux",
         type: "image/jpeg",
       },
     ],
@@ -66,7 +67,7 @@ const aboutContent = {
   description: `Basé à Bordeaux, je suis un développeur web passionné spécialisé dans la création de sites WordPress et d'applications web modernes. J'accompagne les entreprises bordelaises et de la Nouvelle-Aquitaine dans leur transformation digitale, en proposant des solutions web sur mesure, performantes et évolutives. Mon expertise technique, combinée à ma connaissance du tissu économique local, me permet de créer des projets web parfaitement adaptés aux besoins des entreprises de la région.`,
   image: "/me.jpg",
   stats: [
-    { number: "2+", label: "Années d'expérience" },
+    { number: "3+", label: "Années d'expérience" },
     { number: "10+", label: "Projets en Nouvelle-Aquitaine" },
   ],
 };

@@ -9,18 +9,19 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Bernard Rogier | Expert WordPress & Développement Web sur Mesure",
+  title:
+    "Bernard Rogier | Développeur Web Freelance à Bordeaux - Expert WordPress & Next.js",
   description:
-    "Transformez votre vision en réalité digitale. Expert en développement WordPress et solutions web performantes pour les entreprises ambitieuses.",
+    "Développeur web freelance à Bordeaux spécialisé en WordPress et Next.js. Solutions web sur mesure pour les entreprises de Nouvelle-Aquitaine. Devis gratuit et accompagnement personnalisé.",
   keywords: [
-    "développeur WordPress",
-    "expert web",
-    "sites sur mesure",
-    "développement web",
-    "solutions digitales",
-    "WordPress professionnel",
-    "applications web",
-    "optimisation web",
+    "développeur web Bordeaux",
+    "freelance WordPress Bordeaux",
+    "création site web Nouvelle-Aquitaine",
+    "expert WordPress Bordeaux",
+    "développeur Next.js Bordeaux",
+    "agence web Bordeaux",
+    "création site internet Gironde",
+    "développeur freelance Nouvelle-Aquitaine",
   ],
   authors: [{ name: "Bernard Rogier" }],
   creator: "Bernard Rogier",
@@ -43,26 +44,27 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     url: "https://www.dev-nanard.fr",
-    siteName: "Bernard Rogier - Expert WordPress",
-    title: "Bernard Rogier | Expert WordPress & Développement Web sur Mesure",
+    siteName: "Bernard Rogier - Développeur Web Bordeaux",
+    title:
+      "Bernard Rogier | Expert WordPress & Développement Web sur Mesure à Bordeaux",
     description:
-      "Solutions web professionnelles et performantes pour votre succès digital",
+      "Solutions web professionnelles et performantes pour les entreprises de Bordeaux et de Nouvelle-Aquitaine. Expertise WordPress et Next.js au service de votre projet digital.",
     images: [
       {
         url: "https://www.dev-nanard.fr/images/og-home.jpg",
         width: 1200,
         height: 630,
-        alt: "Bernard Rogier - Expert WordPress",
+        alt: "Bernard Rogier - Développeur Web Bordeaux",
         type: "image/jpeg",
       },
     ],
   },
-  category: "Portfolio",
+  category: "Services Web Bordeaux",
   other: {
     "theme-color": "#0f172a",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "apple-mobile-web-app-title": "Bernard Rogier - Expert WordPress",
+    "apple-mobile-web-app-title": "Bernard Rogier - Expert WordPress Bordeaux",
   },
 };
 

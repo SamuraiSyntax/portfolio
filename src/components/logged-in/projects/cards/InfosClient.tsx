@@ -16,6 +16,7 @@ import Link from "next/link";
 
 export function InfosClient({ project }: { project: ProjectWithRelations }) {
   const client = project.client;
+  const fullName = `${client.firstName} ${client.lastName}`.trim();
 
   return (
     <TooltipProvider>
@@ -31,10 +32,10 @@ export function InfosClient({ project }: { project: ProjectWithRelations }) {
                 <div className="flex items-center gap-4">
                   <Avatar className="h-20 w-20 border-2 border-primary/10">
                     <AvatarImage
-                      src={`https://api.dicebear.com/7.x/initials/svg?seed=${client.name}`}
+                      src={`https://api.dicebear.com/7.x/initials/svg?seed=${fullName}`}
                     />
                     <AvatarFallback className="text-xl bg-primary/5">
-                      {client.name.charAt(0)}
+                      {fullName.charAt(0)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col items-start">
@@ -43,7 +44,7 @@ export function InfosClient({ project }: { project: ProjectWithRelations }) {
                         href={`/dashboard/contacts/${client.id}`}
                         className="hover:text-primary transition-colors hover:underline"
                       >
-                        {client.name}
+                        {fullName}
                       </Link>
                     </h3>
                     <div className="flex items-center gap-2 flex-wrap">

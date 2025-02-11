@@ -277,8 +277,11 @@ export function DataTable<TData, TValue>({
                     )}
                   </TableRow>
                   {renderExpandedRow && row.getIsExpanded() && (
-                    <TableRow>
-                      <TableCell colSpan={columns.length + 1} className="p-0">
+                    <TableRow className="max-w-screen">
+                      <TableCell
+                        colSpan={columns.length + 1}
+                        className="p-0 max-w-[100vw]"
+                      >
                         {renderExpandedRow(row.original)}
                       </TableCell>
                     </TableRow>

@@ -97,6 +97,32 @@ export function TagInput({
     [tags, setTags]
   );
 
+  // Ajouter cette nouvelle fonction pour gérer le collage
+  const handlePaste = useCallback(
+    (e: React.ClipboardEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      const pastedText = e.clipboardData.getData("text");
+      const newTags = pastedText
+        .split(/[\n,]/) // Sépare par retour à la ligne ou virgule
+        .map((tag) => sanitizeTag(tag))
+        .filter((tag) => tag && !tags.includes(tag) && validateTag(tag));
+
+      // Vérifier si l'ajout des nouveaux tags ne dépasse pas la limite
+      const availableSlots = maxTags - tags.length;
+      const tagsToAdd = newTags.slice(0, availableSlots);
+
+      if (tagsToAdd.length > 0) {
+        setTags([...tags, ...tagsToAdd]);
+        setInputValue("");
+      }
+
+      if (newTags.length > availableSlots) {
+        onMaxTagsReached?.();
+      }
+    },
+    [tags, setTags, maxTags, validateTag, onMaxTagsReached, sanitizeTag]
+  );
+
   return (
     <Command
       ref={containerRef}
@@ -135,6 +161,7 @@ export function TagInput({
             ref={inputRef}
             disabled={disabled || tags.length >= maxTags}
             onKeyDown={handleKeyDown}
+            onPaste={handlePaste}
             onFocus={() => setShowSuggestions(true)}
             value={inputValue}
             onValueChange={setInputValue}

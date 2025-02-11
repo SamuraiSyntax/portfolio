@@ -1,0 +1,56 @@
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  COMPLETED
+  BLOCKED
+  CANCELLED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model Task {
+  id              String        @id @default(cuid())
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  
+  title           String        @db.VarChar(255)
+  description     String?       @db.Text
+  status          TaskStatus    @default(TODO)
+  priority        TaskPriority  @default(MEDIUM)
+  
+  dueDate         DateTime?
+  completedAt     DateTime?
+  
+  assignedTo      User?         @relation("AssignedTasks", fields: [assignedToId], references: [id])
+  assignedToId    String?
+  
+  createdBy       User          @relation("CreatedTasks", fields: [createdById], references: [id])
+  createdById     String
+  
+  contact         Contact?      @relation(fields: [contactId], references: [id])
+  contactId       String?
+  
+  project         Project?      @relation(fields: [projectId], references: [id])
+  projectId       String?
+  
+  phase           Phase?        @relation(fields: [phaseId], references: [id])
+  phaseId         String?
+  
+  parentTask      Task?         @relation("SubTasks", fields: [parentTaskId], references: [id])
+  parentTaskId    String?
+  subTasks        Task[]        @relation("SubTasks")
+  
+  tags            String[]
+  
+  @@index([assignedToId])
+  @@index([createdById])
+  @@index([contactId])
+  @@index([projectId])
+  @@index([phaseId])
+  @@index([parentTaskId])
+} 

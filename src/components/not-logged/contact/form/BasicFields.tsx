@@ -29,17 +29,17 @@ export function BasicFields({ form }: BasicFieldsProps) {
       <motion.div {...inputAnimation} transition={{ delay: 0.1 }}>
         <FormField
           control={form.control}
-          name="name"
+          name="firstName"
           render={({ field }) => (
             <FormItem className="space-y-2 px-2">
               <FormLabel className="flex items-center gap-2">
                 <FaUser className="h-4 w-4" />
-                Nom complet*
+                Prénom*
               </FormLabel>
               <FormControl>
                 <Input
-                  placeholder="John Doe"
-                  className="bg-background/70 hover:bg-background focus:bg-background transition-colors"
+                  placeholder="John"
+                  className="bg-background/70 hover:bg-background"
                   {...field}
                 />
               </FormControl>
@@ -50,6 +50,29 @@ export function BasicFields({ form }: BasicFieldsProps) {
       </motion.div>
 
       <motion.div {...inputAnimation} transition={{ delay: 0.2 }}>
+        <FormField
+          control={form.control}
+          name="lastName"
+          render={({ field }) => (
+            <FormItem className="space-y-2 px-2">
+              <FormLabel className="flex items-center gap-2">
+                <FaUser className="h-4 w-4" />
+                Nom*
+              </FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Doe"
+                  className="bg-background/70 hover:bg-background"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </motion.div>
+
+      <motion.div {...inputAnimation} transition={{ delay: 0.3 }}>
         <FormField
           control={form.control}
           name="email"
@@ -73,7 +96,7 @@ export function BasicFields({ form }: BasicFieldsProps) {
         />
       </motion.div>
 
-      <motion.div {...inputAnimation} transition={{ delay: 0.3 }}>
+      <motion.div {...inputAnimation} transition={{ delay: 0.4 }}>
         <FormField
           control={form.control}
           name="phone"

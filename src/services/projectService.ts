@@ -4,7 +4,7 @@ import { Prisma } from "@prisma/client";
 
 const defaultProjectInclude = {
   client: true,
-  projectManagerUser: {
+  projectManager: {
     select: {
       id: true,
       name: true,
@@ -65,6 +65,72 @@ const convertDecimalFields = (project: any) => {
   return project;
 };
 
+const formatProjectDataForCreate = (data: any) => {
+  return {
+    name: data.name,
+    client: {
+      connect: {
+        id: data.clientId,
+      },
+    },
+    projectManager: {
+      connect: {
+        id: data.projectManagerId,
+      },
+    },
+    startDate: data.startDate,
+    estimatedDeliveryDate: data.estimatedDeliveryDate,
+    context: data.context || "",
+    objectives: data.objectives || [],
+    targetAudience: data.targetAudience || [],
+    kpis: data.kpis || [],
+    scopeIncluded: data.scopeIncluded || [],
+    scopeExcluded: data.scopeExcluded || [],
+    budgetConstraints: data.budgetConstraints || "",
+    technicalConstraints: data.technicalConstraints || "",
+    assumptions: data.assumptions || [],
+    phases: {
+      create:
+        data.phases?.map((phase: any) => ({
+          name: phase.name,
+          startDate: phase.startDate,
+          endDate: phase.endDate,
+          status: "NOT_STARTED",
+          responsible: phase.responsible,
+        })) || [],
+    },
+    risks: {
+      create:
+        data.risks?.map((risk: any) => ({
+          description: risk.description,
+          probability:
+            risk.probability === "Élevée"
+              ? "ELEVEE"
+              : risk.probability === "Moyenne"
+              ? "MOYENNE"
+              : "FAIBLE",
+          impact:
+            risk.impact === "Élevé"
+              ? "ELEVE"
+              : risk.impact === "Moyen"
+              ? "MOYEN"
+              : "FAIBLE",
+          solution: risk.solution,
+        })) || [],
+    },
+    technologies: data.technologies || [],
+    validationCriteria: data.validationCriteria || [],
+    communicationMethods: data.communicationMethods || [],
+    nextSteps: data.nextSteps || [],
+    validationSteps: data.validationSteps || [],
+    deliverables: data.deliverables || [],
+    securityMeasures: data.securityMeasures || "",
+    contingencyPlan: data.contingencyPlan || "",
+    productionUrl: data.productionUrl || "",
+    integrationDetails: data.integrationDetails || "",
+  };
+};
+
 export const projectService = {
   async findAll(include = defaultProjectInclude) {
     const projects = await prisma.project.findMany({
@@ -82,12 +148,12 @@ export const projectService = {
     return convertDecimalFields(project);
   },
 
-  async create(data: Prisma.ProjectCreateInput) {
-    const project = await prisma.project.create({
-      data,
+  async create(data: any) {
+    const formattedData = formatProjectDataForCreate(data);
+    return await prisma.project.create({
+      data: formattedData,
       include: defaultProjectInclude,
     });
-    return convertDecimalFields(project);
   },
 
   async update(id: string, data: Prisma.ProjectUpdateInput) {

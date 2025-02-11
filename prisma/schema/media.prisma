@@ -20,17 +20,3 @@ model Media {
   @@index([userId])
   @@map("media")
 }
-
-model Document {
-  id          String   @id @default(cuid())
-  title       String   @db.VarChar(255)
-  description String?  @db.Text
-  type        String   @db.VarChar(100)
-  size        Int
-  uploadedAt  DateTime
-  url         String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@map("documents")
-}
