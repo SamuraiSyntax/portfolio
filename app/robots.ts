@@ -8,14 +8,10 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/"],
+        allow: ["/", "/_next/static/*", "/_next/image*"],
         disallow: [
           "/api/*",
           "/admin/*",
-          "/_next/*",
-          "/static/*",
-          "/*.js$",
-          "/*.json$",
           "/dashboard/*",
           "/(logged-in)/*",
           "/login/*",
@@ -24,7 +20,7 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: ["Googlebot", "Bingbot"],
-        allow: ["/"],
+        allow: ["/", "/_next/static/*", "/_next/image*"],
         disallow: [
           "/api/*",
           "/admin/*",
