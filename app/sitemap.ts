@@ -3,17 +3,29 @@ import { WPProject, WPService } from "@/types/wordpress";
 import { MetadataRoute } from "next";
 
 async function getProjects() {
-  return wpFetch<WPProject[]>({
-    endpoint: "projects",
-    embed: true,
-  });
+  try {
+    return await wpFetch<WPProject[]>({
+      endpoint: "projects",
+      embed: true,
+      timeout: 30000,
+    });
+  } catch (error) {
+    console.error("Erreur lors de la récupération des projets:", error);
+    return [];
+  }
 }
 
 async function getServices() {
-  return wpFetch<WPService[]>({
-    endpoint: "services",
-    embed: true,
-  });
+  try {
+    return await wpFetch<WPService[]>({
+      endpoint: "services",
+      embed: true,
+      timeout: 30000,
+    });
+  } catch (error) {
+    console.error("Erreur lors de la récupération des services:", error);
+    return [];
+  }
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

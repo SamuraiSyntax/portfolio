@@ -9,6 +9,7 @@ interface WPFetchOptions {
   method?: string;
   body?: Record<string, unknown>;
   token?: string;
+  timeout?: number;
 }
 
 export async function wpFetch<T>({
@@ -18,8 +19,12 @@ export async function wpFetch<T>({
   method = "GET",
   body,
   token,
+  timeout = 10000,
 }: WPFetchOptions): Promise<T> {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+
     const queryParams = new URLSearchParams(query);
     if (embed) queryParams.append("_embed", "");
 
@@ -36,19 +41,17 @@ export async function wpFetch<T>({
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const options: RequestInit = {
+    const response = await fetch(url, {
       method,
       headers,
+      signal: controller.signal,
       next: {
         tags: [endpoint],
+        revalidate: 3600, // Cache d'une heure
       },
-    };
+    });
 
-    if (body) {
-      options.body = JSON.stringify(body);
-    }
-
-    const response = await fetch(url, options);
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       throw new Error(
@@ -58,7 +61,11 @@ export async function wpFetch<T>({
 
     return response.json();
   } catch (error) {
-    console.error("WordPress fetch error:", error);
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error(
+        `La requête a dépassé le délai d'attente de ${timeout}ms`
+      );
+    }
     throw error;
   }
 }
