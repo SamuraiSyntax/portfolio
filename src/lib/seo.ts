@@ -50,26 +50,38 @@ export function generateMetadata({
   title,
   description,
   path,
-  image = "/images/og-default.jpg",
   type = "website",
+  keywords = [],
+  image = "/images/og-default.jpg",
+  category = "",
+  openGraph = {
+    type: "website",
+    locale: "fr_FR",
+    url: "",
+    siteName: "Bernard Rogier",
+    title: "",
+    description: "",
+    images: [],
+  },
 }: GenerateMetadataProps): Metadata {
-  const url = `${process.env.NEXT_PUBLIC_SITE_URL}${path}`;
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.dev-nanard.fr";
+  const url = `${baseUrl}${path}`;
 
   return {
-    title: `${title}`,
+    title,
     description,
-    metadataBase: new URL(
-      process.env.NEXT_PUBLIC_SITE_URL || "https://votresite.fr"
-    ),
+    keywords,
+    metadataBase: new URL(baseUrl),
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title,
-      description,
+      ...openGraph,
       url,
-      siteName: "Bernard Rogier",
       type,
+      locale: "fr_FR",
+      siteName: "Bernard Rogier",
       images: [
         {
           url: image,
@@ -78,8 +90,8 @@ export function generateMetadata({
           alt: title,
         },
       ],
-      locale: "fr_FR",
     },
+    category,
     robots: {
       index: true,
       follow: true,
