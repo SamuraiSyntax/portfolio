@@ -1,7 +1,6 @@
 import { AuthProviders } from "@/components/auth-providers";
 import CookieBanner from "@/components/cookies-rgpd/CookieConsent";
 import Favicon from "@/components/Favicon";
-import Header from "@/components/header";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { ThemeProvider } from "@/components/theme-provider";
 import { BlendCursor } from "@/components/ui/blend-cursor";
@@ -47,6 +46,7 @@ const ubuntu = localFont({
   ],
   variable: "--font-ubuntu",
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -59,6 +59,8 @@ export const metadata: Metadata = {
     "Next.js",
     "freelance",
     "développement web",
+    "Bordeaux",
+    "Nouvelle-Aquitaine",
   ],
   authors: [{ name: "Bernard Rogier" }],
   creator: "Bernard Rogier",
@@ -70,6 +72,12 @@ export const metadata: Metadata = {
     description: "Solutions web professionnelles avec WordPress et Next.js",
     siteName: "Bernard Rogier",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bernard Rogier | Développeur Web Expert",
+    description: "Solutions web professionnelles avec WordPress et Next.js",
+    creator: "@BernardRogier",
+  },
 };
 
 export default function RootLayout({
@@ -78,7 +86,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={ubuntu.className} suppressHydrationWarning>
+    <html
+      lang="fr"
+      className={`${ubuntu.variable} font-sans`}
+      suppressHydrationWarning
+    >
       <head>
         <Favicon />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -108,23 +120,14 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-          rel="preload"
-          as="font"
-          href="/fonts/ubuntu-700.woff2"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
       </head>
-      <body>
+      <body className="min-h-screen bg-background text-foreground antialiased">
         <AuthProviders>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             <ScrollToTop />
-            <Header />
-            <main className="min-h-screen relative">{children}</main>
+            <main className="flex min-h-screen flex-col">{children}</main>
             <BlendCursor />
-            <Toaster richColors position="top-right" />
+            <Toaster richColors position="top-right" closeButton />
             <SpeedInsights />
             <Analytics />
             <CookieBanner />

@@ -12,6 +12,7 @@ export function ProjectsPreviewSection({
   showPrimaryButton,
   primaryButtonText,
   primaryButtonLink,
+  location,
 }: {
   color?: string;
   waveType?: "type1" | "type2" | "type3";
@@ -19,8 +20,21 @@ export function ProjectsPreviewSection({
   showPrimaryButton?: boolean;
   primaryButtonText?: string;
   primaryButtonLink?: string;
+  location?: {
+    name: string;
+    department: string;
+    region: string;
+  };
 }) {
   const { data: projects } = useProjects();
+
+  const localizedTitle = location
+    ? `Mes Réalisations à ${location.name}`
+    : "Mes Projets";
+
+  const localizedDescription = location
+    ? `Découvrez une sélection de mes réalisations en développement web pour des clients de ${location.name} et ${location.department}.`
+    : "Découvrez une sélection de mes dernières réalisations en développement web, de WordPress à Next.js.";
 
   return (
     <div id="projets" className="relative group" style={{ zIndex: zIndex }}>
@@ -33,9 +47,11 @@ export function ProjectsPreviewSection({
       <div className={`bg-${color} py-16`}>
         <div className="container mx-auto">
           <SectionTitle
-            title="Mes Projets"
-            subtitle="Réalisations Récentes"
-            description="Découvrez une sélection de mes dernières réalisations en développement web, de WordPress à Next.js."
+            title={localizedTitle}
+            subtitle={`Réalisations Récentes${
+              location ? ` à ${location.name}` : ""
+            }`}
+            description={localizedDescription}
             showPrimaryButton={showPrimaryButton}
             primaryButtonText={primaryButtonText}
             primaryButtonLink={primaryButtonLink}

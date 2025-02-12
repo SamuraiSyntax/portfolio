@@ -1,3 +1,4 @@
+import { LOCATIONS } from "@/lib/constants/locations";
 import { wpFetch } from "@/lib/wordpress";
 import { WPProject, WPService } from "@/types/wordpress";
 import { MetadataRoute } from "next";
@@ -66,6 +67,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
+  // Pages de localisation
+  const locationPages = LOCATIONS.map((location) => ({
+    url: `${baseUrl}/${location.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.9,
+  }));
+
   // Pages dynamiques - Projets
   const projects = await getProjects();
   const projectPages = projects.map((project) => ({
@@ -75,14 +84,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // Pages dynamiques - Services
+  // Pages dynamiques - Services avec Locations
   const services = await getServices();
-  const servicePages = services.map((service) => ({
-    url: `${baseUrl}/services/${service.slug}`,
-    lastModified: new Date(service.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  const servicePages = services.flatMap((service) => [
+    // Page service standard
+    {
+      url: `${baseUrl}/services/${service.slug}`,
+      lastModified: new Date(service.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    },
+    // Pages service avec locations
+    ...LOCATIONS.map((location) => ({
+      url: `${baseUrl}/services/${service.slug}/${location.slug}`,
+      lastModified: new Date(service.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ]);
 
-  return [...staticPages, ...projectPages, ...servicePages];
+  return [...staticPages, ...locationPages, ...projectPages, ...servicePages];
 }

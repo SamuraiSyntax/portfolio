@@ -1,5 +1,6 @@
-import { AdminNavigation } from "@/components/logged-in/navigation/AdminNavigation";
-import { BreadcrumbNavigation } from "@/components/logged-in/navigation/BreadcrumbNavigation";
+import Header from "@/components/header";
+import { AdminSidebar } from "@/components/logged-in/navigation/AdminSidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export default async function DashboardLayout({
   children,
@@ -7,16 +8,14 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-background">
-      <main className="flex-1 space-y-4 p-4 md:p-8">
-        <div className="flex flex-col gap-6 max-w-[1600px] mx-auto">
-          <div className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 pt-16 px-4">
-            <AdminNavigation />
-          </div>
-          <BreadcrumbNavigation />
-          {children}
-        </div>
-      </main>
-    </div>
+    <SidebarProvider defaultOpen={true}>
+      <AdminSidebar />
+      <SidebarInset>
+        <main className="relative min-h-screen bg-background flex flex-1 flex-col gap-4 p-4 pt-0 overflow-y-auto">
+          <Header variant="admin" />
+          <div className="p-4 md:p-6 space-y-6">{children}</div>
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }

@@ -1,28 +1,40 @@
+import { LOCATIONS } from "@/lib/constants/locations";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-export function middleware() {
-  const response = NextResponse.next();
+export function middleware(request: NextRequest) {
+  // Ne pas appliquer le middleware aux routes de services localisés
+  if (request.nextUrl.pathname.startsWith("/services/")) {
+    return NextResponse.next();
+  }
 
-  // Définir les en-têtes CSP
-  response.headers.set(
-    "Content-Security-Policy",
-    `
-      default-src 'self' blob:;
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com;
-      style-src 'self' 'unsafe-inline';
-      img-src 'self' blob: data: https://www.api.dev-nanard.fr https://*.googleusercontent.com;
-      font-src 'self' data:;  
-      connect-src 'self' https://www.api.dev-nanard.fr https://va.vercel-scripts.com data:;
-      frame-src 'self' blob:;
-      media-src 'self' https://www.api.dev-nanard.fr https://*.api.dev-nanard.fr;
-    `
-      .replace(/\s{2,}/g, " ")
-      .trim()
-  );
+  // Vérifier si l'utilisateur a déjà une préférence de localisation
+  const locationPreference = request.cookies.get("preferred-location");
 
-  return response;
+  if (!locationPreference) {
+    // Obtenir la ville à partir des headers Vercel Edge
+    const userCity =
+      request.headers.get("x-vercel-ip-city")?.toLowerCase() || "";
+
+    // Vérifier si nous avons une landing page pour cette ville
+    const matchingLocation = LOCATIONS.find(
+      (loc) => loc.slug === userCity || loc.name.toLowerCase() === userCity
+    );
+
+    if (matchingLocation) {
+      // Rediriger vers la landing page appropriée
+      return NextResponse.redirect(
+        new URL(`/${matchingLocation.slug}`, request.url)
+      );
+    }
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    "/",
+    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)",
+  ],
 };

@@ -8,7 +8,17 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/_next/static/*", "/_next/image*"],
+        allow: [
+          "/",
+          "/_next/static/*",
+          "/_next/image*",
+          "/services/*",
+          "/services/*/*",
+          "/projects/*",
+          "/about",
+          "/contact",
+          "/*",
+        ],
         disallow: [
           "/api/*",
           "/admin/*",
@@ -20,7 +30,17 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: ["Googlebot", "Bingbot"],
-        allow: ["/", "/_next/static/*", "/_next/image*"],
+        allow: [
+          "/",
+          "/_next/static/*",
+          "/_next/image*",
+          "/services/*",
+          "/services/*/*",
+          "/projects/*",
+          "/about",
+          "/contact",
+          "/*",
+        ],
         disallow: [
           "/api/*",
           "/admin/*",

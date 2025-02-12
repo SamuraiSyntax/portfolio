@@ -16,9 +16,11 @@ interface ContactSectionProps {
   waveType?: "type1" | "type2" | "type3";
   utilityReverse?: number;
   zIndex?: number;
-  title?: string;
-  subtitle?: string;
-  description?: string;
+  location?: {
+    name: string;
+    department: string;
+    region: string;
+  };
   className?: string;
 }
 
@@ -30,11 +32,19 @@ export function ContactSection({
   waveType = "type1",
   utilityReverse,
   zIndex = 10,
-  title = "Me Contacter",
-  subtitle = "Discutons de votre projet",
-  description = "Expert en développement WordPress, je vous aide à créer votre site web avec des solutions adaptées.",
+  location,
   className = "",
 }: ContactSectionProps) {
+  const title = location ? `Me Contacter à ${location.name}` : "Me Contacter";
+
+  const subtitle = location
+    ? `Discutons de votre projet à ${location.name}`
+    : "Discutons de votre projet";
+
+  const description = location
+    ? `Expert en développement WordPress à ${location.name}, je vous aide à créer votre site web avec des solutions adaptées aux entreprises de ${location.department}.`
+    : "Expert en développement WordPress, je vous aide à créer votre site web avec des solutions adaptées.";
+
   // Classes spécifiques pour mobile
   const mobileClasses = {
     section: "py-12 px-4",

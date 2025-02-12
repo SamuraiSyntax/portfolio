@@ -4,6 +4,7 @@ import { SectionDivider } from "@/components/not-logged/SectionDivider";
 import { handleScroll } from "@/hooks/useScroll";
 import { getServiceIcon } from "@/lib/icons";
 import { decodeHTMLEntities } from "@/lib/utils";
+import { Location } from "@/types/location";
 import { WPService } from "@/types/wordpress";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -23,6 +24,7 @@ interface SingleServiceSectionProps {
   waveType?: "type1" | "type2" | "type3";
   utilityReverse?: number;
   zIndex?: number;
+  location?: Location;
 }
 
 export function SingleServiceSection({
@@ -37,6 +39,7 @@ export function SingleServiceSection({
   waveType = "type1",
   utilityReverse,
   zIndex = 5,
+  location,
 }: SingleServiceSectionProps) {
   const [decodedContent, setDecodedContent] = useState(
     service.content.rendered
@@ -95,7 +98,10 @@ export function SingleServiceSection({
                     <IconComponent className="w-12 h-12" />
                   </div>
                 )}
-                <h2 className="font-bold text-3xl">{service.title.rendered}</h2>
+                <h2 className="font-bold text-3xl">
+                  {service.title.rendered}
+                  {location && ` à ${location.name}`}
+                </h2>
               </div>
 
               <div
@@ -114,7 +120,7 @@ export function SingleServiceSection({
                 className={`w-full sm:w-auto flex items-center justify-center ${mobileClasses.button} ${desktopClasses.button} bg-primary text-primary-foreground hover:bg-primary/90 shadow h-9 px-4 py-2 rounded-md whitespace-nowrap`}
                 onClick={(e) => handleScroll(e, "#contact")}
               >
-                Contactez-nous pour plus d&apos;informations
+                Contactez-moi pour plus d&apos;informations
               </Link>
             </motion.div>
 

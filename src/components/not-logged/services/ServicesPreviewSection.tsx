@@ -15,6 +15,7 @@ export function ServicesPreviewSection({
   showDuration = true,
   showPrimaryButton = true,
   showSecondaryButton = true,
+  location,
 }: {
   color?: string;
   waveType?: "type1" | "type2" | "type3";
@@ -24,8 +25,21 @@ export function ServicesPreviewSection({
   showDuration?: boolean;
   showPrimaryButton?: boolean;
   showSecondaryButton?: boolean;
+  location?: {
+    name: string;
+    department: string;
+    region: string;
+  };
 }) {
   const { data: services } = useServices();
+
+  const localizedTitle = location
+    ? `Solutions Web à ${location.name}`
+    : "Solutions Web Professionnelles";
+
+  const localizedDescription = location
+    ? `Expert WordPress à ${location.name}, je crée des solutions web performantes et évolutives pour votre entreprise. Du site vitrine à l'e-commerce, chaque projet est conçu pour maximiser votre impact en ligne dans ${location.department}.`
+    : "Expert WordPress, je crée des solutions web performantes et évolutives pour votre entreprise. Du site vitrine à l'e-commerce, chaque projet est conçu pour maximiser votre impact en ligne.";
 
   return (
     <div id="services" className="relative group">
@@ -39,9 +53,11 @@ export function ServicesPreviewSection({
       <div className="bg-muted py-16">
         <div className="container mx-auto">
           <SectionTitle
-            title="Solutions Web Professionnelles"
-            subtitle="WordPress & Développement Sur Mesure"
-            description="Expert WordPress, je crée des solutions web performantes et évolutives pour votre entreprise. Du site vitrine à l'e-commerce, chaque projet est conçu pour maximiser votre impact en ligne."
+            title={localizedTitle}
+            subtitle={`WordPress & Développement Sur Mesure${
+              location ? ` à ${location.name}` : ""
+            }`}
+            description={localizedDescription}
             showPrimaryButton={showPrimaryButton}
             primaryButtonText="Découvrir mes services"
             primaryButtonLink="/services"
