@@ -125,7 +125,7 @@ export default function RootLayout({
         <AuthProviders>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             <ScrollToTop />
-            <main className="flex min-h-screen flex-col">{children}</main>
+            {children}
             <BlendCursor />
             <Toaster richColors position="top-right" closeButton />
             <SpeedInsights />
