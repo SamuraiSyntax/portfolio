@@ -50,9 +50,30 @@ const ubuntu = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Bernard Rogier | Développeur Web Expert WordPress & Next.js",
+  title: {
+    default: "Bernard Rogier EI | Développeur Web Freelance",
+    template: "%s | Bernard Rogier EI",
+  },
   description:
-    "Développeur web freelance spécialisé dans la création de sites WordPress performants et d'applications web modernes avec Next.js. Solutions sur mesure pour votre entreprise.",
+    "Expert en développement web, création de sites WordPress et solutions digitales sur mesure",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.dev-nanard.fr"
+  ),
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png" }],
+    other: [
+      {
+        rel: "mask-icon",
+        url: "/icon.svg",
+      },
+    ],
+  },
+  manifest: "/manifest.json",
   keywords: [
     "développeur web",
     "WordPress",
@@ -77,6 +98,9 @@ export const metadata: Metadata = {
     title: "Bernard Rogier | Développeur Web Expert",
     description: "Solutions web professionnelles avec WordPress et Next.js",
     creator: "@BernardRogier",
+  },
+  alternates: {
+    canonical: "/",
   },
 };
 
