@@ -5,6 +5,13 @@ import { NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  // Ne pas rediriger la page d'accueil
+  if (pathname === "/") {
+    const response = NextResponse.next();
+    addSecurityHeaders(response);
+    return response;
+  }
+
   // Exclure explicitement les routes qui ne doivent pas être redirigées
   if (
     pathname.startsWith("/services/") ||
@@ -12,7 +19,12 @@ export function middleware(request: NextRequest) {
     pathname.startsWith("/_next/") ||
     pathname === "/favicon.ico" ||
     pathname === "/robots.txt" ||
-    pathname === "/sitemap.xml"
+    pathname === "/sitemap.xml" ||
+    pathname === "/mentions-legales" ||
+    pathname === "/politique-confidentialite" ||
+    pathname === "/about" ||
+    pathname === "/contact" ||
+    pathname === "/projects"
   ) {
     const response = NextResponse.next();
     addSecurityHeaders(response);
@@ -82,8 +94,8 @@ export const config = {
      * - services/* (pages de services)
      * - api/* (routes API)
      * - _next/* (fichiers Next.js)
-     * - favicon.ico, robots.txt, sitemap.xml
+     * - favicon.ico, robots.txt, sitemap.xml, mentions-legales, politique-confidentialite, about, contact, projects
      */
-    "/((?!services|api|_next|favicon\\.ico|robots\\.txt|sitemap\\.xml).*)",
+    "/((?!services|api|_next|favicon\\.ico|robots\\.txt|sitemap\\.xml|mentions-legales|politique-confidentialite|about|contact|projects).*)",
   ],
 };
