@@ -126,7 +126,7 @@ export default function Header({ variant = "public" }: HeaderProps) {
         isMobileMenuOpen && "bg-secondary"
       )}
     >
-      <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
+      <nav className="mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link
           href="/"
