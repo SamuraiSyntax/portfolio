@@ -122,8 +122,8 @@ export default function LogoBR({
               dominant-baseline: middle;
               fill: ${theme === "light" ? "fill-black" : "fill-white"};
             }
-            
-            .full-name {              
+
+            .full-name {
               font-family: 'Ubuntu', sans-serif;
               font-weight: 300;
               font-style: normal;
@@ -132,7 +132,7 @@ export default function LogoBR({
               text-anchor: start;
               dominant-baseline: middle;
             }
-            
+
             .letter-r {
               transition: transform 0.5s ease-in-out;
             }
@@ -144,7 +144,7 @@ export default function LogoBR({
         className="letter-b"
         textAnchor="start"
         x="0"
-        y="20"
+        y="30"
         style={{ fill: theme === "light" ? "#000" : "#fff" }}
       >
         B
@@ -155,16 +155,16 @@ export default function LogoBR({
         className="letter-r"
         textAnchor="start"
         x="25"
-        y="20"
+        y="30"
         style={{ fill: theme === "light" ? "#000" : "#fff" }}
       >
         R
       </text>
 
-      <text className="full-name" x="25" y="20" textAnchor="start">
+      <text className="full-name" x="25" y="30" textAnchor="start">
         ernard
       </text>
-      <text className="full-name" x="170" y="20" textAnchor="start">
+      <text className="full-name" x="170" y="30" textAnchor="start">
         ogier
       </text>
     </motion.svg>

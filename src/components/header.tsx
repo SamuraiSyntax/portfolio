@@ -135,7 +135,7 @@ export default function Header({ variant = "public" }: HeaderProps) {
         >
           <LogoBR
             className={cn(
-              "h-8 transition-colors duration-300",
+              "h-[50px] transition-colors duration-300",
               isLightTheme ? "fill-black" : "fill-white",
               "group-hover:fill-primary"
             )}
@@ -145,7 +145,7 @@ export default function Header({ variant = "public" }: HeaderProps) {
         </Link>
 
         {/* Navigation Desktop */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-6">
           {publicNavItems.map((item) => (
             <Link
               key={item.href}
@@ -165,18 +165,14 @@ export default function Header({ variant = "public" }: HeaderProps) {
               adminNavItems={adminNavItems}
               adminNavExternalItems={adminNavExternalItems}
             />
-          ) : (
-            <Button asChild size="sm">
-              <Link href="/contact">Obtenir un devis</Link>
-            </Button>
-          )}
+          ) : null}
         </div>
 
         {/* Bouton Menu Mobile */}
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden relative z-50"
+          className="lg:hidden relative z-50"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
         >
@@ -352,7 +348,7 @@ function MobileMenu({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.2 }}
-      className="fixed inset-0 top-16 bg-secondary z-40 overflow-y-auto"
+      className="h-screen fixed inset-0 top-16 bg-secondary z-40 overflow-y-auto"
     >
       <div className="container mx-auto px-4 py-8 flex flex-col gap-6">
         <nav className="grid gap-4">
@@ -405,13 +401,7 @@ function MobileMenu({
               <FaSignOutAlt className="mr-2 h-4 w-4" />
               Déconnexion
             </Button>
-          ) : (
-            <Button asChild>
-              <Link href="/contact" onClick={onClose}>
-                Obtenir un devis
-              </Link>
-            </Button>
-          )}
+          ) : null}
         </div>
       </div>
     </motion.div>
