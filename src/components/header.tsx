@@ -119,7 +119,7 @@ export default function Header({ variant = "public" }: HeaderProps) {
   return (
     <header
       className={cn(
-        "fixed w-full transition-all duration-300 z-50",
+        "fixed w-full transition-all duration-300 z-[100]",
         isScrolled
           ? "bg-secondary/90 backdrop-blur-sm shadow-md"
           : "bg-transparent",

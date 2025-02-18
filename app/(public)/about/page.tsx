@@ -74,7 +74,7 @@ const aboutContent = {
 
 export default function AboutPage() {
   return (
-    <>
+    <div className="relative w-full overflow-x-hidden">
       <HeroSection
         title={heroContent.title}
         highlight={heroContent.highlight}
@@ -114,6 +114,6 @@ export default function AboutPage() {
       <ContactSection color="background" waveType="type1" zIndex={60} />
 
       <Footer />
-    </>
+    </div>
   );
 }
