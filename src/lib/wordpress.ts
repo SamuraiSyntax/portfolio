@@ -25,7 +25,16 @@ export async function wpFetch<T>({
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-    const queryParams = new URLSearchParams(query);
+    // Ajout des paramètres pour les posts publiés et publics
+    const defaultQuery = {
+      status: "publish",
+      per_page: "100",
+      orderby: "date",
+      order: "asc",
+      ...query,
+    };
+
+    const queryParams = new URLSearchParams(defaultQuery);
     if (embed) queryParams.append("_embed", "");
 
     const url = `${WP_API_URL}/${endpoint}${

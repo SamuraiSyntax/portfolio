@@ -3,7 +3,7 @@
 import { SectionDivider } from "@/components/not-logged/SectionDivider";
 import { handleScroll } from "@/hooks/useScroll";
 import { getServiceIcon } from "@/lib/icons";
-import { decodeHTMLEntities } from "@/lib/utils";
+import { decodeHTMLEntities, stripHtml } from "@/lib/utils";
 import { Location } from "@/types/location";
 import { WPService } from "@/types/wordpress";
 import { motion } from "framer-motion";
@@ -99,7 +99,7 @@ export function SingleServiceSection({
                   </div>
                 )}
                 <h2 className="font-bold text-3xl">
-                  {service.title.rendered}
+                  {stripHtml(service.title.rendered)}
                   {location && ` à ${location.name}`}
                 </h2>
               </div>
@@ -110,10 +110,10 @@ export function SingleServiceSection({
               />
 
               <div className="flex flex-col gap-2">
-                <p className="font-semibold text-xl mt-4">
-                  {service.service_meta.price}
+                <p className="small">
+                  <span className="font-bold">Durée :</span>{" "}
+                  {service.service_meta.duration}
                 </p>
-                <p className="small">{service.service_meta.duration}</p>
               </div>
               <Link
                 href="#contact"

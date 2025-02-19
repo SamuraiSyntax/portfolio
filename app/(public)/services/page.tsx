@@ -59,7 +59,7 @@ export default function ServicesPage() {
         color="muted"
         waveType="type2"
         zIndex={10}
-        showPrice={true}
+        showPrice={false}
         showFeatures={true}
         showPrimaryButton={false}
         showSecondaryButton={false}

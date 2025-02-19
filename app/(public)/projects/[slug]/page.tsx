@@ -287,7 +287,14 @@ export default async function ProjectPage({ params }: Props) {
     return (
       <main className="min-h-screen bg-background">
         <Suspense fallback={<LoadingSpinner className="min-h-[50vh]" />}>
-          <HeroSection title={decodedTitle} subtitle={technologies} />
+          <HeroSection
+            title={decodedTitle}
+            subtitle={
+              <div className="container mx-auto flex flex-row flex-wrap justify-center my-4 gap-2">
+                {technologies}
+              </div>
+            }
+          />
         </Suspense>
 
         <Suspense fallback={<LoadingSpinner className="min-h-[40vh]" />}>

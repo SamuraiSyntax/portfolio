@@ -10,7 +10,7 @@ export function ServicesPreviewSection({
   color,
   waveType,
   zIndex,
-  showPrice = true,
+  showPrice = false,
   showFeatures = true,
   showDuration = true,
   showPrimaryButton = true,
