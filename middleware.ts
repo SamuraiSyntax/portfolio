@@ -20,6 +20,8 @@ export function middleware(request: NextRequest) {
     pathname === "/favicon.ico" ||
     pathname === "/robots.txt" ||
     pathname === "/sitemap.xml" ||
+    pathname === "/manifest.webmanifest" ||
+    pathname === "/manifest.json" ||
     pathname === "/mentions-legales" ||
     pathname === "/politique-confidentialite" ||
     pathname === "/about" ||
