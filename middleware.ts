@@ -34,6 +34,16 @@ export function middleware(request: NextRequest) {
   // Vérifier si l'utilisateur a déjà une préférence de localisation
   const locationPreference = request.cookies.get("preferred-location");
 
+  // Vérifier si le chemin actuel correspond à une location
+  const isLocationPath = LOCATIONS.some((loc) => pathname === `/${loc.slug}`);
+
+  // Ne pas rediriger si on est déjà sur une page de location
+  if (isLocationPath) {
+    const response = NextResponse.next();
+    addSecurityHeaders(response);
+    return response;
+  }
+
   if (!locationPreference) {
     const userCity =
       request.headers.get("x-vercel-ip-city")?.toLowerCase() || "";
