@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     description:
       "Expert en développement web, création de sites WordPress et solutions digitales sur mesure",
     start_url: "/",
-    display: "standalone",
+    display: "browser",
     background_color: "#fdfaf7",
     theme_color: "#613b1a",
     icons: [
