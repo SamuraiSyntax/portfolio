@@ -204,13 +204,13 @@ function AdminHeader({ session }: { session: Session | null }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="w-full flex h-16 items-center justify-between px-4">
-        <div className="flex items-center gap-4 flex-1">
+    <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 max-w-full">
+      <div className="w-full flex h-16 items-center justify-between px-4 max-w-full mx-auto">
+        <div className="flex items-center gap-4 flex-0 lg:flex-1">
           <div className="flex items-center gap-2">
             <SidebarTrigger />
           </div>
-          <div className="flex-1 max-w-md">
+          <div className="hidden lg:flex flex-1 max-w-md">
             <div className="relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
@@ -224,7 +224,7 @@ function AdminHeader({ session }: { session: Session | null }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 justify-end flex-1 lg:flex-0">
           <Button variant="ghost" size="icon" className="relative">
             <Bell className="h-5 w-5" />
             <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary text-[10px] font-medium text-primary-foreground flex items-center justify-center">
@@ -258,6 +258,9 @@ function AdminHeader({ session }: { session: Session | null }) {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
 
+              <DropdownMenuItem asChild>
+                <Link href="/dashboard">Tableau de bord</Link>
+              </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/dashboard/profile">Mon profil</Link>
               </DropdownMenuItem>

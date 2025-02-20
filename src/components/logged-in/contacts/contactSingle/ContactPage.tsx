@@ -159,73 +159,73 @@ export function ContactPage({
   ];
 
   return (
-    <motion.div className="w-full min-h-screen bg-background" {...fadeIn}>
-      <div className="container mx-auto px-4 py-6 space-y-6">
-        {/* Header Section */}
-        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => router.push("/dashboard/contacts")}
-              className="hover:bg-muted transition duration-200"
-              aria-label="Retour"
-            >
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
-            <div>
-              <h1 className="text-2xl font-bold">
-                {contact.firstName} {contact.lastName}
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                {contact.company || "Pas d'entreprise"}
-              </p>
+    <div className="space-y-6 py-6">
+      {/* Header Section */}
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => router.push("/dashboard/contacts")}
+            className="hover:bg-muted transition duration-200"
+            aria-label="Retour"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <div>
+            <h1 className="text-2xl font-bold">
+              {contact.firstName} {contact.lastName}
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              {contact.company || "Pas d'entreprise"}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <EditContactForm contact={contact} />
+          <ContactModalsPDF
+            isModalOpen={isModalPDFOpen}
+            setIsModalOpen={setIsModalPDFOpen}
+            contact={contact}
+            project={selectedProject as ExtendedProject}
+          />
+        </div>
+      </header>
+
+      {/* Metadata Section */}
+      <section className="flex flex-col sm:flex-row justify-between gap-2 text-sm text-muted-foreground bg-muted/50 p-4 rounded-lg">
+        <p>Créé le {formatDate(contact.createdAt)}</p>
+        <p>Dernière modification le {formatDate(contact.updatedAt)}</p>
+      </section>
+
+      {/* Main Content */}
+      <AnimatePresence mode="wait">
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="w-full h-auto justify-start gap-1 overflow-x-auto whitespace-nowrap px-1">
+            {tabs.map((tab) => (
+              <TabsTrigger
+                key={tab.id}
+                value={tab.id}
+                className="min-w-[10px] h-auto"
+              >
+                <div className="flex items-center gap-2">
+                  {tab.icon}
+                  {!isMobile && tab.label}
+                </div>
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {isLoading ? (
+            <div className="space-y-4 mt-4">
+              <Skeleton className="h-[200px] w-full" />
+              <Skeleton className="h-[200px] w-full" />
             </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <EditContactForm contact={contact} />
-            <ContactModalsPDF
-              isModalOpen={isModalPDFOpen}
-              setIsModalOpen={setIsModalPDFOpen}
-              contact={contact}
-              project={selectedProject as ExtendedProject}
-            />
-          </div>
-        </header>
-
-        {/* Metadata Section */}
-        <section className="flex flex-col sm:flex-row justify-between gap-2 text-sm text-muted-foreground bg-muted/50 p-4 rounded-lg">
-          <p>Créé le {formatDate(contact.createdAt)}</p>
-          <p>Dernière modification le {formatDate(contact.updatedAt)}</p>
-        </section>
-
-        {/* Main Content */}
-        <AnimatePresence mode="wait">
-          <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="w-full h-auto justify-start overflow-x-auto">
+          ) : (
+            <div className="mt-6 overflow-x-hidden">
               {tabs.map((tab) => (
-                <TabsTrigger
-                  key={tab.id}
-                  value={tab.id}
-                  className="min-w-[50px] h-auto"
-                >
-                  <div className="flex items-center gap-2">
-                    {tab.icon}
-                    {!isMobile && tab.label}
-                  </div>
-                </TabsTrigger>
-              ))}
-            </TabsList>
-
-            {isLoading ? (
-              <div className="space-y-4 mt-4">
-                <Skeleton className="h-[200px] w-full" />
-                <Skeleton className="h-[200px] w-full" />
-              </div>
-            ) : (
-              tabs.map((tab) => (
-                <TabsContent key={tab.id} value={tab.id} className="mt-6">
+                <TabsContent key={tab.id} value={tab.id}>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -235,11 +235,11 @@ export function ContactPage({
                     {tab.content}
                   </motion.div>
                 </TabsContent>
-              ))
-            )}
-          </Tabs>
-        </AnimatePresence>
-      </div>
-    </motion.div>
+              ))}
+            </div>
+          )}
+        </Tabs>
+      </AnimatePresence>
+    </div>
   );
 }

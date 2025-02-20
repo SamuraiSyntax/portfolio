@@ -137,17 +137,15 @@ export default async function ContactPage({ params }: { params: tParams }) {
   });
 
   return (
-    <div className="w-full h-full">
-      <ContactPageComponent
-        contact={convertedContact as Contact}
-        id={id}
-        projects={projects}
-        activities={activities}
-        documents={contact.documents}
-        communications={contact.communications}
-        quotes={contact.quotes}
-        invoices={contact.invoices}
-      />
-    </div>
+    <ContactPageComponent
+      contact={convertedContact as Contact}
+      id={id}
+      projects={projects}
+      activities={activities}
+      documents={contact.documents}
+      communications={contact.communications}
+      quotes={contact.quotes}
+      invoices={contact.invoices}
+    />
   );
 }

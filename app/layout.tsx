@@ -118,32 +118,6 @@ export default function RootLayout({
       <head>
         <Favicon />
         <meta name="mobile-web-app-capable" content="yes" />
-        <link
-          rel="preload"
-          href="/fonts/ubuntu-700.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/ubuntu-500.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/ubuntu-300.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
       </head>
       <body className="min-h-screen bg-background text-foreground antialiased">
         <AuthProviders>

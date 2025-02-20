@@ -64,20 +64,24 @@ function addSecurityHeaders(response: NextResponse) {
   response.headers.set(
     "Content-Security-Policy",
     `
-      default-src 'self' blob:;
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com;
+      default-src 'self' https://www.api.dev-nanard.fr https://*.vercel-scripts.com;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.vercel-scripts.com https://va.vercel-scripts.com;
       style-src 'self' 'unsafe-inline';
       img-src 'self' blob: data: https://www.api.dev-nanard.fr https://*.googleusercontent.com;
-      font-src 'self' data:;  
-      connect-src 'self' https://www.api.dev-nanard.fr https://va.vercel-scripts.com data:;
+      font-src 'self' data:;
+      connect-src 'self' https://www.api.dev-nanard.fr https://*.vercel-scripts.com https://va.vercel-scripts.com data:;
       frame-src 'self' blob:;
       media-src 'self' https://www.api.dev-nanard.fr https://*.api.dev-nanard.fr;
+      worker-src 'self' blob:;
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
     `
       .replace(/\s{2,}/g, " ")
       .trim()
   );
 
-  // Ajout d'autres en-têtes de sécurité recommandés
+  // En-têtes de sécurité supplémentaires
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
@@ -85,17 +89,13 @@ function addSecurityHeaders(response: NextResponse) {
     "Permissions-Policy",
     "camera=(), microphone=(), geolocation=()"
   );
+  response.headers.set("X-XSS-Protection", "1; mode=block");
+  response.headers.set(
+    "Strict-Transport-Security",
+    "max-age=31536000; includeSubDomains"
+  );
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except:
-     * - services/* (pages de services)
-     * - api/* (routes API)
-     * - _next/* (fichiers Next.js)
-     * - favicon.ico, robots.txt, sitemap.xml, mentions-legales, politique-confidentialite, about, contact, projects
-     */
-    "/((?!services|api|_next|favicon\\.ico|robots\\.txt|sitemap\\.xml|mentions-legales|politique-confidentialite|about|contact|projects).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

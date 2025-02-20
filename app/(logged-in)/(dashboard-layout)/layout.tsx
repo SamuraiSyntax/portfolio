@@ -11,10 +11,12 @@ export default async function DashboardLayout({
     <SidebarProvider defaultOpen={true}>
       <AdminSidebar />
       <SidebarInset>
-        <main className="relative min-h-screen bg-background flex flex-1 flex-col gap-4 p-4 pt-0 overflow-y-auto">
+        <div className="relative min-h-screen bg-background flex flex-1 flex-col gap-4 overflow-hidden">
           <Header variant="admin" />
-          <div className="p-4 md:p-6 space-y-6">{children}</div>
-        </main>
+          <main className="flex-1 overflow-y-auto px-4 md:px-6">
+            <div className="max-w-[1600px] mx-auto">{children}</div>
+          </main>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );

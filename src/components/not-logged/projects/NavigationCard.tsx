@@ -19,9 +19,9 @@ export function NavigationCard({
   return (
     <Link
       href={href}
-      className="block w-full hover:scale-102 transition-all duration-300"
+      className="block w-full hover:scale-105 transition-all duration-300"
     >
-      <div className="bg-card p-2 md:p-4 rounded-lg hover:shadow-md transition-shadow">
+      <div className="bg-card/80 hover:bg-card p-2 md:p-4 rounded-lg hover:shadow-md transition-shadow">
         <div className="flex items-center gap-3">
           {type === "previous" && <Icon className="text-primary" />}
           <div
