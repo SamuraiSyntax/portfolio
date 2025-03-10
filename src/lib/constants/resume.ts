@@ -57,5 +57,3 @@ export const experience = [
     description: ["Missions d'intérim au sein de plusieurs entreprises"],
   },
 ];
-
-export const linkCV = "/documents/CV_Bernard_Rogier.pdf";
